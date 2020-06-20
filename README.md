@@ -1,4 +1,4 @@
-# bottombarwithsheet
+# bottom_bar_with_sheet
 
 A new Flutter package.
 
