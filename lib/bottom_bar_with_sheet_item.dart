@@ -14,6 +14,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   int selectedIndex;
   BottomBarTheme styleBottomBar;
   double itemWidth;
+  bool isOpened;
 
   BottomBarWithSheetItem({
     Key key,
@@ -46,7 +47,6 @@ class BottomBarWithSheetItem extends StatelessWidget {
                  child: Material(
                    color: selectedBackgroundColor, // button color
                    child: Ink(
-                     // splashColor: DesignTheme.secondColor,
                      child: SizedBox(
                        child: Padding(
                          padding: const EdgeInsets.all(12.0),
@@ -87,6 +87,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
     styleBottomBar = Provider.of<BottomBarTheme>(context);
     selectedIndex = Provider.of<int>(context);
+    isOpened = Provider.of<bool>(context);
+
     selectedBackgroundColor =selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
     selectedLabelColor = selectedLabelColor ?? styleBottomBar.selectedItemLabelColor;
     bool isSelected = _checkItemState();
@@ -97,8 +99,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
              crossAxisAlignment: CrossAxisAlignment.center,
+             mainAxisAlignment: isOpened ? MainAxisAlignment.start : MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: iconTopSpacer),
                   iconAreaWidget,

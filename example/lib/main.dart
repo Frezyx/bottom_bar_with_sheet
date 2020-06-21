@@ -18,60 +18,60 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyFloatingActionButton extends StatefulWidget {
+// class MyFloatingActionButton extends StatefulWidget {
 
-  @override
-  _MyFloatingActionButtonState createState() => _MyFloatingActionButtonState();
-}
+//   @override
+//   _MyFloatingActionButtonState createState() => _MyFloatingActionButtonState();
+// }
 
-class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
-  bool isOpened = false;
-  var bottomSheetController;
+// class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
+//   bool isOpened = false;
+//   var bottomSheetController;
 
-  @override
-  Widget build(BuildContext context) {
+//   @override
+//   Widget build(BuildContext context) {
 
-    return FloatingActionButton(
-      child: Icon(Icons.add),
-      backgroundColor: Colors.blueAccent,
+//     return FloatingActionButton(
+//       child: Icon(Icons.add),
+//       backgroundColor: Colors.blueAccent,
 
-      onPressed: () {
-        if(!isOpened){
-          bottomSheetController = showBottomSheet(
-          context: context,
-          builder: (context) => Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)),
-                  boxShadow:<BoxShadow>[
-                      BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.05),
-                        offset: Offset(-100.0, 0.0),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                ),
-                height: 250,
-              ));
-          setState((){
-            isOpened = true;
-          });
-        }
-        else{
-          Navigator.pop(context);
-          setState((){
-              isOpened = false;
-          });
-        }
-        bottomSheetController.closed.then((value) {
-          setState((){
-            isOpened = false;
-          });
-        });
-      },
-    );
-  }
-}
+//       onPressed: () {
+//         if(!isOpened){
+//           bottomSheetController = showBottomSheet(
+//           context: context,
+//           builder: (context) => Container(
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)),
+//                   boxShadow:<BoxShadow>[
+//                       BoxShadow(
+//                         color: Color.fromRGBO(0, 0, 0, 0.05),
+//                         offset: Offset(-100.0, 0.0),
+//                         blurRadius: 10.0,
+//                       ),
+//                     ],
+//                 ),
+//                 height: 250,
+//               ));
+//           setState((){
+//             isOpened = true;
+//           });
+//         }
+//         else{
+//           Navigator.pop(context);
+//           setState((){
+//               isOpened = false;
+//           });
+//         }
+//         bottomSheetController.closed.then((value) {
+//           setState((){
+//             isOpened = false;
+//           });
+//         });
+//       },
+//     );
+//   }
+// }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -102,14 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.blueAccent,
-      //   child: Icon(Icons.add),
-      //   onPressed: () {  },
-      // ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: MyFloatingActionButton(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButton: MyFloatingActionButton(),
 
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: selectedIndex,
@@ -118,6 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemIconColor: Colors.white,
           selectedItemLabelColor: Colors.black,
           barHeight: 70,
+          rightMargin: 15,
+          leftMargin: 15,
         ),
         onSelectItem: (index) {
           setState(() {

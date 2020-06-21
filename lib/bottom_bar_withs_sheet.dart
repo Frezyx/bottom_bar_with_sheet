@@ -12,11 +12,13 @@ class BottomBarWithSheet extends StatefulWidget {
   final BottomBarTheme styleBottomBar;
   final Function onSelectItem;
   final int selectedIndex;
+  bool isOpened;
 
   BottomBarWithSheet({
 
     Key key,
     this.selectedIndex = 0,
+    this.isOpened = false,
     @required this.onSelectItem,
     @required this.items,
     @required this.styleBottomBar,
@@ -29,14 +31,14 @@ class BottomBarWithSheet extends StatefulWidget {
   }
 
   @override
-  _BottomBarWithSheetState createState() => _BottomBarWithSheetState(selectedIndex: selectedIndex);
+  _BottomBarWithSheetState createState() => _BottomBarWithSheetState(selectedIndex: selectedIndex, isOpened: isOpened);
 }
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet> {
   int selectedIndex;
-  _BottomBarWithSheetState({this.selectedIndex});
+  bool isOpened;
+  _BottomBarWithSheetState({this.selectedIndex, this.isOpened});
 
-    bool isOpened = false;
   var bottomSheetController;
 
   @override
@@ -52,38 +54,72 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> {
           providers: [
             Provider<BottomBarTheme>.value(value: styleBottomBar),
             Provider<int>.value(value: widget.selectedIndex),
+            Provider<bool>.value(value: widget.isOpened),
           ],
-          child: Container(
+          child: AnimatedContainer(
+      duration: Duration(milliseconds: 500),
             height: widget.styleBottomBar.barHeight,
+            child: Row(
+              mainAxisAlignment: widget.isOpened? MainAxisAlignment.end : MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: widget.isOpened? CrossAxisAlignment.start : CrossAxisAlignment.center,
+              children: <Widget>[
+
+              !widget.isOpened ? Container(
+                  color: backgroundColor,
+                  margin: EdgeInsets.only(left: widget.styleBottomBar.leftMargin, right: widget.styleBottomBar.rightMargin),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: widget.items.map((item) {
+                    var i = widget.items.indexOf(item);
+                    item.setIndex(i);
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.onSelectItem(i);
+                          selectedIndex = i;
+                        });
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / widget.items.length - (widget.styleBottomBar.leftMargin + 100) / widget.items.length,
+                          height: styleBottomBar.barHeight,
+                          child: item,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+          ):Container(),
+
+          Container(
             child: Container(
-              color: backgroundColor,
-              margin: EdgeInsets.only(left: widget.styleBottomBar.leftMargin, right: widget.styleBottomBar.rightMargin),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: widget.items.map((item) {
-                var i = widget.items.indexOf(item);
-                item.setIndex(i);
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      widget.onSelectItem(i);
-                      selectedIndex = i;
-                    });
-                    // !isOpened ? bottomSheetController = make1Shit() : makeShit(bottomSheetController);
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / widget.items.length - (widget.styleBottomBar.leftMargin + widget.styleBottomBar.rightMargin) / widget.items.length,
-                      height: styleBottomBar.barHeight,
-                      child: item,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          )
+                        color: Colors.transparent,
+                        child: Padding(
+                            padding: EdgeInsets.all(7),
+                            child: ClipOval(
+                              child: Material(
+                                color: Colors.blue, // button color
+                                child: InkWell(
+                                  splashColor: Colors.indigo[900], // inkwell color
+                                  child: SizedBox(width: 55, height: 55, 
+                                  child: Icon(Icons.add, color:Colors.white)
+                                ),
+                                  onTap: () {
+                                    setState((){
+                                     widget.styleBottomBar.barHeight = widget.isOpened?  70 : 400;
+                                     widget.isOpened = !widget.isOpened;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                      ),
+                  )
+              ],
+            )
         ),
       ),
     );

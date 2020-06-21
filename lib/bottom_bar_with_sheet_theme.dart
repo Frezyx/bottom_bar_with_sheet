@@ -18,9 +18,11 @@ class BottomBarTheme {
   final TextStyle selectedItemTextStyle;
   final TextStyle itemTextStyle;
 
-  final double barHeight;
+  double barHeight;
   final double itemWidth;
-  static const itemDefaultWidth = 60.0;
+
+  final double minMainActionButtonWidth;
+  
 
   static const selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
@@ -39,8 +41,9 @@ class BottomBarTheme {
     this.leftMargin = 10,
     this.rightMargin = 100,
     this.notchMargin = 8,
-    this.itemWidth = itemDefaultWidth,
+    this.itemWidth = 60,
     this.barHeight = 60.0,
+    this.minMainActionButtonWidth = 70,
 
     this.barBackgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
