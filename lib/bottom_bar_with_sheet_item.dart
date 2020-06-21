@@ -15,6 +15,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   BottomBarTheme styleBottomBar;
   double itemWidth;
   bool isOpened;
+  MainAxisAlignment bottomBarMainAxisAlignment;
 
   BottomBarWithSheetItem({
     Key key,
@@ -24,6 +25,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.selectedLabelColor,
     this.iconData,
     this.animationDuration = defaultDuration,
+    this.bottomBarMainAxisAlignment,
   }) : super(key: key);
 
   Center _makeText(String label) {
@@ -88,6 +90,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
     styleBottomBar = Provider.of<BottomBarTheme>(context);
     selectedIndex = Provider.of<int>(context);
     isOpened = Provider.of<bool>(context);
+    bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
+
 
     selectedBackgroundColor =selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
     selectedLabelColor = selectedLabelColor ?? styleBottomBar.selectedItemLabelColor;
@@ -100,7 +104,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
       duration: animationDuration,
       child: Column(
              crossAxisAlignment: CrossAxisAlignment.center,
-             mainAxisAlignment: isOpened ? MainAxisAlignment.start : MainAxisAlignment.center,
+             mainAxisAlignment: bottomBarMainAxisAlignment,
                 children: <Widget>[
                   SizedBox(height: iconTopSpacer),
                   iconAreaWidget,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BottomBarTheme {
-  final double leftMargin;
   final double rightMargin;
+  final double marginBetweenPanelAndActtionButton;
 
   // [notchMargin] size empty space beetwen [floatActionButton] and [bottomNavigationBar]
   final double notchMargin;
@@ -38,8 +38,8 @@ class BottomBarTheme {
 
   BottomBarTheme({
 
-    this.leftMargin = 10,
-    this.rightMargin = 100,
+    this.rightMargin = 10,
+    this.marginBetweenPanelAndActtionButton = 100,
     this.notchMargin = 8,
     this.itemWidth = 60,
     this.barHeight = 60.0,
