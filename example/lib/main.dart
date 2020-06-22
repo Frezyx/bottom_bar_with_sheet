@@ -1,5 +1,3 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet_theme.dart';
 import 'package:bottom_bar_with_sheet/bottom_bar_withs_sheet.dart';
 import 'package:flutter/material.dart';
 

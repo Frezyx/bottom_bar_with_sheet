@@ -1,11 +1,13 @@
 library bottom_bar_with_sheet;
 
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet_theme.dart';
+import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
+import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
+export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 
 class BottomBarWithSheet extends StatefulWidget {
 
