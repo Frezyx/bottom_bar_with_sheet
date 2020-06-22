@@ -13,30 +13,25 @@ class BottomBarWithSheet extends StatefulWidget {
   final BottomBarTheme styleBottomBar;
   final Function onSelectItem;
   final int selectedIndex;
+  final Widget sheetChild;
   bool isOpened;
   Duration duration;
   MainAxisAlignment bottomBarMainAxisAlignment;
-  CrossAxisAlignment bottomBarCrossAxisAlignment;
 
   static const constDuartion = Duration(milliseconds: 500);
-
   BottomBarWithSheet({
-
     Key key,
     this.selectedIndex = 0,
     this.isOpened = false,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
-    this.bottomBarCrossAxisAlignment = CrossAxisAlignment.start,
     this.duration = constDuartion,
-    @required this.onSelectItem,
+    @required this.sheetChild,
     @required this.items,
     @required this.styleBottomBar,
-
+    @required this.onSelectItem,
   }) {
-
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
-
   }
 
   @override
@@ -44,8 +39,8 @@ class BottomBarWithSheet extends StatefulWidget {
     selectedIndex: selectedIndex,
     isOpened: isOpened,
     bottomBarMainAxisAlignment:bottomBarMainAxisAlignment,
-    bottomBarCrossAxisAlignment: bottomBarCrossAxisAlignment,
     duration:duration,
+    sheetChild:sheetChild,
     );
 }
 
@@ -53,16 +48,17 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
   int selectedIndex;
   bool isOpened;
   Duration duration;
-  _BottomBarWithSheetState({this.selectedIndex, this.isOpened, this.bottomBarMainAxisAlignment, this.bottomBarCrossAxisAlignment, this.duration});
+  _BottomBarWithSheetState({this.selectedIndex, this.isOpened, this.bottomBarMainAxisAlignment, this.duration, this.sheetChild});
 
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
   var bottomSheetController;
   bool isAnimated = false;
   MainAxisAlignment bottomBarMainAxisAlignment;
-  
-  //Не нужно
-  CrossAxisAlignment bottomBarCrossAxisAlignment;
+  Widget sheetChild;
+  Widget actionButtonIcon;
+
+  double iconOpacity = 1;
 
   @override
   void initState() {
@@ -70,17 +66,54 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
+    actionButtonIcon = widget.styleBottomBar.mainActionButtonIconClosed;
   }
 
-@override
-void dispose() {
-  _arrowAnimationController.dispose();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    _arrowAnimationController.dispose();
+    super.dispose();
+  }
+
+  animateIcon() async{
+
+    setState((){
+      iconOpacity = 1;
+    });
+
+    var animationTime = widget.duration.inMilliseconds / 50;
+    var halfAnimationTime = animationTime / 2;
+    var opacityPart = 1 / halfAnimationTime;
+
+    for(var i = 0; i < halfAnimationTime; i++){
+      iconOpacity -= opacityPart;
+      if (iconOpacity > 0.03 && i > halfAnimationTime / 3){
+        setState((){
+          iconOpacity = iconOpacity;
+        });
+      }
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+
+    setState(() {
+      actionButtonIcon = actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened? 
+      widget.styleBottomBar.mainActionButtonIconClosed : widget.styleBottomBar.mainActionButtonIconOpened;
+    });
+
+    for(var i = 0; i < halfAnimationTime; i++){
+      iconOpacity += opacityPart;
+      if (iconOpacity > 0.03 && i > halfAnimationTime / 3){
+        setState((){
+          iconOpacity = iconOpacity;
+        });
+      }
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final BottomBarTheme styleBottomBar = widget.styleBottomBar;
     final backgroundColor = styleBottomBar.barBackgroundColor ?? Theme.of(context).bottomAppBarColor;
     final itemWidth = MediaQuery.of(context).size.width / widget.items.length - 
@@ -91,6 +124,7 @@ void dispose() {
         color: Colors.transparent,
         shape: CircularNotchedRectangle(),
         notchMargin: widget.styleBottomBar.rightMargin,
+
         child: MultiProvider(
           providers: [
             Provider<BottomBarTheme>.value(value: styleBottomBar),
@@ -98,6 +132,7 @@ void dispose() {
             Provider<bool>.value(value: widget.isOpened),
             Provider<MainAxisAlignment>.value(value: widget.bottomBarMainAxisAlignment),
           ],
+
           child: AnimatedContainer(
             duration: duration,
             height: widget.isOpened? widget.styleBottomBar.barHeightOpened : widget.styleBottomBar.barHeightClosed,
@@ -106,85 +141,87 @@ void dispose() {
               boxShadow: widget.styleBottomBar.boxShadow,
               color: backgroundColor,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+
+            child: Column(
               children: <Widget>[
-
-              // !widget.isOpened ? 
-              Container(
-                  margin: EdgeInsets.only(left: widget.styleBottomBar.rightMargin, right: widget.styleBottomBar.marginBetweenPanelAndActtionButton),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: widget.items.map((item) {
-                    var i = widget.items.indexOf(item);
-                    item.setIndex(i);
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          widget.onSelectItem(i);
-                          selectedIndex = i;
-                        });
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        child: SizedBox(
-                          width: itemWidth,
-                          height: widget.styleBottomBar.barHeightClosed,
-                          child: item,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-          ),
-
-          // :Container(
-
-          // ),
-                Container(
-                  child: Container(
-                        color: Colors.transparent,
-                        child: Padding(
-                            padding: widget.styleBottomBar.mainActionButtonPadding,
-                            child: ClipOval(
-                              child: Material(
-                                color: widget.styleBottomBar.mainActionButtonColor, // button color
-                                child: InkWell(
-                                  splashColor: widget.styleBottomBar.mainActionButtonColorSplash, // inkwell color
-                                  child: AnimatedBuilder(
-                                    animation: _arrowAnimationController,
-                                    builder: (BuildContext context, Widget child) { 
-                                        return Transform.rotate(
-                                        angle:  _arrowAnimation.value * 2.0 * math.pi,
-                                        child: child,
-                                      );
-                                    },
-                                    child:SizedBox(
-                                      width: widget.styleBottomBar.mainActionButtonSize, 
-                                      height: widget.styleBottomBar.mainActionButtonSize, 
-                                      child: widget.styleBottomBar.mainActionButtonIconClosed,
-                                ),),
-                                  onTap: () {
-                                    setState((){
-                                     widget.isOpened = !widget.isOpened;
-
-                                     _arrowAnimationController.isCompleted
-                                        ? _arrowAnimationController.reverse().then((value){
-                                          
-                                        })
-                                        : _arrowAnimationController.forward().then((value){
-                                          
-                                        });
-                                    });
-                                  },
-                                ),
-                              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.only(left: widget.styleBottomBar.rightMargin, right: widget.styleBottomBar.marginBetweenPanelAndActtionButton),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: widget.items.map((item) {
+                        var i = widget.items.indexOf(item);
+                        item.setIndex(i);
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              widget.onSelectItem(i);
+                              selectedIndex = i;
+                            });
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            child: SizedBox(
+                              width: itemWidth,
+                              height: widget.styleBottomBar.barHeightClosed,
+                              child: item,
                             ),
                           ),
-                      )
-                    )
+                        );
+                      }).toList(),
+                    ),
+          ),
+                    Container(
+                      child: Container(
+                            color: Colors.transparent,
+                            child: Padding(
+                                padding: widget.styleBottomBar.mainActionButtonPadding,
+                                child: ClipOval(
+                                  child: Material(
+                                    color: widget.styleBottomBar.mainActionButtonColor, // button color
+                                    child: InkWell(
+                                      splashColor: widget.styleBottomBar.mainActionButtonColorSplash, // inkwell color
+                                      child: AnimatedBuilder(
+                                        animation: _arrowAnimationController,
+                                        builder: (BuildContext context, Widget child) { 
+                                            return Transform.rotate(
+                                            angle:  _arrowAnimation.value * 2.0 * math.pi,
+                                            child: child,
+                                          );
+                                        },
+                                        child:SizedBox(
+                                          width: widget.styleBottomBar.mainActionButtonSize, 
+                                          height: widget.styleBottomBar.mainActionButtonSize, 
+                                          child: Opacity(
+                                            opacity: iconOpacity,
+                                            child: actionButtonIcon),
+                                    ),),
+                                      onTap: () {
+                                        animateIcon();
+                                        setState((){
+                                         widget.isOpened = !widget.isOpened;
+                                         _arrowAnimationController.isCompleted
+                                            ? _arrowAnimationController.reverse().then((value){
+                                              // Call back in future version
+                                            })
+                                            : _arrowAnimationController.forward().then((value){
+                                              // Call back in future version
+                                            });
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          )
+                        )
+                  ],
+                ),
+                widget.isOpened? Expanded(child: sheetChild) : Container()
               ],
           ),
         ),

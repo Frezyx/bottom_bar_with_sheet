@@ -21,7 +21,6 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -35,18 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello',
-            ),
-          ],
-        ),
-      ),
+
+      body: Center(child: Text("Place for your content")),
 
       bottomNavigationBar: BottomBarWithSheet(
+        sheetChild: Center(child: Text("Place for your another content")),
+
         selectedIndex: selectedIndex,
         duration: Duration(milliseconds: 600),
         styleBottomBar: BottomBarTheme(
@@ -59,28 +52,30 @@ class _MyHomePageState extends State<MyHomePage> {
           marginBetweenPanelAndActtionButton: 30,
           rightMargin: 15,
           mainActionButtonPadding: EdgeInsets.all(7),
-          mainActionButtonIconClosed: Icon(Icons.add, color:Colors.white ),
-          mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white ),
+          mainActionButtonIconClosed: Icon(Icons.arrow_drop_up, color:Colors.white , size: 40,),
+          mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white, size: 40,),
         ),
+
         onSelectItem: (index) {
           setState(() {
             selectedIndex = index;
           });
         },
+
         items: [
           BottomBarWithSheetItem(
             iconData: Icons.people,
-            label: 'Профиль',
+            label: 'Profile',
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.calendar_today,
-            label: 'Календарь',
+            iconData: Icons.shopping_cart,
+            label: 'Cart',
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
             iconData: Icons.settings,
-            label: 'Настройки',
+            label: 'Settings',
             selectedBackgroundColor: Colors.blue,
           ),
         ],
