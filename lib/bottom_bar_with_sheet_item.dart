@@ -8,6 +8,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
   final Duration animationDuration;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
+
+  Color itemIconColor;
   static const defaultDuration = Duration(milliseconds: 500);
 
   int index;
@@ -22,10 +24,10 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.label,
     this.itemWidth = 60,
     this.selectedBackgroundColor,
-    this.selectedLabelColor,
     this.iconData,
     this.animationDuration = defaultDuration,
     this.bottomBarMainAxisAlignment,
+    this.itemIconColor,
   }) : super(key: key);
 
   Center _makeText(String label) {
@@ -43,7 +45,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
     );
   }
 
-  Widget _buildOpenedButton(IconData iconData) {
+  Widget _buildOpenedButton(IconData iconData, Color selectedItemIconColor) {
     return Center(
                child: ClipOval(
                  child: Material(
@@ -55,7 +57,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
                          child: Icon(
                            iconData,
                            size: 17,
-                           color: Colors.white,
+                           color: selectedItemIconColor,
                            ),
                        )
                        ),
@@ -71,7 +73,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Icon( 
         icon,
         size: 20,
-        color: Colors.grey,
+        color: styleBottomBar.itemLabelColor,
       ),
     );
   }
@@ -92,13 +94,13 @@ class BottomBarWithSheetItem extends StatelessWidget {
     isOpened = Provider.of<bool>(context);
     bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
-
+    itemIconColor = itemIconColor ?? styleBottomBar.itemIconColor;
     selectedBackgroundColor =selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
-    selectedLabelColor = selectedLabelColor ?? styleBottomBar.selectedItemLabelColor;
+
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
     Widget labelWidget = _makeText(label);
-    Widget iconAreaWidget = isSelected ? _buildOpenedButton(iconData) : _buildClosedButton(iconData);
+    Widget iconAreaWidget = isSelected ? _buildOpenedButton(iconData, styleBottomBar.selectedItemIconColor) : _buildClosedButton(iconData);
 
     return AnimatedContainer(
       duration: animationDuration,

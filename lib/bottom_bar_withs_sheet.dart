@@ -14,8 +14,11 @@ class BottomBarWithSheet extends StatefulWidget {
   final Function onSelectItem;
   final int selectedIndex;
   bool isOpened;
+  Duration duration;
   MainAxisAlignment bottomBarMainAxisAlignment;
   CrossAxisAlignment bottomBarCrossAxisAlignment;
+
+  static const constDuartion = Duration(milliseconds: 500);
 
   BottomBarWithSheet({
 
@@ -24,6 +27,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.isOpened = false,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
     this.bottomBarCrossAxisAlignment = CrossAxisAlignment.start,
+    this.duration = constDuartion,
     @required this.onSelectItem,
     @required this.items,
     @required this.styleBottomBar,
@@ -41,13 +45,15 @@ class BottomBarWithSheet extends StatefulWidget {
     isOpened: isOpened,
     bottomBarMainAxisAlignment:bottomBarMainAxisAlignment,
     bottomBarCrossAxisAlignment: bottomBarCrossAxisAlignment,
+    duration:duration,
     );
 }
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTickerProviderStateMixin {
   int selectedIndex;
   bool isOpened;
-  _BottomBarWithSheetState({this.selectedIndex, this.isOpened, this.bottomBarMainAxisAlignment, this.bottomBarCrossAxisAlignment});
+  Duration duration;
+  _BottomBarWithSheetState({this.selectedIndex, this.isOpened, this.bottomBarMainAxisAlignment, this.bottomBarCrossAxisAlignment, this.duration});
 
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
@@ -61,7 +67,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
   @override
   void initState() {
     _arrowAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
+        AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
   }
@@ -77,6 +83,8 @@ void dispose() {
 
     final BottomBarTheme styleBottomBar = widget.styleBottomBar;
     final backgroundColor = styleBottomBar.barBackgroundColor ?? Theme.of(context).bottomAppBarColor;
+    final itemWidth = MediaQuery.of(context).size.width / widget.items.length - 
+      (widget.styleBottomBar.rightMargin + widget.styleBottomBar.mainActionButtonSize + widget.styleBottomBar.marginBetweenPanelAndActtionButton + widget.styleBottomBar.leftMargin + 4) / widget.items.length;
 
     return BottomAppBar(
         elevation: 0,
@@ -91,19 +99,16 @@ void dispose() {
             Provider<MainAxisAlignment>.value(value: widget.bottomBarMainAxisAlignment),
           ],
           child: AnimatedContainer(
-            // Real animated 
-            duration: Duration(milliseconds: 1000),
-            height: widget.styleBottomBar.barHeight,
+            duration: duration,
+            height: widget.isOpened? widget.styleBottomBar.barHeightOpened : widget.styleBottomBar.barHeightClosed,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30.0),
-              ),
+              borderRadius: widget.styleBottomBar.borderRadius,
+              boxShadow: widget.styleBottomBar.boxShadow,
               color: backgroundColor,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              // widget.bottomBarCrossAxisAlignment,
               children: <Widget>[
 
               // !widget.isOpened ? 
@@ -125,8 +130,8 @@ void dispose() {
                       child: Container(
                         color: Colors.transparent,
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width / widget.items.length - (widget.styleBottomBar.rightMargin + 100) / widget.items.length,
-                          height: 70,
+                          width: itemWidth,
+                          height: widget.styleBottomBar.barHeightClosed,
                           child: item,
                         ),
                       ),
@@ -134,23 +139,21 @@ void dispose() {
                   }).toList(),
                 ),
           ),
+
           // :Container(
 
           // ),
-
-           Container(
+                Container(
                   child: Container(
                         color: Colors.transparent,
                         child: Padding(
-                            padding: EdgeInsets.all(7),
+                            padding: widget.styleBottomBar.mainActionButtonPadding,
                             child: ClipOval(
                               child: Material(
-                                color: Colors.blue, // button color
+                                color: widget.styleBottomBar.mainActionButtonColor, // button color
                                 child: InkWell(
-                                  splashColor: Colors.indigo[900], // inkwell color
-                                  child: 
-                                  
-                                  AnimatedBuilder(
+                                  splashColor: widget.styleBottomBar.mainActionButtonColorSplash, // inkwell color
+                                  child: AnimatedBuilder(
                                     animation: _arrowAnimationController,
                                     builder: (BuildContext context, Widget child) { 
                                         return Transform.rotate(
@@ -159,17 +162,17 @@ void dispose() {
                                       );
                                     },
                                     child:SizedBox(
-                                      width: 55, height: 55, 
-                                      child: Icon(Icons.add, color:Colors.white)
+                                      width: widget.styleBottomBar.mainActionButtonSize, 
+                                      height: widget.styleBottomBar.mainActionButtonSize, 
+                                      child: widget.styleBottomBar.mainActionButtonIconClosed,
                                 ),),
                                   onTap: () {
                                     setState((){
-                                     widget.styleBottomBar.barHeight = widget.isOpened?  70 : 400;
                                      widget.isOpened = !widget.isOpened;
 
                                      _arrowAnimationController.isCompleted
                                         ? _arrowAnimationController.reverse().then((value){
-
+                                          
                                         })
                                         : _arrowAnimationController.forward().then((value){
                                           

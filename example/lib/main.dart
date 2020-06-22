@@ -48,13 +48,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: selectedIndex,
+        duration: Duration(milliseconds: 600),
         styleBottomBar: BottomBarTheme(
           barBackgroundColor: Colors.white,
           selectedItemIconColor: Colors.white,
           selectedItemLabelColor: Colors.black,
-          barHeight: 70,
+          mainActionButtonSize: 55,
+          barHeightClosed: 70,
+          barHeightOpened: 400,
           marginBetweenPanelAndActtionButton: 30,
           rightMargin: 15,
+          mainActionButtonPadding: EdgeInsets.all(7),
+          mainActionButtonIconClosed: Icon(Icons.add, color:Colors.white ),
+          mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white ),
         ),
         onSelectItem: (index) {
           setState(() {
