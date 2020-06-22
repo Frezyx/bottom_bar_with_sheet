@@ -4,7 +4,7 @@
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉First of all look at screens!
 
-<img src="https://github.com/Frezyx/bottom_bar_with_sheet/tree/master/example/rep_files/preview.gif" width="300">
+<img src="https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/preview.gif?raw=true" width="270">
 
 ## Getting Started
 

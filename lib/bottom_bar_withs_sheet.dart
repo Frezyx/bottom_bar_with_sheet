@@ -9,6 +9,12 @@ import 'dart:math' as math;
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 
+// Hello !
+// ----------------------------------------------------------------------
+// You can check all widget annotation
+// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
+// ----------------------------------------------------------------------
+
 class BottomBarWithSheet extends StatefulWidget {
 
   final List<BottomBarWithSheetItem> items;
