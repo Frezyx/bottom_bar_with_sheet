@@ -42,9 +42,15 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: isSelected? styleBottomBar.selectedItemLabelColor: styleBottomBar.itemLabelColor,
-          fontSize: isSelected? styleBottomBar.selectedItemTextStyle.fontSize: styleBottomBar.itemTextStyle.fontSize,
-          fontWeight: isSelected? styleBottomBar.selectedItemTextStyle.fontWeight: styleBottomBar.itemTextStyle.fontWeight,
+          color: isSelected
+              ? styleBottomBar.selectedItemLabelColor
+              : styleBottomBar.itemLabelColor,
+          fontSize: isSelected
+              ? styleBottomBar.selectedItemTextStyle.fontSize
+              : styleBottomBar.itemTextStyle.fontSize,
+          fontWeight: isSelected
+              ? styleBottomBar.selectedItemTextStyle.fontWeight
+              : styleBottomBar.itemTextStyle.fontWeight,
         ),
         textAlign: TextAlign.center,
       ),
@@ -53,30 +59,29 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
   Widget _buildOpenedButton(IconData iconData, Color selectedItemIconColor) {
     return Center(
-               child: ClipOval(
-                 child: Material(
-                   color: selectedBackgroundColor, // button color
-                   child: Ink(
-                     child: SizedBox(
-                       child: Padding(
-                         padding: const EdgeInsets.all(12.0),
-                         child: Icon(
-                           iconData,
-                           size: 17,
-                           color: selectedItemIconColor,
-                           ),
-                       )
-                       ),
-                   ),
-                 ),
-               ),
-             );
+      child: ClipOval(
+        child: Material(
+          color: selectedBackgroundColor, // button color
+          child: Ink(
+            child: SizedBox(
+                child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Icon(
+                iconData,
+                size: 17,
+                color: selectedItemIconColor,
+              ),
+            )),
+          ),
+        ),
+      ),
+    );
   }
 
-  Widget _buildClosedButton(IconData icon){
+  Widget _buildClosedButton(IconData icon) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
-      child: Icon( 
+      child: Icon(
         icon,
         size: 20,
         color: styleBottomBar.itemLabelColor,
@@ -94,33 +99,33 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     styleBottomBar = Provider.of<BottomBarTheme>(context);
     selectedIndex = Provider.of<int>(context);
     isOpened = Provider.of<bool>(context);
     bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
     itemIconColor = itemIconColor ?? styleBottomBar.itemIconColor;
-    selectedBackgroundColor =selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
+    selectedBackgroundColor =
+        selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
 
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
     Widget labelWidget = _makeText(label);
-    Widget iconAreaWidget = isSelected ? _buildOpenedButton(iconData, styleBottomBar.selectedItemIconColor) : _buildClosedButton(iconData);
+    Widget iconAreaWidget = isSelected
+        ? _buildOpenedButton(iconData, styleBottomBar.selectedItemIconColor)
+        : _buildClosedButton(iconData);
 
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
-             crossAxisAlignment: CrossAxisAlignment.center,
-             mainAxisAlignment: bottomBarMainAxisAlignment,
-                children: <Widget>[
-                  SizedBox(height: iconTopSpacer),
-                  iconAreaWidget,
-                  labelWidget,
-                  SizedBox(height: 2),
-                ]
-      ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: bottomBarMainAxisAlignment,
+          children: <Widget>[
+            SizedBox(height: iconTopSpacer),
+            iconAreaWidget,
+            labelWidget,
+            SizedBox(height: 2),
+          ]),
     );
-    
   }
 }

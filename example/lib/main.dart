@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'bottom_bar_with_sheet v0.0.1'),
+      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.1'),
     );
   }
 }
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-  
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -32,15 +32,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-
       body: Center(child: Text("Place for your content")),
-
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
-
         selectedIndex: selectedIndex,
         duration: Duration(milliseconds: 600),
         styleBottomBar: BottomBarTheme(
+          mainButtonPosition: MainButtonPosition.right,
           barBackgroundColor: Colors.white,
           selectedItemIconColor: Colors.white,
           selectedItemLabelColor: Colors.black,
@@ -48,19 +46,39 @@ class _MyHomePageState extends State<MyHomePage> {
           barHeightClosed: 70,
           barHeightOpened: 400,
           marginBetweenPanelAndActtionButton: 30,
-          rightMargin: 15,
+          otherMargin: 15,
+          // borderRadius: BorderRadius.only(
+          //   topLeft: Radius.circular(30.0),
+          // ),
           mainActionButtonPadding: EdgeInsets.all(7),
-          mainActionButtonIconClosed: Icon(Icons.arrow_drop_up, color:Colors.white , size: 40,),
-          mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white, size: 40,),
+          mainActionButtonIconClosed: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 30,
+          ),
+          mainActionButtonIconOpened: Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.white,
+            size: 35,
+          ),
         ),
-
         onSelectItem: (index) {
           setState(() {
             selectedIndex = index;
           });
         },
-
+        // Five is max
         items: [
+          // BottomBarWithSheetItem(
+          //   iconData: Icons.people,
+          //   label: 'Profile',
+          //   selectedBackgroundColor: Colors.blue,
+          // ),
+          // BottomBarWithSheetItem(
+          //   iconData: Icons.people,
+          //   label: 'Profile',
+          //   selectedBackgroundColor: Colors.blue,
+          // ),
           BottomBarWithSheetItem(
             iconData: Icons.people,
             label: 'Profile',

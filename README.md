@@ -38,7 +38,7 @@ Scaffold(
           barHeightClosed: 70,
           barHeightOpened: 400,
           marginBetweenPanelAndActtionButton: 30,
-          rightMargin: 15,
+          otherMargin: 15,
           mainActionButtonPadding: EdgeInsets.all(7),
           mainActionButtonIconClosed: Icon(Icons.arrow_drop_up, color:Colors.white , size: 40,),
           mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white, size: 40,),
@@ -95,7 +95,7 @@ Scaffold(
     <ul>
     <li><h2>Sizes</h2></li>
         <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> background color of main Widget</li>
-        <li style="margin-left:10px;"><strong>rightMargin:</strong> size of space between right mobile border and Widget insides</li>
+        <li style="margin-left:10px;"><strong>otherMargin:</strong> size of space between right mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>leftMargin:</strong> size of space between left mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>marginBetweenPanelAndActtionButton:</strong> it seems so clear. No?. Request issue if so.</li>
         <li style="margin-left:10px;"><strong>barHeightClosed:</strong> main Widget height when sheet is closed</li>

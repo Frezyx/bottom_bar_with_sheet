@@ -2,12 +2,14 @@ library bottom_bar_with_sheet;
 
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
+import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
+export 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -15,8 +17,8 @@ export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
+// ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
-
   final List<BottomBarWithSheetItem> items;
   final BottomBarTheme styleBottomBar;
   final Function onSelectItem;
@@ -44,19 +46,25 @@ class BottomBarWithSheet extends StatefulWidget {
 
   @override
   _BottomBarWithSheetState createState() => _BottomBarWithSheetState(
-    selectedIndex: selectedIndex,
-    isOpened: isOpened,
-    bottomBarMainAxisAlignment:bottomBarMainAxisAlignment,
-    duration:duration,
-    sheetChild:sheetChild,
-    );
+        selectedIndex: selectedIndex,
+        isOpened: isOpened,
+        bottomBarMainAxisAlignment: bottomBarMainAxisAlignment,
+        duration: duration,
+        sheetChild: sheetChild,
+      );
 }
 
-class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTickerProviderStateMixin {
+class _BottomBarWithSheetState extends State<BottomBarWithSheet>
+    with SingleTickerProviderStateMixin {
   int selectedIndex;
   bool isOpened;
   Duration duration;
-  _BottomBarWithSheetState({this.selectedIndex, this.isOpened, this.bottomBarMainAxisAlignment, this.duration, this.sheetChild});
+  _BottomBarWithSheetState(
+      {this.selectedIndex,
+      this.isOpened,
+      this.bottomBarMainAxisAlignment,
+      this.duration,
+      this.sheetChild});
 
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
@@ -83,9 +91,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
     super.dispose();
   }
 
-  animateIcon() async{
-
-    setState((){
+  animateIcon() async {
+    setState(() {
       iconOpacity = 1;
     });
 
@@ -93,10 +100,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
     var halfAnimationTime = animationTime / 2;
     var opacityPart = 1 / halfAnimationTime;
 
-    for(var i = 0; i < halfAnimationTime; i++){
+    for (var i = 0; i < halfAnimationTime; i++) {
       iconOpacity -= opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3){
-        setState((){
+      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+        setState(() {
           iconOpacity = iconOpacity;
         });
       }
@@ -104,136 +111,159 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet> with SingleTick
     }
 
     setState(() {
-      actionButtonIcon = actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened? 
-      widget.styleBottomBar.mainActionButtonIconClosed : widget.styleBottomBar.mainActionButtonIconOpened;
+      actionButtonIcon =
+          actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened
+              ? widget.styleBottomBar.mainActionButtonIconClosed
+              : widget.styleBottomBar.mainActionButtonIconOpened;
     });
 
-    for(var i = 0; i < halfAnimationTime; i++){
+    for (var i = 0; i < halfAnimationTime; i++) {
       iconOpacity += opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3){
-        setState((){
+      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+        setState(() {
           iconOpacity = iconOpacity;
         });
       }
       await Future.delayed(const Duration(milliseconds: 50));
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     final BottomBarTheme styleBottomBar = widget.styleBottomBar;
-    final backgroundColor = styleBottomBar.barBackgroundColor ?? Theme.of(context).bottomAppBarColor;
-    final itemWidth = MediaQuery.of(context).size.width / widget.items.length - 
-      (widget.styleBottomBar.rightMargin + widget.styleBottomBar.mainActionButtonSize + widget.styleBottomBar.marginBetweenPanelAndActtionButton + widget.styleBottomBar.leftMargin + 4) / widget.items.length;
+    final backgroundColor = styleBottomBar.barBackgroundColor ??
+        Theme.of(context).bottomAppBarColor;
+    final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
+        (widget.styleBottomBar.otherMargin +
+                widget.styleBottomBar.mainActionButtonSize +
+                widget.styleBottomBar.marginBetweenPanelAndActtionButton +
+                widget.styleBottomBar.leftMargin +
+                4) /
+            widget.items.length;
 
     return BottomAppBar(
-        elevation: 0,
-        color: Colors.transparent,
-        shape: CircularNotchedRectangle(),
-        notchMargin: widget.styleBottomBar.rightMargin,
-
-        child: MultiProvider(
-          providers: [
-            Provider<BottomBarTheme>.value(value: styleBottomBar),
-            Provider<int>.value(value: widget.selectedIndex),
-            Provider<bool>.value(value: widget.isOpened),
-            Provider<MainAxisAlignment>.value(value: widget.bottomBarMainAxisAlignment),
-          ],
-
-          child: AnimatedContainer(
-            duration: duration,
-            height: widget.isOpened? widget.styleBottomBar.barHeightOpened : widget.styleBottomBar.barHeightClosed,
-            decoration: BoxDecoration(
-              borderRadius: widget.styleBottomBar.borderRadius,
-              boxShadow: widget.styleBottomBar.boxShadow,
-              color: backgroundColor,
-            ),
-
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.only(left: widget.styleBottomBar.rightMargin, right: widget.styleBottomBar.marginBetweenPanelAndActtionButton),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: widget.items.map((item) {
-                        var i = widget.items.indexOf(item);
-                        item.setIndex(i);
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              widget.onSelectItem(i);
-                              selectedIndex = i;
-                            });
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: SizedBox(
-                              width: itemWidth,
-                              height: widget.styleBottomBar.barHeightClosed,
-                              child: item,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
+      elevation: 0,
+      color: Colors.transparent,
+      shape: CircularNotchedRectangle(),
+      notchMargin: widget.styleBottomBar.otherMargin,
+      child: MultiProvider(
+        providers: [
+          Provider<BottomBarTheme>.value(value: styleBottomBar),
+          Provider<int>.value(value: widget.selectedIndex),
+          Provider<bool>.value(value: widget.isOpened),
+          Provider<MainAxisAlignment>.value(
+              value: widget.bottomBarMainAxisAlignment),
+        ],
+        child: AnimatedContainer(
+          duration: duration,
+          height: widget.isOpened
+              ? widget.styleBottomBar.barHeightOpened
+              : widget.styleBottomBar.barHeightClosed,
+          decoration: BoxDecoration(
+            borderRadius: widget.styleBottomBar.borderRadius,
+            boxShadow: widget.styleBottomBar.boxShadow,
+            color: backgroundColor,
           ),
-                    Container(
-                      child: Container(
-                            color: Colors.transparent,
-                            child: Padding(
-                                padding: widget.styleBottomBar.mainActionButtonPadding,
-                                child: ClipOval(
-                                  child: Material(
-                                    color: widget.styleBottomBar.mainActionButtonColor, // button color
-                                    child: InkWell(
-                                      splashColor: widget.styleBottomBar.mainActionButtonColorSplash, // inkwell color
-                                      child: AnimatedBuilder(
-                                        animation: _arrowAnimationController,
-                                        builder: (BuildContext context, Widget child) { 
-                                            return Transform.rotate(
-                                            angle:  _arrowAnimation.value * 2.0 * math.pi,
-                                            child: child,
-                                          );
-                                        },
-                                        child:SizedBox(
-                                          width: widget.styleBottomBar.mainActionButtonSize, 
-                                          height: widget.styleBottomBar.mainActionButtonSize, 
-                                          child: Opacity(
-                                            opacity: iconOpacity,
-                                            child: actionButtonIcon),
-                                    ),),
-                                      onTap: () {
-                                        animateIcon();
-                                        setState((){
-                                         widget.isOpened = !widget.isOpened;
-                                         _arrowAnimationController.isCompleted
-                                            ? _arrowAnimationController.reverse().then((value){
-                                              // Call back in future version
-                                            })
-                                            : _arrowAnimationController.forward().then((value){
-                                              // Call back in future version
-                                            });
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                          )
-                        )
-                  ],
-                ),
-                widget.isOpened? Expanded(child: sheetChild) : Container()
-              ],
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  widget.styleBottomBar.mainButtonPosition ==
+                          MainButtonPosition.left
+                      ? buildMainActionButtton()
+                      : buildButtonsRow(itemWidth),
+                  widget.styleBottomBar.mainButtonPosition ==
+                          MainButtonPosition.right
+                      ? buildMainActionButtton()
+                      : buildButtonsRow(itemWidth),
+                ],
+              ),
+              widget.isOpened ? Expanded(child: sheetChild) : Container()
+            ],
           ),
         ),
       ),
     );
+  }
+
+  Container buildButtonsRow(double itemWidth) {
+    return Container(
+      margin: EdgeInsets.only(
+          left: widget.styleBottomBar.marginBetweenPanelAndActtionButton,
+          // widget.styleBottomBar.otherMargin,
+          right: widget.styleBottomBar.otherMargin),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: widget.items.map((item) {
+          var i = widget.items.indexOf(item);
+          item.setIndex(i);
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                widget.onSelectItem(i);
+                selectedIndex = i;
+              });
+            },
+            child: Container(
+              color: Colors.transparent,
+              child: SizedBox(
+                width: itemWidth,
+                height: widget.styleBottomBar.barHeightClosed,
+                child: item,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Container buildMainActionButtton() {
+    return Container(
+        child: Container(
+      color: Colors.transparent,
+      child: Padding(
+        padding: widget.styleBottomBar.mainActionButtonPadding,
+        child: ClipOval(
+          child: Material(
+            color: widget.styleBottomBar.mainActionButtonColor, // button color
+            child: InkWell(
+              splashColor: widget
+                  .styleBottomBar.mainActionButtonColorSplash, // inkwell color
+              child: AnimatedBuilder(
+                animation: _arrowAnimationController,
+                builder: (BuildContext context, Widget child) {
+                  return Transform.rotate(
+                    angle: _arrowAnimation.value * 2.0 * math.pi,
+                    child: child,
+                  );
+                },
+                child: SizedBox(
+                  width: widget.styleBottomBar.mainActionButtonSize,
+                  height: widget.styleBottomBar.mainActionButtonSize,
+                  child: Opacity(opacity: iconOpacity, child: actionButtonIcon),
+                ),
+              ),
+              onTap: () {
+                animateIcon();
+                setState(() {
+                  widget.isOpened = !widget.isOpened;
+                  _arrowAnimationController.isCompleted
+                      ? _arrowAnimationController.reverse().then((value) {
+                          // Call back in future version
+                        })
+                      : _arrowAnimationController.forward().then((value) {
+                          // Call back in future version
+                        });
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+    ));
   }
 }

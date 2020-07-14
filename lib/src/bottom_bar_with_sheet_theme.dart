@@ -1,3 +1,4 @@
+import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
 import 'package:flutter/material.dart';
 
 // Hello !
@@ -7,8 +8,7 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-
-  final double rightMargin;
+  final double otherMargin;
   final double marginBetweenPanelAndActtionButton;
   final double leftMargin;
 
@@ -25,9 +25,11 @@ class BottomBarTheme {
   final TextStyle selectedItemTextStyle;
   final TextStyle itemTextStyle;
 
+  final int mainButtonPosition;
+
   double barHeightClosed;
   double barHeightOpened;
-  
+
   final double itemWidth;
 
   final double mainActionButtonSize;
@@ -39,7 +41,6 @@ class BottomBarTheme {
 
   final BorderRadius borderRadius;
   final List<BoxShadow> boxShadow;
-  
 
   static const selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
@@ -53,56 +54,48 @@ class BottomBarTheme {
     color: Colors.black,
   );
 
-  static const defaultBorderRadius = BorderRadius.only(
-                topRight: Radius.circular(30.0),
-              ); 
+  static const defaultBorderRadius = BorderRadius.all(
+    Radius.circular(0.0),
+  );
 
   static const constmainActionButtonPadding = EdgeInsets.all(7);
 
   static const defaultboxShadow = [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10.0,
-            spreadRadius: 3.0,
-            offset: Offset(
-              5.0, 
-              5.0, 
-            ),
-          )
-        ];
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 10.0,
+      spreadRadius: 3.0,
+      offset: Offset(
+        5.0,
+        5.0,
+      ),
+    )
+  ];
 
   BottomBarTheme({
-
     this.leftMargin = 10,
-    this.rightMargin = 10,
+    this.otherMargin = 10,
     this.marginBetweenPanelAndActtionButton = 20,
-
     this.notchMargin = 8,
     this.itemWidth = 60,
     this.barHeightClosed = 60,
     this.barHeightOpened = 300,
     this.mainActionButtonSize = 30,
     this.mainActionButtonPadding = constmainActionButtonPadding,
-
-    this.mainActionButtonColorSplash = Colors.cyan,
+    this.mainActionButtonColorSplash = Colors.blue,
     this.mainActionButtonColor = Colors.blue,
-
     this.barBackgroundColor = Colors.white,
-
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
     this.selectedItemLabelColor = Colors.black,
-  
     this.itemIconColor = Colors.grey,
     this.itemLabelColor = Colors.grey,
     this.selectedItemTextStyle = selectedItemDefaultTextStyle,
     this.itemTextStyle = itemDefaultTextStyle,
-
     this.mainActionButtonIconClosed,
     this.mainActionButtonIconOpened,
-
     this.borderRadius = defaultBorderRadius,
     this.boxShadow = defaultboxShadow,
+    this.mainButtonPosition = MainButtonPosition.left,
   });
-
 }
