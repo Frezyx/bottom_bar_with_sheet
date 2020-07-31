@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainActionButtonSize: 55,
           barHeightClosed: 70,
           barHeightOpened: 400,
-          marginBetweenPanelAndActtionButton: 30,
+          marginBetweenPanelAndActionButton: 30,
           otherMargin: 15,
           // borderRadius: BorderRadius.only(
           //   topLeft: Radius.circular(30.0),
