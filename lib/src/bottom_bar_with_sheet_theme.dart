@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class BottomBarTheme {
   final double otherMargin;
-  final double marginBetweenPanelAndActtionButton;
+  final double marginBetweenPanelAndActionButton;
   final double leftMargin;
 
   final double notchMargin;
@@ -76,7 +76,7 @@ class BottomBarTheme {
   BottomBarTheme({
     this.leftMargin = 10,
     this.otherMargin = 10,
-    this.marginBetweenPanelAndActtionButton = 20,
+    this.marginBetweenPanelAndActionButton = 20,
     this.notchMargin = 8,
     this.itemWidth = 60,
     this.barHeightClosed = 60,

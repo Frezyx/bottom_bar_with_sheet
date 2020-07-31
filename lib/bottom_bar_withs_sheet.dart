@@ -26,15 +26,18 @@ class BottomBarWithSheet extends StatefulWidget {
   final Widget sheetChild;
   bool isOpened;
   Duration duration;
+  Curve curve;
   MainAxisAlignment bottomBarMainAxisAlignment;
 
-  static const constDuartion = Duration(milliseconds: 500);
+  static const constDuration = Duration(milliseconds: 500);
+  static const constCurve = Curves.linear;
   BottomBarWithSheet({
     Key key,
     this.selectedIndex = 0,
     this.isOpened = false,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
-    this.duration = constDuartion,
+    this.duration = constDuration,
+    this.curve = constCurve,
     @required this.sheetChild,
     @required this.items,
     @required this.styleBottomBar,
@@ -50,6 +53,7 @@ class BottomBarWithSheet extends StatefulWidget {
         isOpened: isOpened,
         bottomBarMainAxisAlignment: bottomBarMainAxisAlignment,
         duration: duration,
+        curve: curve,
         sheetChild: sheetChild,
       );
 }
@@ -59,11 +63,13 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   int selectedIndex;
   bool isOpened;
   Duration duration;
+  Curve curve;
   _BottomBarWithSheetState(
       {this.selectedIndex,
       this.isOpened,
       this.bottomBarMainAxisAlignment,
       this.duration,
+      this.curve,
       this.sheetChild});
 
   AnimationController _arrowAnimationController;
@@ -78,6 +84,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   @override
   void initState() {
+    super.initState();
     _arrowAnimationController =
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
@@ -137,7 +144,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
         (widget.styleBottomBar.otherMargin +
                 widget.styleBottomBar.mainActionButtonSize +
-                widget.styleBottomBar.marginBetweenPanelAndActtionButton +
+                widget.styleBottomBar.marginBetweenPanelAndActionButton +
                 widget.styleBottomBar.leftMargin +
                 4) /
             widget.items.length;
@@ -157,6 +164,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         ],
         child: AnimatedContainer(
           duration: duration,
+          curve: curve,
           height: widget.isOpened
               ? widget.styleBottomBar.barHeightOpened
               : widget.styleBottomBar.barHeightClosed,
@@ -192,7 +200,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container buildButtonsRow(double itemWidth) {
     return Container(
       margin: EdgeInsets.only(
-          left: widget.styleBottomBar.marginBetweenPanelAndActtionButton,
+          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
           right: widget.styleBottomBar.otherMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
