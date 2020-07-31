@@ -2,6 +2,6 @@
 
 * TODO: Describe initial release.
 
-## [0.1.1] - TODO: Date
+## [0.1.0] - TODO: Date
 
 * TODO: Describe initial release.

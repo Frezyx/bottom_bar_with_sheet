@@ -83,6 +83,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
     actionButtonIcon = widget.styleBottomBar.mainActionButtonIconClosed;
+    super.initState();
   }
 
   @override
@@ -192,7 +193,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     return Container(
       margin: EdgeInsets.only(
           left: widget.styleBottomBar.marginBetweenPanelAndActtionButton,
-          // widget.styleBottomBar.otherMargin,
           right: widget.styleBottomBar.otherMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

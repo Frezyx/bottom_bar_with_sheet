@@ -54,8 +54,9 @@ class BottomBarTheme {
     color: Colors.black,
   );
 
-  static const defaultBorderRadius = BorderRadius.all(
-    Radius.circular(0.0),
+  static const defaultBorderRadius = BorderRadius.only(
+    topLeft: Radius.circular(30.0),
+    topRight: Radius.circular(30.0),
   );
 
   static const constmainActionButtonPadding = EdgeInsets.all(7);
