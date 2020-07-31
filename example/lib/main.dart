@@ -47,9 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
           barHeightOpened: 400,
           marginBetweenPanelAndActionButton: 30,
           otherMargin: 15,
-          // borderRadius: BorderRadius.only(
-          //   topLeft: Radius.circular(30.0),
-          // ),
           mainActionButtonPadding: EdgeInsets.all(7),
           mainActionButtonIconClosed: Icon(
             Icons.add,
@@ -69,16 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         // Five is max
         items: [
-          // BottomBarWithSheetItem(
-          //   iconData: Icons.people,
-          //   label: 'Profile',
-          //   selectedBackgroundColor: Colors.blue,
-          // ),
-          // BottomBarWithSheetItem(
-          //   iconData: Icons.people,
-          //   label: 'Profile',
-          //   selectedBackgroundColor: Colors.blue,
-          // ),
           BottomBarWithSheetItem(
             iconData: Icons.people,
             label: 'Profile',

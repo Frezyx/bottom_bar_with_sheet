@@ -1,7 +1,8 @@
 ## [0.0.1] - 20.06.2020
 
-* TODO: Describe initial release.
+* Initial functionality 
 
-## [0.1.0] - TODO: Date
+## [0.1.0] - 31.07.2020
 
-* TODO: Describe initial release.
+* Added the curve and mainButtonPosition field 
+<br> to create cool animations and the positioning of the open sheet button
