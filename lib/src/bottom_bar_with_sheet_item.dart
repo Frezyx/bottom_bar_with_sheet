@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
+// ignore: must_be_immutable
 class BottomBarWithSheetItem extends StatelessWidget {
   final String label;
   final IconData iconData;

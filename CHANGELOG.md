@@ -6,3 +6,7 @@
 
 * Added the curve and mainButtonPosition field 
 <br> to create cool animations and the positioning of the open sheet button
+
+## [0.1.1] - 1.08.2020
+
+* Fast fix immutable

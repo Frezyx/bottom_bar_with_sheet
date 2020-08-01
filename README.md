@@ -12,7 +12,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_withs_sheet: ^0.1.0 #latest version
+  bottom_bar_withs_sheet: ^0.1.1 #latest version
 ```
 
 ### Add import package

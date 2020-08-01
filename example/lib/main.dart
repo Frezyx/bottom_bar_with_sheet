@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.0'),
+      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.1'),
     );
   }
 }
