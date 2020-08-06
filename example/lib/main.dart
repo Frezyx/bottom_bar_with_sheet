@@ -1,4 +1,4 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_withs_sheet.dart';
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.1'),
+      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.2'),
     );
   }
 }
@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
         duration: Duration(milliseconds: 600),
+        curve: Curves.easeOutQuint,
         styleBottomBar: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.right,
           barBackgroundColor: Colors.white,

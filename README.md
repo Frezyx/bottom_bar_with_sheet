@@ -12,13 +12,13 @@
 
 ```yaml
 dependencies:
-  bottom_bar_withs_sheet: ^0.1.1 #latest version
+  bottom_bar_with_sheet: ^0.1.2 #latest version
 ```
 
 ### Add import package
 
 ```dart
-import 'package:bottom_bar_with_sheet/bottom_bar_withs_sheet.dart';
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 ```
 
 ### Easy to use
