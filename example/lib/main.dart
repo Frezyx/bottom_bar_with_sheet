@@ -10,15 +10,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'bottom_bar_with_sheet v0.1.2'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -30,41 +27,31 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('bottom_bar_with_sheet v0.1.3'),
       ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
-        duration: Duration(milliseconds: 600),
-        curve: Curves.easeOutQuint,
         styleBottomBar: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.right,
-          barBackgroundColor: Colors.white,
-          selectedItemIconColor: Colors.white,
-          selectedItemLabelColor: Colors.black,
           mainActionButtonSize: 55,
-          barHeightClosed: 70,
+          barHeightClosed: 75,
           barHeightOpened: 400,
-          marginBetweenPanelAndActionButton: 30,
-          otherMargin: 15,
-          mainActionButtonPadding: EdgeInsets.all(7),
           mainActionButtonIconClosed: Icon(
             Icons.add,
             color: Colors.white,
             size: 30,
           ),
           mainActionButtonIconOpened: Icon(
-            Icons.keyboard_arrow_down,
+            Icons.close,
             color: Colors.white,
-            size: 35,
+            size: 30,
           ),
         ),
-        onSelectItem: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
+        onSelectItem: (index) => setState(() {
+          selectedIndex = index;
+        }),
         // Five is max
         items: [
           BottomBarWithSheetItem(

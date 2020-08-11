@@ -13,7 +13,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.1.2 #latest version
+  bottom_bar_with_sheet: ^0.1.3 #latest version
 ```
 
 ### Add import package
@@ -23,36 +23,33 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 ```
 
 ### Easy to use
+Create a **Scaffold** widget and set **bottomNavigationBar** with **BottomBarWithSheet** like in the code below
+
 
 ```dart
 Scaffold(
       body: Center(child: Text("Place for your content")),
-
+// -----------------------------------------------------------------------------
       bottomNavigationBar: BottomBarWithSheet(
-        selectedIndex: selectedIndex,
-        duration: Duration(milliseconds: 600),
-        styleBottomBar: BottomBarTheme(
-          barBackgroundColor: Colors.white,
-          selectedItemIconColor: Colors.white,
-          selectedItemLabelColor: Colors.black,
-          mainActionButtonSize: 55,
-          barHeightClosed: 70,
-          barHeightOpened: 400,
-          marginBetweenPanelAndActtionButton: 30,
-          otherMargin: 15,
-          mainActionButtonPadding: EdgeInsets.all(7),
-          mainActionButtonIconClosed: Icon(Icons.arrow_drop_up, color:Colors.white , size: 40,),
-          mainActionButtonIconOpened: Icon(Icons.arrow_drop_down, color:Colors.white, size: 40,),
-        ),
-
-        onSelectItem: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-
         sheetChild: Center(child: Text("Place for your another content")),
-
+        selectedIndex: 0,
+        styleBottomBar: BottomBarTheme(
+          mainButtonPosition: MainButtonPosition.right,
+          mainActionButtonSize: 55,
+          barHeightClosed: 75,
+          barHeightOpened: 400,
+          mainActionButtonIconClosed: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 30,
+          ),
+          mainActionButtonIconOpened: Icon(
+            Icons.close,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        onSelectItem: (index) => print("$index bar item is selected"),
         items: [
           BottomBarWithSheetItem(
             iconData: Icons.people,
@@ -70,8 +67,8 @@ Scaffold(
             selectedBackgroundColor: Colors.blue,
           ),
         ],
-
       ),
+// ----------------------------------[end of widget]----------------------------------
     );
 ```
 
