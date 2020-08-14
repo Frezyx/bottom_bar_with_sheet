@@ -25,7 +25,7 @@ class BottomBarTheme {
   final TextStyle selectedItemTextStyle;
   final TextStyle itemTextStyle;
 
-  final int mainButtonPosition;
+  final MainButtonPosition mainButtonPosition;
 
   double barHeightClosed;
   double barHeightOpened;
@@ -97,6 +97,6 @@ class BottomBarTheme {
     this.mainActionButtonIconOpened,
     this.borderRadius = defaultBorderRadius,
     this.boxShadow = defaultboxShadow,
-    this.mainButtonPosition = MainButtonPosition.left,
+    this.mainButtonPosition = MainButtonPosition.Left,
   });
 }

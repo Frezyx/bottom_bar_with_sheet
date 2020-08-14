@@ -176,18 +176,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           child: Column(
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
+                        MainButtonPosition.Midle
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  widget.styleBottomBar.mainButtonPosition ==
-                          MainButtonPosition.left
-                      ? buildMainActionButtton()
-                      : buildButtonsRow(itemWidth),
-                  widget.styleBottomBar.mainButtonPosition ==
-                          MainButtonPosition.right
-                      ? buildMainActionButtton()
-                      : buildButtonsRow(itemWidth),
-                ],
+                children: _buildBody(itemWidth),
               ),
               widget.isOpened ? Expanded(child: sheetChild) : Container()
             ],
@@ -197,7 +191,40 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Container buildButtonsRow(double itemWidth) {
+  List<Widget> _buildBody(itemWidth) {
+    switch (widget.styleBottomBar.mainButtonPosition) {
+      case MainButtonPosition.Right:
+        return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
+        break;
+      case MainButtonPosition.Left:
+        return [_buildMainActionButtton(), _buildButtonsRow(itemWidth)];
+        break;
+      default:
+        return _buildCentredBody(itemWidth);
+    }
+  }
+
+  List<Widget> _buildCentredBody(itemWidth) {
+    final count = widget.items.length;
+    final isEven = count % 2 == 0;
+    return [
+      isEven
+          ? _buildButtonsRow(itemWidth,
+              leftCount: count ~/ 2, rightCount: count ~/ 2)
+          : _buildButtonsRow(itemWidth,
+              leftCount: count ~/ 2 - 1, rightCount: count ~/ 2 + 1)
+    ];
+  }
+
+  Container _buildButtonsRow(double itemWidth,
+      {int leftCount, int rightCount}) {
+    if (leftCount != null && rightCount != null)
+      return _buildCenteredView(itemWidth, leftCount, rightCount);
+    else
+      return _buildStandartView(itemWidth);
+  }
+
+  Container _buildStandartView(double itemWidth) {
     return Container(
       margin: EdgeInsets.only(
           left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
@@ -208,28 +235,67 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         children: widget.items.map((item) {
           var i = widget.items.indexOf(item);
           item.setIndex(i);
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                widget.onSelectItem(i);
-                selectedIndex = i;
-              });
-            },
-            child: Container(
-              color: Colors.transparent,
-              child: SizedBox(
-                width: itemWidth,
-                height: widget.styleBottomBar.barHeightClosed,
-                child: item,
-              ),
-            ),
-          );
+          return _buildItem(i, itemWidth, item);
         }).toList(),
       ),
     );
   }
 
-  Container buildMainActionButtton() {
+  Container _buildCenteredView(
+      double itemWidth, int leftCount, int rightCount) {
+    return Container(
+      margin: EdgeInsets.only(
+          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
+          right: widget.styleBottomBar.otherMargin),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Row(
+          //   children: widget.items.map((item) {
+          //     var i = widget.items.indexOf(item);
+          //     if (i < leftCount) {
+          //       item.setIndex(i);
+          //       return _buildItem(i, itemWidth, item);
+          //     }
+          //   }).toList(),
+          // ),
+          _buildMainActionButtton(),
+          // Row(
+          //   children: widget.items.map((item) {
+          //     var i = widget.items.indexOf(item);
+          //     if (i >= leftCount) {
+          //       item.setIndex(i);
+          //       return _buildItem(i, itemWidth, item);
+          //     }
+          //   }).toList(),
+          // ),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector _buildItem(
+      int i, double itemWidth, BottomBarWithSheetItem item) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.onSelectItem(i);
+          selectedIndex = i;
+        });
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: SizedBox(
+          width: itemWidth,
+          height: widget.styleBottomBar.barHeightClosed,
+          child: item,
+        ),
+      ),
+    );
+  }
+
+  Container _buildMainActionButtton() {
     return Container(
         child: Container(
       color: Colors.transparent,

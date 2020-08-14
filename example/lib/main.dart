@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
         styleBottomBar: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.right,
+          mainButtonPosition: MainButtonPosition.Midle,
           mainActionButtonSize: 55,
           barHeightClosed: 75,
           barHeightOpened: 400,
