@@ -246,22 +246,46 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
     List<Widget> childrenLine = [];
-    widget.items
-        .where((item) => item.isLeft != null && item.isLeft)
-        .forEach((item) => childrenLine.add(item));
+    childrenLine.add(Container(
+        width: (MediaQuery.of(context).size.width -
+                widget.styleBottomBar.leftMargin -
+                widget.styleBottomBar.rightMargin -
+                widget.styleBottomBar.mainActionButtonSize -
+                widget.styleBottomBar.mainActionButtonPadding.left -
+                widget.styleBottomBar.mainActionButtonPadding.right) /
+            2,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: widget.items
+                .where((item) => item.isLeft != null && item.isLeft)
+                .toList())));
     childrenLine.add(_buildMainActionButtton());
-    widget.items
-        .where((item) => item.isLeft == null || !item.isLeft)
-        .forEach((item) => childrenLine.add(item));
+    childrenLine.add(Container(
+      width: (MediaQuery.of(context).size.width -
+              widget.styleBottomBar.leftMargin -
+              widget.styleBottomBar.rightMargin -
+              widget.styleBottomBar.mainActionButtonSize -
+              widget.styleBottomBar.mainActionButtonPadding.left -
+              widget.styleBottomBar.mainActionButtonPadding.right) /
+          2,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: widget.items
+              .where((item) => item.isLeft == null || !item.isLeft)
+              .toList()),
+    ));
 
     return Container(
+      width: MediaQuery.of(context).size.width -
+          widget.styleBottomBar.leftMargin -
+          widget.styleBottomBar.rightMargin,
       margin: EdgeInsets.only(
         left: widget.styleBottomBar.leftMargin,
         right: widget.styleBottomBar.rightMargin,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: childrenLine,
       ),
     );
