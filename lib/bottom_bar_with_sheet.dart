@@ -2,14 +2,16 @@ library bottom_bar_with_sheet;
 
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+import 'package:bottom_bar_with_sheet/src/positions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'src/size_helper.dart';
+
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-export 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+export 'package:bottom_bar_with_sheet/src/positions.dart';
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -99,7 +101,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.dispose();
   }
 
-  animateIcon() async {
+  _animateIcon() async {
     setState(() {
       iconOpacity = 1;
     });
@@ -202,6 +204,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       case MainButtonPosition.Middle:
         return _buildCentredBody(itemWidth);
         break;
+      default:
+        return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
+        break;
     }
   }
 
@@ -245,35 +250,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
+    final rowWidth = SizeHelper.getRowWidth(widget, context);
     List<Widget> childrenLine = [];
-    childrenLine.add(Container(
-        width: (MediaQuery.of(context).size.width -
-                widget.styleBottomBar.leftMargin -
-                widget.styleBottomBar.rightMargin -
-                widget.styleBottomBar.mainActionButtonSize -
-                widget.styleBottomBar.mainActionButtonPadding.left -
-                widget.styleBottomBar.mainActionButtonPadding.right) /
-            2,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: widget.items
-                .where((item) => item.isLeft != null && item.isLeft)
-                .toList())));
+    childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
     childrenLine.add(_buildMainActionButtton());
-    childrenLine.add(Container(
-      width: (MediaQuery.of(context).size.width -
-              widget.styleBottomBar.leftMargin -
-              widget.styleBottomBar.rightMargin -
-              widget.styleBottomBar.mainActionButtonSize -
-              widget.styleBottomBar.mainActionButtonPadding.left -
-              widget.styleBottomBar.mainActionButtonPadding.right) /
-          2,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: widget.items
-              .where((item) => item.isLeft == null || !item.isLeft)
-              .toList()),
-    ));
+    childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
 
     return Container(
       width: MediaQuery.of(context).size.width -
@@ -287,6 +268,21 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: childrenLine,
+      ),
+    );
+  }
+
+  Container _getSeporatedItems(RowPosition position, double rowWidth) {
+    final isLeft = position == RowPosition.Left;
+    return Container(
+      width: rowWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: widget.items
+            .where((item) => isLeft
+                ? item.isLeft != null && item.isLeft
+                : item.isLeft == null || !item.isLeft)
+            .toList(),
       ),
     );
   }
@@ -338,7 +334,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 ),
               ),
               onTap: () {
-                animateIcon();
+                _animateIcon();
                 setState(() {
                   widget.isOpened = !widget.isOpened;
                   _arrowAnimationController.isCompleted

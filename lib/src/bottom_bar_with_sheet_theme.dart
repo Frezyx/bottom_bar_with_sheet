@@ -1,4 +1,4 @@
-import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+import 'package:bottom_bar_with_sheet/src/positions.dart';
 import 'package:flutter/material.dart';
 
 // Hello !
