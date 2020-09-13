@@ -15,6 +15,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   final Duration animationDuration;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
+  bool isLeft;
 
   Color itemIconColor;
   static const defaultDuration = Duration(milliseconds: 500);

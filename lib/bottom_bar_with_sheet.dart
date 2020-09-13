@@ -142,9 +142,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final backgroundColor = styleBottomBar.barBackgroundColor ??
         Theme.of(context).bottomAppBarColor;
     final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
-        (widget.styleBottomBar.otherMargin +
+        (widget.styleBottomBar.rightMargin +
                 widget.styleBottomBar.mainActionButtonSize +
-                widget.styleBottomBar.marginBetweenPanelAndActionButton +
+                widget.styleBottomBar.leftMargin +
                 widget.styleBottomBar.leftMargin +
                 4) /
             widget.items.length;
@@ -153,7 +153,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       elevation: 0,
       color: Colors.transparent,
       shape: CircularNotchedRectangle(),
-      notchMargin: widget.styleBottomBar.otherMargin,
+      notchMargin: widget.styleBottomBar.rightMargin,
       child: MultiProvider(
         providers: [
           Provider<BottomBarTheme>.value(value: styleBottomBar),
@@ -177,7 +177,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             children: <Widget>[
               Row(
                 mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
-                        MainButtonPosition.Midle
+                        MainButtonPosition.Middle
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,8 +199,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       case MainButtonPosition.Left:
         return [_buildMainActionButtton(), _buildButtonsRow(itemWidth)];
         break;
-      default:
+      case MainButtonPosition.Middle:
         return _buildCentredBody(itemWidth);
+        break;
     }
   }
 
@@ -218,17 +219,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildButtonsRow(double itemWidth,
       {int leftCount, int rightCount}) {
-    if (leftCount != null && rightCount != null)
+    if (leftCount != null && rightCount != null) {
+      for (var i = 0; i < leftCount; i++) widget.items[i].isLeft = true;
       return _buildCenteredView(itemWidth, leftCount, rightCount);
-    else
+    } else
       return _buildStandartView(itemWidth);
   }
 
   Container _buildStandartView(double itemWidth) {
     return Container(
       margin: EdgeInsets.only(
-          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
-          right: widget.styleBottomBar.otherMargin),
+          left: widget.styleBottomBar.leftMargin,
+          right: widget.styleBottomBar.rightMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,34 +245,24 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
+    List<Widget> childrenLine = [];
+    widget.items
+        .where((item) => item.isLeft != null && item.isLeft)
+        .forEach((item) => childrenLine.add(item));
+    childrenLine.add(_buildMainActionButtton());
+    widget.items
+        .where((item) => item.isLeft == null || !item.isLeft)
+        .forEach((item) => childrenLine.add(item));
+
     return Container(
       margin: EdgeInsets.only(
-          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
-          right: widget.styleBottomBar.otherMargin),
+        left: widget.styleBottomBar.leftMargin,
+        right: widget.styleBottomBar.rightMargin,
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Row(
-          //   children: widget.items.map((item) {
-          //     var i = widget.items.indexOf(item);
-          //     if (i < leftCount) {
-          //       item.setIndex(i);
-          //       return _buildItem(i, itemWidth, item);
-          //     }
-          //   }).toList(),
-          // ),
-          _buildMainActionButtton(),
-          // Row(
-          //   children: widget.items.map((item) {
-          //     var i = widget.items.indexOf(item);
-          //     if (i >= leftCount) {
-          //       item.setIndex(i);
-          //       return _buildItem(i, itemWidth, item);
-          //     }
-          //   }).toList(),
-          // ),
-        ],
+        children: childrenLine,
       ),
     );
   }

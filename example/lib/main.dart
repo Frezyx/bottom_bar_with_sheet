@@ -34,8 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
         styleBottomBar: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Midle,
+          mainButtonPosition: MainButtonPosition.Left,
           mainActionButtonSize: 55,
+          leftMargin: 10,
           barHeightClosed: 75,
           barHeightOpened: 400,
           mainActionButtonIconClosed: Icon(
@@ -62,6 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomBarWithSheetItem(
             iconData: Icons.shopping_cart,
             label: 'Cart',
+            selectedBackgroundColor: Colors.blue,
+          ),
+          BottomBarWithSheetItem(
+            iconData: Icons.settings,
+            label: 'Settings',
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
