@@ -1,4 +1,4 @@
-import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+import 'package:bottom_bar_with_sheet/src/positions.dart';
 import 'package:flutter/material.dart';
 
 // Hello !
@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-  final double otherMargin;
-  final double marginBetweenPanelAndActionButton;
+  final double rightMargin;
   final double leftMargin;
 
   final double notchMargin;
@@ -75,8 +74,7 @@ class BottomBarTheme {
 
   BottomBarTheme({
     this.leftMargin = 10,
-    this.otherMargin = 10,
-    this.marginBetweenPanelAndActionButton = 20,
+    this.rightMargin = 10,
     this.notchMargin = 8,
     this.itemWidth = 60,
     this.barHeightClosed = 60,

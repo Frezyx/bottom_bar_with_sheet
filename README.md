@@ -93,7 +93,7 @@ Scaffold(
     <ul>
     <li><h2>Sizes</h2></li>
         <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> background color of main Widget</li>
-        <li style="margin-left:10px;"><strong>otherMargin:</strong> size of space between right mobile border and Widget insides</li>
+        <li style="margin-left:10px;"><strong>rightMargin:</strong> size of space between right mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>leftMargin:</strong> size of space between left mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>marginBetweenPanelAndActtionButton:</strong> it seems so clear. No?. Request issue if so.</li>
         <li style="margin-left:10px;"><strong>barHeightClosed:</strong> main Widget height when sheet is closed</li>

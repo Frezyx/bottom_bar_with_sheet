@@ -2,14 +2,16 @@ library bottom_bar_with_sheet;
 
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-import 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+import 'package:bottom_bar_with_sheet/src/positions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'src/size_helper.dart';
+
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-export 'package:bottom_bar_with_sheet/src/main_button_positon.dart';
+export 'package:bottom_bar_with_sheet/src/positions.dart';
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -99,7 +101,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.dispose();
   }
 
-  animateIcon() async {
+  _animateIcon() async {
     setState(() {
       iconOpacity = 1;
     });
@@ -142,9 +144,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final backgroundColor = styleBottomBar.barBackgroundColor ??
         Theme.of(context).bottomAppBarColor;
     final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
-        (widget.styleBottomBar.otherMargin +
+        (widget.styleBottomBar.rightMargin +
                 widget.styleBottomBar.mainActionButtonSize +
-                widget.styleBottomBar.marginBetweenPanelAndActionButton +
+                widget.styleBottomBar.leftMargin +
                 widget.styleBottomBar.leftMargin +
                 4) /
             widget.items.length;
@@ -153,7 +155,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       elevation: 0,
       color: Colors.transparent,
       shape: CircularNotchedRectangle(),
-      notchMargin: widget.styleBottomBar.otherMargin,
+      notchMargin: widget.styleBottomBar.rightMargin,
       child: MultiProvider(
         providers: [
           Provider<BottomBarTheme>.value(value: styleBottomBar),
@@ -177,7 +179,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             children: <Widget>[
               Row(
                 mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
-                        MainButtonPosition.Midle
+                        MainButtonPosition.Middle
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,8 +201,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       case MainButtonPosition.Left:
         return [_buildMainActionButtton(), _buildButtonsRow(itemWidth)];
         break;
-      default:
+      case MainButtonPosition.Middle:
         return _buildCentredBody(itemWidth);
+        break;
+      default:
+        return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
+        break;
     }
   }
 
@@ -218,17 +224,21 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildButtonsRow(double itemWidth,
       {int leftCount, int rightCount}) {
-    if (leftCount != null && rightCount != null)
+    if (leftCount != null && rightCount != null) {
+      for (var i = 0; i < widget.items.length; i++) {
+        if (i < leftCount) widget.items[i].isLeft = true;
+        widget.items[i].setIndex(i);
+      }
       return _buildCenteredView(itemWidth, leftCount, rightCount);
-    else
+    } else
       return _buildStandartView(itemWidth);
   }
 
   Container _buildStandartView(double itemWidth) {
     return Container(
       margin: EdgeInsets.only(
-          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
-          right: widget.styleBottomBar.otherMargin),
+          left: widget.styleBottomBar.leftMargin,
+          right: widget.styleBottomBar.rightMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,34 +253,43 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
+    final rowWidth = SizeHelper.getRowWidth(widget, context);
+    List<Widget> childrenLine = [];
+    childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
+    childrenLine.add(_buildMainActionButtton());
+    childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
+
     return Container(
+      width: MediaQuery.of(context).size.width -
+          widget.styleBottomBar.leftMargin -
+          widget.styleBottomBar.rightMargin,
       margin: EdgeInsets.only(
-          left: widget.styleBottomBar.marginBetweenPanelAndActionButton,
-          right: widget.styleBottomBar.otherMargin),
+        left: widget.styleBottomBar.leftMargin,
+        right: widget.styleBottomBar.rightMargin,
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Row(
-          //   children: widget.items.map((item) {
-          //     var i = widget.items.indexOf(item);
-          //     if (i < leftCount) {
-          //       item.setIndex(i);
-          //       return _buildItem(i, itemWidth, item);
-          //     }
-          //   }).toList(),
-          // ),
-          _buildMainActionButtton(),
-          // Row(
-          //   children: widget.items.map((item) {
-          //     var i = widget.items.indexOf(item);
-          //     if (i >= leftCount) {
-          //       item.setIndex(i);
-          //       return _buildItem(i, itemWidth, item);
-          //     }
-          //   }).toList(),
-          // ),
-        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: childrenLine,
+      ),
+    );
+  }
+
+  Container _getSeporatedItems(RowPosition position, double rowWidth) {
+    final isLeft = position == RowPosition.Left;
+    return Container(
+      width: rowWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: widget.items
+            .where((item) => isLeft
+                ? item.isLeft != null && item.isLeft
+                : item.isLeft == null || !item.isLeft)
+            .map((item) {
+          var i = widget.items.indexOf(item);
+          item.setIndex(i);
+          return _buildItem(i, rowWidth / 2, item);
+        }).toList(),
       ),
     );
   }
@@ -279,6 +298,16 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       int i, double itemWidth, BottomBarWithSheetItem item) {
     return GestureDetector(
       onTap: () {
+        if (widget.isOpened) {
+          _animateIcon();
+          _arrowAnimationController.isCompleted
+              ? _arrowAnimationController.reverse().then((value) {
+                  // Call back in future version
+                })
+              : _arrowAnimationController.forward().then((value) {
+                  // Call back in future version
+                });
+        }
         setState(() {
           widget.onSelectItem(i);
           selectedIndex = i;
@@ -322,7 +351,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 ),
               ),
               onTap: () {
-                animateIcon();
+                _animateIcon();
                 setState(() {
                   widget.isOpened = !widget.isOpened;
                   _arrowAnimationController.isCompleted
