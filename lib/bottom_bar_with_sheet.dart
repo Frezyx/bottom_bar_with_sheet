@@ -298,6 +298,16 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       int i, double itemWidth, BottomBarWithSheetItem item) {
     return GestureDetector(
       onTap: () {
+        if (widget.isOpened) {
+          _animateIcon();
+          _arrowAnimationController.isCompleted
+              ? _arrowAnimationController.reverse().then((value) {
+                  // Call back in future version
+                })
+              : _arrowAnimationController.forward().then((value) {
+                  // Call back in future version
+                });
+        }
         setState(() {
           widget.onSelectItem(i);
           selectedIndex = i;
