@@ -225,7 +225,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container _buildButtonsRow(double itemWidth,
       {int leftCount, int rightCount}) {
     if (leftCount != null && rightCount != null) {
-      for (var i = 0; i < leftCount; i++) widget.items[i].isLeft = true;
+      for (var i = 0; i < widget.items.length; i++) {
+        if (i < leftCount) widget.items[i].isLeft = true;
+        widget.items[i].setIndex(i);
+      }
       return _buildCenteredView(itemWidth, leftCount, rightCount);
     } else
       return _buildStandartView(itemWidth);
@@ -282,7 +285,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             .where((item) => isLeft
                 ? item.isLeft != null && item.isLeft
                 : item.isLeft == null || !item.isLeft)
-            .toList(),
+            .map((item) {
+          var i = widget.items.indexOf(item);
+          item.setIndex(i);
+          return _buildItem(i, rowWidth / 2, item);
+        }).toList(),
       ),
     );
   }
