@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.settings,
-            label: 'Settings',
+            iconData: Icons.favorite,
+            label: 'Likes',
             selectedBackgroundColor: Colors.blue,
           ),
         ],
