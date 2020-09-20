@@ -1,0 +1,14 @@
+env:
+    - FLUTTER_GITHUB="https://github.com/flutter/flutter.git"
+
+language: dart
+dart:
+    - stable
+dart_task:
+    - dartfmt
+install:
+    - git clone $FLUTTER_GITHUB -b stable
+
+script:
+  - ./flutter/bin/flutter doctor
+  - ./flutter/bin/flutter test 
