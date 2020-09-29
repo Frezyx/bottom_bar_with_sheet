@@ -158,9 +158,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       child: AnimatedContainer(
         duration: duration,
         curve: curve,
-        height: widget.isOpened
-            ? widget.styleBottomBar.barHeightOpened
-            : widget.styleBottomBar.barHeightClosed,
+        height: _calculateWidgetHeight(),
+        padding: widget.styleBottomBar.contentPadding,
         decoration: BoxDecoration(
           borderRadius: widget.styleBottomBar.borderRadius,
           boxShadow: widget.styleBottomBar.boxShadow,
@@ -181,17 +180,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         ),
       ),
     );
-  }
-
-  double _calculateItemWidth(
-      BuildContext context, double rightPadding, double leftPadding) {
-    return MediaQuery.of(context).size.width / widget.items.length -
-        (rightPadding +
-                widget.styleBottomBar.mainActionButtonSize +
-                leftPadding +
-                leftPadding +
-                4) /
-            widget.items.length;
   }
 
   List<Widget> _buildBody(itemWidth) {
@@ -237,7 +225,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildStandartView(double itemWidth) {
     return Container(
-      margin: widget.styleBottomBar.contentPadding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +247,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
     return Container(
       width: _calculateInnerWidth(),
-      margin: widget.styleBottomBar.contentPadding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -325,37 +311,33 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildMainActionButtton() {
     return Container(
-      child: Container(
-        color: Colors.transparent,
-        child: Padding(
-          padding: widget.styleBottomBar.mainActionButtonPadding,
-          child: ClipOval(
-            child: Material(
-              color:
-                  widget.styleBottomBar.mainActionButtonColor, // button color
-              child: InkWell(
-                splashColor: widget.styleBottomBar
-                    .mainActionButtonColorSplash, // inkwell color
-                child: AnimatedBuilder(
-                  animation: _arrowAnimationController,
-                  builder: (BuildContext context, Widget child) {
-                    return Transform.rotate(
-                      angle: _arrowAnimation.value * 2.0 * math.pi,
-                      child: child,
-                    );
-                  },
-                  child: SizedBox(
-                    width: widget.styleBottomBar.mainActionButtonSize,
-                    height: widget.styleBottomBar.mainActionButtonSize,
-                    child:
-                        Opacity(opacity: iconOpacity, child: actionButtonIcon),
-                  ),
-                ),
-                onTap: () {
-                  _animateIcon();
-                  _changeWidgetState();
+      color: Colors.transparent,
+      child: Padding(
+        padding: widget.styleBottomBar.mainActionButtonPadding,
+        child: ClipOval(
+          child: Material(
+            color: widget.styleBottomBar.mainActionButtonColor, // button color
+            child: InkWell(
+              splashColor: widget
+                  .styleBottomBar.mainActionButtonColorSplash, // inkwell color
+              child: AnimatedBuilder(
+                animation: _arrowAnimationController,
+                builder: (BuildContext context, Widget child) {
+                  return Transform.rotate(
+                    angle: _arrowAnimation.value * 2.0 * math.pi,
+                    child: child,
+                  );
                 },
+                child: SizedBox(
+                  width: widget.styleBottomBar.mainActionButtonSize,
+                  height: widget.styleBottomBar.mainActionButtonSize,
+                  child: Opacity(opacity: iconOpacity, child: actionButtonIcon),
+                ),
               ),
+              onTap: () {
+                _animateIcon();
+                _changeWidgetState();
+              },
             ),
           ),
         ),
@@ -375,5 +357,24 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
               // Call back in future version
             },
           );
+  }
+
+  double _calculateWidgetHeight() => widget.isOpened
+      ? widget.styleBottomBar.barHeightOpened +
+          widget.styleBottomBar.contentPadding.bottom +
+          widget.styleBottomBar.contentPadding.top
+      : widget.styleBottomBar.barHeightClosed +
+          widget.styleBottomBar.contentPadding.bottom +
+          widget.styleBottomBar.contentPadding.top;
+
+  double _calculateItemWidth(
+      BuildContext context, double rightPadding, double leftPadding) {
+    return MediaQuery.of(context).size.width / widget.items.length -
+        (rightPadding +
+                widget.styleBottomBar.mainActionButtonSize +
+                leftPadding +
+                leftPadding +
+                4) /
+            widget.items.length;
   }
 }
