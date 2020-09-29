@@ -147,39 +147,37 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final rightPadding = widget.styleBottomBar.contentPadding.right;
     final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
 
-    return Container(
-      child: MultiProvider(
-        providers: [
-          Provider<BottomBarTheme>.value(value: styleBottomBar),
-          Provider<int>.value(value: widget.selectedIndex),
-          Provider<bool>.value(value: widget.isOpened),
-          Provider<MainAxisAlignment>.value(
-              value: widget.bottomBarMainAxisAlignment),
-        ],
-        child: AnimatedContainer(
-          duration: duration,
-          curve: curve,
-          height: widget.isOpened
-              ? widget.styleBottomBar.barHeightOpened
-              : widget.styleBottomBar.barHeightClosed,
-          decoration: BoxDecoration(
-            borderRadius: widget.styleBottomBar.borderRadius,
-            boxShadow: widget.styleBottomBar.boxShadow,
-            color: backgroundColor,
-          ),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
-                        MainButtonPosition.Middle
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _buildBody(itemWidth),
-              ),
-              widget.isOpened ? Expanded(child: sheetChild) : Container()
-            ],
-          ),
+    return MultiProvider(
+      providers: [
+        Provider<BottomBarTheme>.value(value: styleBottomBar),
+        Provider<int>.value(value: widget.selectedIndex),
+        Provider<bool>.value(value: widget.isOpened),
+        Provider<MainAxisAlignment>.value(
+            value: widget.bottomBarMainAxisAlignment),
+      ],
+      child: AnimatedContainer(
+        duration: duration,
+        curve: curve,
+        height: widget.isOpened
+            ? widget.styleBottomBar.barHeightOpened
+            : widget.styleBottomBar.barHeightClosed,
+        decoration: BoxDecoration(
+          borderRadius: widget.styleBottomBar.borderRadius,
+          boxShadow: widget.styleBottomBar.boxShadow,
+          color: backgroundColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
+                      MainButtonPosition.Middle
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _buildBody(itemWidth),
+            ),
+            widget.isOpened ? Expanded(child: sheetChild) : Container()
+          ],
         ),
       ),
     );
