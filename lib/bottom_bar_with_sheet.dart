@@ -151,11 +151,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 4) /
             widget.items.length;
 
-    return BottomAppBar(
-      elevation: 0,
-      color: Colors.transparent,
-      shape: CircularNotchedRectangle(),
-      notchMargin: widget.styleBottomBar.rightMargin,
+    return Container(
       child: MultiProvider(
         providers: [
           Provider<BottomBarTheme>.value(value: styleBottomBar),
