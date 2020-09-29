@@ -143,19 +143,14 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final BottomBarTheme styleBottomBar = widget.styleBottomBar;
     final backgroundColor = styleBottomBar.barBackgroundColor ??
         Theme.of(context).bottomAppBarColor;
-    final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
-        (widget.styleBottomBar.rightMargin +
-                widget.styleBottomBar.mainActionButtonSize +
-                widget.styleBottomBar.leftMargin +
-                widget.styleBottomBar.leftMargin +
-                4) /
-            widget.items.length;
+    final leftPadding = widget.styleBottomBar.contentPadding.left;
+    final rightPadding = widget.styleBottomBar.contentPadding.right;
+    final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
 
     return BottomAppBar(
       elevation: 0,
       color: Colors.transparent,
       shape: CircularNotchedRectangle(),
-      notchMargin: widget.styleBottomBar.rightMargin,
       child: MultiProvider(
         providers: [
           Provider<BottomBarTheme>.value(value: styleBottomBar),
@@ -191,6 +186,17 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         ),
       ),
     );
+  }
+
+  double _calculateItemWidth(
+      BuildContext context, double rightPadding, double leftPadding) {
+    return MediaQuery.of(context).size.width / widget.items.length -
+        (rightPadding +
+                widget.styleBottomBar.mainActionButtonSize +
+                leftPadding +
+                leftPadding +
+                4) /
+            widget.items.length;
   }
 
   List<Widget> _buildBody(itemWidth) {
@@ -236,9 +242,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildStandartView(double itemWidth) {
     return Container(
-      margin: EdgeInsets.only(
-          left: widget.styleBottomBar.leftMargin,
-          right: widget.styleBottomBar.rightMargin),
+      margin: widget.styleBottomBar.contentPadding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,13 +264,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
 
     return Container(
-      width: MediaQuery.of(context).size.width -
-          widget.styleBottomBar.leftMargin -
-          widget.styleBottomBar.rightMargin,
-      margin: EdgeInsets.only(
-        left: widget.styleBottomBar.leftMargin,
-        right: widget.styleBottomBar.rightMargin,
-      ),
+      width: _calculateInnerWidth(),
+      margin: widget.styleBottomBar.contentPadding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -274,6 +273,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       ),
     );
   }
+
+  double _calculateInnerWidth() =>
+      MediaQuery.of(context).size.width -
+      widget.styleBottomBar.contentPadding.left -
+      widget.styleBottomBar.contentPadding.right;
 
   Container _getSeporatedItems(RowPosition position, double rowWidth) {
     final isLeft = position == RowPosition.Left;
@@ -326,47 +330,55 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildMainActionButtton() {
     return Container(
-        child: Container(
-      color: Colors.transparent,
-      child: Padding(
-        padding: widget.styleBottomBar.mainActionButtonPadding,
-        child: ClipOval(
-          child: Material(
-            color: widget.styleBottomBar.mainActionButtonColor, // button color
-            child: InkWell(
-              splashColor: widget
-                  .styleBottomBar.mainActionButtonColorSplash, // inkwell color
-              child: AnimatedBuilder(
-                animation: _arrowAnimationController,
-                builder: (BuildContext context, Widget child) {
-                  return Transform.rotate(
-                    angle: _arrowAnimation.value * 2.0 * math.pi,
-                    child: child,
-                  );
-                },
-                child: SizedBox(
-                  width: widget.styleBottomBar.mainActionButtonSize,
-                  height: widget.styleBottomBar.mainActionButtonSize,
-                  child: Opacity(opacity: iconOpacity, child: actionButtonIcon),
+      child: Container(
+        color: Colors.transparent,
+        child: Padding(
+          padding: widget.styleBottomBar.mainActionButtonPadding,
+          child: ClipOval(
+            child: Material(
+              color:
+                  widget.styleBottomBar.mainActionButtonColor, // button color
+              child: InkWell(
+                splashColor: widget.styleBottomBar
+                    .mainActionButtonColorSplash, // inkwell color
+                child: AnimatedBuilder(
+                  animation: _arrowAnimationController,
+                  builder: (BuildContext context, Widget child) {
+                    return Transform.rotate(
+                      angle: _arrowAnimation.value * 2.0 * math.pi,
+                      child: child,
+                    );
+                  },
+                  child: SizedBox(
+                    width: widget.styleBottomBar.mainActionButtonSize,
+                    height: widget.styleBottomBar.mainActionButtonSize,
+                    child:
+                        Opacity(opacity: iconOpacity, child: actionButtonIcon),
+                  ),
                 ),
+                onTap: () {
+                  _animateIcon();
+                  _changeWidgetState();
+                },
               ),
-              onTap: () {
-                _animateIcon();
-                setState(() {
-                  widget.isOpened = !widget.isOpened;
-                  _arrowAnimationController.isCompleted
-                      ? _arrowAnimationController.reverse().then((value) {
-                          // Call back in future version
-                        })
-                      : _arrowAnimationController.forward().then((value) {
-                          // Call back in future version
-                        });
-                });
-              },
             ),
           ),
         ),
       ),
-    ));
+    );
+  }
+
+  void _changeWidgetState() {
+    setState(() => widget.isOpened = !widget.isOpened);
+
+    _arrowAnimationController.isCompleted
+        ? _arrowAnimationController.reverse().then((value) {
+            // Call back in future version
+          })
+        : _arrowAnimationController.forward().then(
+            (value) {
+              // Call back in future version
+            },
+          );
   }
 }

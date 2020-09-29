@@ -36,7 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
         styleBottomBar: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
           mainActionButtonSize: 55,
-          leftMargin: 10,
           barHeightClosed: 75,
           barHeightOpened: 400,
           mainActionButtonIconClosed: Icon(

@@ -100,7 +100,6 @@ Scaffold(
         <li style="margin-left:10px;"><strong>barHeightOpened:</strong> main Widget height when sheet is opened</li>
         <li style="margin-left:10px;"><strong>mainActionButtonPadding:</strong> space beetwen circle border and icon of main action button</li>
         <li style="margin-left:10px;"><strong>mainActionButtonSize:</strong> size of main action button</li>
-        <li style="margin-left:10px;"><strong>notchMargin:</strong> radius of space size between FloatingActionBar and BottomNavigationBar (if you need in FAB)</li>
     <li><h2>Colors</h2></li>
         <li style="margin-left:10px;"><strong>mainActionButtonColorSplash:</strong> main action button splash color</li>
         <li style="margin-left:10px;"><strong>mainActionButtonColor:</strong> main action button color</li>
