@@ -147,10 +147,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final rightPadding = widget.styleBottomBar.contentPadding.right;
     final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
 
-    return BottomAppBar(
-      elevation: 0,
-      color: Colors.transparent,
-      shape: CircularNotchedRectangle(),
+    return Container(
       child: MultiProvider(
         providers: [
           Provider<BottomBarTheme>.value(value: styleBottomBar),
