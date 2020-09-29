@@ -5,6 +5,10 @@
 
 * Now the widget is not based on the standard BottomAppBar.
 
+## 0.2.0 - 16-09-2020
+
+* Added ability to set center position of the main button
+
 ## 0.1.3 - 12-08-2020
 
 * Simplify example end README.md
