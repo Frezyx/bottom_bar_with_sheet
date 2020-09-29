@@ -143,51 +143,40 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final BottomBarTheme styleBottomBar = widget.styleBottomBar;
     final backgroundColor = styleBottomBar.barBackgroundColor ??
         Theme.of(context).bottomAppBarColor;
-    final itemWidth = MediaQuery.of(context).size.width / widget.items.length -
-        (widget.styleBottomBar.rightMargin +
-                widget.styleBottomBar.mainActionButtonSize +
-                widget.styleBottomBar.leftMargin +
-                widget.styleBottomBar.leftMargin +
-                4) /
-            widget.items.length;
+    final leftPadding = widget.styleBottomBar.contentPadding.left;
+    final rightPadding = widget.styleBottomBar.contentPadding.right;
+    final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
 
-    return BottomAppBar(
-      elevation: 0,
-      color: Colors.transparent,
-      shape: CircularNotchedRectangle(),
-      notchMargin: widget.styleBottomBar.rightMargin,
-      child: MultiProvider(
-        providers: [
-          Provider<BottomBarTheme>.value(value: styleBottomBar),
-          Provider<int>.value(value: widget.selectedIndex),
-          Provider<bool>.value(value: widget.isOpened),
-          Provider<MainAxisAlignment>.value(
-              value: widget.bottomBarMainAxisAlignment),
-        ],
-        child: AnimatedContainer(
-          duration: duration,
-          curve: curve,
-          height: widget.isOpened
-              ? widget.styleBottomBar.barHeightOpened
-              : widget.styleBottomBar.barHeightClosed,
-          decoration: BoxDecoration(
-            borderRadius: widget.styleBottomBar.borderRadius,
-            boxShadow: widget.styleBottomBar.boxShadow,
-            color: backgroundColor,
-          ),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
-                        MainButtonPosition.Middle
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _buildBody(itemWidth),
-              ),
-              widget.isOpened ? Expanded(child: sheetChild) : Container()
-            ],
-          ),
+    return MultiProvider(
+      providers: [
+        Provider<BottomBarTheme>.value(value: styleBottomBar),
+        Provider<int>.value(value: widget.selectedIndex),
+        Provider<bool>.value(value: widget.isOpened),
+        Provider<MainAxisAlignment>.value(
+            value: widget.bottomBarMainAxisAlignment),
+      ],
+      child: AnimatedContainer(
+        duration: duration,
+        curve: curve,
+        height: _calculateWidgetHeight(),
+        padding: widget.styleBottomBar.contentPadding,
+        decoration: BoxDecoration(
+          borderRadius: widget.styleBottomBar.borderRadius,
+          boxShadow: widget.styleBottomBar.boxShadow,
+          color: backgroundColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
+                      MainButtonPosition.Middle
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _buildBody(itemWidth),
+            ),
+            widget.isOpened ? Expanded(child: sheetChild) : Container()
+          ],
         ),
       ),
     );
@@ -236,9 +225,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildStandartView(double itemWidth) {
     return Container(
-      margin: EdgeInsets.only(
-          left: widget.styleBottomBar.leftMargin,
-          right: widget.styleBottomBar.rightMargin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,13 +246,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
 
     return Container(
-      width: MediaQuery.of(context).size.width -
-          widget.styleBottomBar.leftMargin -
-          widget.styleBottomBar.rightMargin,
-      margin: EdgeInsets.only(
-        left: widget.styleBottomBar.leftMargin,
-        right: widget.styleBottomBar.rightMargin,
-      ),
+      width: _calculateInnerWidth(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -274,6 +254,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       ),
     );
   }
+
+  double _calculateInnerWidth() =>
+      MediaQuery.of(context).size.width -
+      widget.styleBottomBar.contentPadding.left -
+      widget.styleBottomBar.contentPadding.right;
 
   Container _getSeporatedItems(RowPosition position, double rowWidth) {
     final isLeft = position == RowPosition.Left;
@@ -326,7 +311,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildMainActionButtton() {
     return Container(
-        child: Container(
       color: Colors.transparent,
       child: Padding(
         padding: widget.styleBottomBar.mainActionButtonPadding,
@@ -352,21 +336,45 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
               ),
               onTap: () {
                 _animateIcon();
-                setState(() {
-                  widget.isOpened = !widget.isOpened;
-                  _arrowAnimationController.isCompleted
-                      ? _arrowAnimationController.reverse().then((value) {
-                          // Call back in future version
-                        })
-                      : _arrowAnimationController.forward().then((value) {
-                          // Call back in future version
-                        });
-                });
+                _changeWidgetState();
               },
             ),
           ),
         ),
       ),
-    ));
+    );
+  }
+
+  void _changeWidgetState() {
+    setState(() => widget.isOpened = !widget.isOpened);
+
+    _arrowAnimationController.isCompleted
+        ? _arrowAnimationController.reverse().then((value) {
+            // Call back in future version
+          })
+        : _arrowAnimationController.forward().then(
+            (value) {
+              // Call back in future version
+            },
+          );
+  }
+
+  double _calculateWidgetHeight() => widget.isOpened
+      ? widget.styleBottomBar.barHeightOpened +
+          widget.styleBottomBar.contentPadding.bottom +
+          widget.styleBottomBar.contentPadding.top
+      : widget.styleBottomBar.barHeightClosed +
+          widget.styleBottomBar.contentPadding.bottom +
+          widget.styleBottomBar.contentPadding.top;
+
+  double _calculateItemWidth(
+      BuildContext context, double rightPadding, double leftPadding) {
+    return MediaQuery.of(context).size.width / widget.items.length -
+        (rightPadding +
+                widget.styleBottomBar.mainActionButtonSize +
+                leftPadding +
+                leftPadding +
+                4) /
+            widget.items.length;
   }
 }
