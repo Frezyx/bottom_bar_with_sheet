@@ -13,7 +13,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.1.3 #latest version
+  bottom_bar_with_sheet: ^0.2.1 #latest version
 ```
 
 ### Add import package
@@ -24,7 +24,6 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 
 ### Easy to use
 Create a **Scaffold** widget and set **bottomNavigationBar** with **BottomBarWithSheet** like in the code below
-
 
 ```dart
 Scaffold(
