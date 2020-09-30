@@ -56,7 +56,8 @@ class BottomBarTheme {
 
   static const _constMainActionButtonPadding = EdgeInsets.all(7);
 
-  static const _constcontentPadding = EdgeInsets.only(left: 10, right: 10);
+  static const _constcontentPadding =
+      EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
 
   static const _defaultboxShadow = [
     BoxShadow(

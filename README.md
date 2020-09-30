@@ -92,6 +92,7 @@ Scaffold(
 <strong>styleBottomBar:</strong> -> List of style settings to customize your bottom_bar_with_sheet ->(
     <ul>
     <li><h2>Sizes</h2></li>
+        <li style="margin-left:10px;"><strong>contentPadding:</strong> padding between content of widget and edges of widget</li>
         <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> background color of main Widget</li>
         <li style="margin-left:10px;"><strong>rightMargin:</strong> size of space between right mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>leftMargin:</strong> size of space between left mobile border and Widget insides</li>
