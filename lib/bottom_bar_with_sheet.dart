@@ -26,10 +26,10 @@ class BottomBarWithSheet extends StatefulWidget {
   final Function onSelectItem;
   final int selectedIndex;
   final Widget sheetChild;
+  final Duration duration;
+  final Curve curve;
+  final MainAxisAlignment bottomBarMainAxisAlignment;
   bool isOpened;
-  Duration duration;
-  Curve curve;
-  MainAxisAlignment bottomBarMainAxisAlignment;
 
   static const constDuration = Duration(milliseconds: 500);
   static const constCurve = Curves.linear;
@@ -63,25 +63,23 @@ class BottomBarWithSheet extends StatefulWidget {
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
   int selectedIndex;
-  bool isOpened;
-  Duration duration;
-  Curve curve;
-  _BottomBarWithSheetState(
-      {this.selectedIndex,
-      this.isOpened,
-      this.bottomBarMainAxisAlignment,
-      this.duration,
-      this.curve,
-      this.sheetChild});
+  final bool isOpened;
+  final Duration duration;
+  final Curve curve;
+  final MainAxisAlignment bottomBarMainAxisAlignment;
+  final Widget sheetChild;
+  _BottomBarWithSheetState({
+    this.selectedIndex,
+    this.isOpened,
+    this.bottomBarMainAxisAlignment,
+    this.duration,
+    this.curve,
+    this.sheetChild,
+  });
 
+  Widget _actionButtonIcon;
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
-  var bottomSheetController;
-  bool isAnimated = false;
-  MainAxisAlignment bottomBarMainAxisAlignment;
-  Widget sheetChild;
-  Widget actionButtonIcon;
-
   double iconOpacity = 1;
 
   @override
@@ -91,7 +89,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    actionButtonIcon = widget.styleBottomBar.mainActionButtonIconClosed;
+    _actionButtonIcon = widget.styleBottomBar.mainActionButtonIconClosed;
     super.initState();
   }
 
@@ -121,8 +119,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     }
 
     setState(() {
-      actionButtonIcon =
-          actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened
+      _actionButtonIcon =
+          _actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened
               ? widget.styleBottomBar.mainActionButtonIconClosed
               : widget.styleBottomBar.mainActionButtonIconOpened;
     });
@@ -285,13 +283,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       onTap: () {
         if (widget.isOpened) {
           _animateIcon();
-          _arrowAnimationController.isCompleted
-              ? _arrowAnimationController.reverse().then((value) {
-                  // Call back in future version
-                })
-              : _arrowAnimationController.forward().then((value) {
-                  // Call back in future version
-                });
+          _changeWidgetState();
         }
         setState(() {
           widget.onSelectItem(i);
@@ -331,7 +323,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 child: SizedBox(
                   width: widget.styleBottomBar.mainActionButtonSize,
                   height: widget.styleBottomBar.mainActionButtonSize,
-                  child: Opacity(opacity: iconOpacity, child: actionButtonIcon),
+                  child: Opacity(
+                    opacity: iconOpacity,
+                    child: _actionButtonIcon,
+                  ),
                 ),
               ),
               onTap: () {
@@ -347,11 +342,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   void _changeWidgetState() {
     setState(() => widget.isOpened = !widget.isOpened);
-
     _arrowAnimationController.isCompleted
-        ? _arrowAnimationController.reverse().then((value) {
-            // Call back in future version
-          })
+        ? _arrowAnimationController.reverse().then(
+            (value) {
+              // Call back in future version
+            },
+          )
         : _arrowAnimationController.forward().then(
             (value) {
               // Call back in future version

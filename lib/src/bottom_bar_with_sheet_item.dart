@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
+const defaultDuration = Duration(milliseconds: 500);
+
 // ignore: must_be_immutable
 class BottomBarWithSheetItem extends StatelessWidget {
   final String label;
@@ -16,16 +18,12 @@ class BottomBarWithSheetItem extends StatelessWidget {
   Color selectedBackgroundColor;
   Color selectedLabelColor;
   bool isLeft;
-
   Color itemIconColor;
-  static const defaultDuration = Duration(milliseconds: 500);
-
-  int index;
-  int selectedIndex;
-  BottomBarTheme styleBottomBar;
+  int _index;
+  int _selectedIndex;
+  BottomBarTheme _styleBottomBar;
   double itemWidth;
-  bool isOpened;
-  MainAxisAlignment bottomBarMainAxisAlignment;
+  MainAxisAlignment _bottomBarMainAxisAlignment;
 
   BottomBarWithSheetItem({
     Key key,
@@ -34,7 +32,6 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.selectedBackgroundColor,
     this.iconData,
     this.animationDuration = defaultDuration,
-    this.bottomBarMainAxisAlignment,
     this.itemIconColor,
   }) : super(key: key);
 
@@ -45,14 +42,14 @@ class BottomBarWithSheetItem extends StatelessWidget {
         label,
         style: TextStyle(
           color: isSelected
-              ? styleBottomBar.selectedItemLabelColor
-              : styleBottomBar.itemLabelColor,
+              ? _styleBottomBar.selectedItemLabelColor
+              : _styleBottomBar.itemLabelColor,
           fontSize: isSelected
-              ? styleBottomBar.selectedItemTextStyle.fontSize
-              : styleBottomBar.itemTextStyle.fontSize,
+              ? _styleBottomBar.selectedItemTextStyle.fontSize
+              : _styleBottomBar.itemTextStyle.fontSize,
           fontWeight: isSelected
-              ? styleBottomBar.selectedItemTextStyle.fontWeight
-              : styleBottomBar.itemTextStyle.fontWeight,
+              ? _styleBottomBar.selectedItemTextStyle.fontWeight
+              : _styleBottomBar.itemTextStyle.fontWeight,
         ),
         textAlign: TextAlign.center,
       ),
@@ -63,7 +60,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
     return Center(
       child: ClipOval(
         child: Material(
-          color: selectedBackgroundColor, // button color
+          color: selectedBackgroundColor,
           child: Ink(
             child: SizedBox(
                 child: Padding(
@@ -86,42 +83,41 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Icon(
         icon,
         size: 20,
-        color: styleBottomBar.itemLabelColor,
+        color: _styleBottomBar.itemLabelColor,
       ),
     );
   }
 
   void setIndex(int index) {
-    this.index = index;
+    this._index = index;
   }
 
   bool _checkItemState() {
-    return index == selectedIndex;
+    return _index == _selectedIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    styleBottomBar = Provider.of<BottomBarTheme>(context);
-    selectedIndex = Provider.of<int>(context);
-    isOpened = Provider.of<bool>(context);
-    bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
+    _styleBottomBar = Provider.of<BottomBarTheme>(context);
+    _selectedIndex = Provider.of<int>(context);
+    _bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
-    itemIconColor = itemIconColor ?? styleBottomBar.itemIconColor;
+    itemIconColor = itemIconColor ?? _styleBottomBar.itemIconColor;
     selectedBackgroundColor =
-        selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
+        selectedBackgroundColor ?? _styleBottomBar.selectedItemBackgroundColor;
 
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
     Widget labelWidget = _makeText(label);
     Widget iconAreaWidget = isSelected
-        ? _buildOpenedButton(iconData, styleBottomBar.selectedItemIconColor)
+        ? _buildOpenedButton(iconData, _styleBottomBar.selectedItemIconColor)
         : _buildClosedButton(iconData);
 
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: bottomBarMainAxisAlignment,
+          mainAxisAlignment: _bottomBarMainAxisAlignment,
           children: <Widget>[
             SizedBox(height: iconTopSpacer),
             iconAreaWidget,
