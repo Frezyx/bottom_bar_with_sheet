@@ -304,6 +304,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container _buildMainActionButtton() {
     return Container(
       color: Colors.transparent,
+      transform: widget.styleBottomBar.mainActionButtonTransform ??
+          Matrix4.translationValues(0.0, 0.0, 0.0),
       child: Padding(
         padding: widget.styleBottomBar.mainActionButtonPadding,
         child: ClipOval(

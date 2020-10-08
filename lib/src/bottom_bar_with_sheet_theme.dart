@@ -33,6 +33,7 @@ class BottomBarTheme {
   final Color mainActionButtonColorSplash;
   final Color mainActionButtonColor;
   final EdgeInsets mainActionButtonPadding;
+  final Matrix4 mainActionButtonTransform;
 
   final BorderRadius borderRadius;
   final List<BoxShadow> boxShadow;
@@ -93,5 +94,6 @@ class BottomBarTheme {
     this.borderRadius = _defaultBorderRadius,
     this.boxShadow = _defaultboxShadow,
     this.mainButtonPosition = MainButtonPosition.Left,
+    this.mainActionButtonTransform,
   });
 }

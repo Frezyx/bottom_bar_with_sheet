@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainActionButtonSize: 55,
           barHeightClosed: 75,
           barHeightOpened: 400,
+          selectedItemBackgroundColor: Colors.blue,
           mainActionButtonIconClosed: Icon(
             Icons.add,
             color: Colors.white,
@@ -55,22 +56,18 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomBarWithSheetItem(
             iconData: Icons.people,
             label: 'Profile',
-            selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
             iconData: Icons.shopping_cart,
             label: 'Cart',
-            selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
             iconData: Icons.settings,
             label: 'Settings',
-            selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
             iconData: Icons.favorite,
             label: 'Likes',
-            selectedBackgroundColor: Colors.blue,
           ),
         ],
       ),
