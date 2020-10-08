@@ -4,8 +4,8 @@
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉First of all look at screens!
 
-| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example_day_theme.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example_night_theme.gif?raw=true) |
-| :------------: | :------------: |
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/info-doc-updates/example/rep_files/example1.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/info-doc-updates/example/rep_files/example2.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/info-doc-updates/example/rep_files/example3.gif?raw=true) |
+| :------------: | :------------: | :------------: |
 
 ## Getting Started
 
@@ -30,44 +30,30 @@ Scaffold(
       body: Center(child: Text("Place for your content")),
 // -----------------------------------------------------------------------------
       bottomNavigationBar: BottomBarWithSheet(
-        sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: 0,
+        sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.right,
-          size: 55,
-          height: 75,
-          heightOpened: 400,
-          iconOpened: Icon(
+          mainButtonPosition: MainButtonPosition.Middle,
+          selectedItemBackgroundColor: const Color(0xFF2B65E3),
+        ),
+        mainActionButtonTheme: MainActionButtonTheme(
+          size: 60,
+          color: const Color(0xFF2B65E3),
+          icon: Icon(
             Icons.add,
             color: Colors.white,
-            size: 30,
-          ),
-          icon: Icon(
-            Icons.close,
-            color: Colors.white,
-            size: 30,
+            size: 35,
           ),
         ),
-        onSelectItem: (index) => print("$index bar item is selected"),
+        onSelectItem: (index) => print('item $index was pressed'),
         items: [
-          BottomBarWithSheetItem(
-            icon: Icons.people,
-            label: 'Profile',
-            selectedBackgroundColor: Colors.blue,
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.shopping_cart,
-            label: 'Cart',
-            selectedBackgroundColor: Colors.blue,
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.settings,
-            label: 'Settings',
-            selectedBackgroundColor: Colors.blue,
-          ),
+          BottomBarWithSheetItem(icon: Icons.people),
+          BottomBarWithSheetItem(icon: Icons.shopping_cart),
+          BottomBarWithSheetItem(icon: Icons.settings),
+          BottomBarWithSheetItem(icon: Icons.favorite),
         ],
       ),
-// ----------------------------------[end of widget]----------------------------------
+/// ----------------------------------[end of widget]----------------------------------
     );
 ```
 
