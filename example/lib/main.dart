@@ -39,26 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
           heightOpened: 400,
           selectedItemBackgroundColor: Colors.blue,
         ),
-        onSelectItem: (index) => setState(() => selectedIndex = index),
-        // Five is max
-        items: [
-          BottomBarWithSheetItem(
-            iconData: Icons.people,
-            label: 'Profile',
-          ),
-          BottomBarWithSheetItem(
-            iconData: Icons.shopping_cart,
-            label: 'Cart',
-          ),
-          BottomBarWithSheetItem(
-            iconData: Icons.settings,
-            label: 'Settings',
-          ),
-          BottomBarWithSheetItem(
-            iconData: Icons.favorite,
-            label: 'Likes',
-          ),
-        ],
         mainActionButtonTheme: MainActionButtonTheme(
           size: 55,
           icon: Icon(
@@ -67,6 +47,26 @@ class _MyHomePageState extends State<MyHomePage> {
             size: 30,
           ),
         ),
+        onSelectItem: (index) => setState(() => selectedIndex = index),
+        // Five is max
+        items: [
+          BottomBarWithSheetItem(
+            icon: Icons.people,
+            // label: 'Profile',
+          ),
+          BottomBarWithSheetItem(
+            icon: Icons.shopping_cart,
+            // label: 'Cart',
+          ),
+          BottomBarWithSheetItem(
+            icon: Icons.settings,
+            // label: 'Settings',
+          ),
+          BottomBarWithSheetItem(
+            icon: Icons.favorite,
+            // label: 'Likes',
+          ),
+        ],
       ),
     );
   }

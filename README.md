@@ -51,17 +51,17 @@ Scaffold(
         onSelectItem: (index) => print("$index bar item is selected"),
         items: [
           BottomBarWithSheetItem(
-            iconData: Icons.people,
+            icon: Icons.people,
             label: 'Profile',
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.shopping_cart,
+            icon: Icons.shopping_cart,
             label: 'Cart',
             selectedBackgroundColor: Colors.blue,
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.settings,
+            icon: Icons.settings,
             label: 'Settings',
             selectedBackgroundColor: Colors.blue,
           ),
@@ -80,7 +80,7 @@ Scaffold(
 <strong>isOpened:</strong> bool value. Set true if you need to open bottom sheet when page was builded<br>
 <strong>items:</strong> List of BottomBarWithSheetItem(
     <ul>
-        <li style="margin-left:10px;"><strong>iconData:</strong> icon Widget that you use in tab button</li>
+        <li style="margin-left:10px;"><strong>icon:</strong> icon Widget that you use in tab button</li>
         <li style="margin-left:10px;"><strong>label:</strong> text under tab button</li>
         <li style="margin-left:10px;"><strong>selectedBackgroundColor:</strong> background color of circle when tab bar is selected</li>
         <li style="margin-left:10px;"><strong>itemWidth:</strong> custom width of element in tab panel</li>

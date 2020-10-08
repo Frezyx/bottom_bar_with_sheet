@@ -13,7 +13,7 @@ const defaultDuration = Duration(milliseconds: 500);
 // ignore: must_be_immutable
 class BottomBarWithSheetItem extends StatelessWidget {
   final String label;
-  final IconData iconData;
+  final IconData icon;
   final Duration animationDuration;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
@@ -30,33 +30,35 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.label,
     this.itemWidth = 60,
     this.selectedBackgroundColor,
-    this.iconData,
+    @required this.icon,
     this.animationDuration = defaultDuration,
     this.itemIconColor,
   }) : super(key: key);
 
-  Center _makeText(String label) {
+  Widget _buildText(String label) {
     bool isSelected = _checkItemState();
-    return Center(
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected
-              ? _bottomBarTheme.selectedItemLabelColor
-              : _bottomBarTheme.itemLabelColor,
-          fontSize: isSelected
-              ? _bottomBarTheme.selectedItemTextStyle.fontSize
-              : _bottomBarTheme.itemTextStyle.fontSize,
-          fontWeight: isSelected
-              ? _bottomBarTheme.selectedItemTextStyle.fontWeight
-              : _bottomBarTheme.itemTextStyle.fontWeight,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
+    return label == null
+        ? Container()
+        : Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: isSelected
+                    ? _bottomBarTheme.selectedItemLabelColor
+                    : _bottomBarTheme.itemLabelColor,
+                fontSize: isSelected
+                    ? _bottomBarTheme.selectedItemTextStyle.fontSize
+                    : _bottomBarTheme.itemTextStyle.fontSize,
+                fontWeight: isSelected
+                    ? _bottomBarTheme.selectedItemTextStyle.fontWeight
+                    : _bottomBarTheme.itemTextStyle.fontWeight,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          );
   }
 
-  Widget _buildOpenedButton(IconData iconData, Color selectedItemIconColor) {
+  Widget _buildOpenedButton(IconData icon, Color selectedItemIconColor) {
     return Center(
       child: ClipOval(
         child: Material(
@@ -66,7 +68,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Icon(
-                iconData,
+                icon,
                 size: 17,
                 color: selectedItemIconColor,
               ),
@@ -108,10 +110,10 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
-    Widget labelWidget = _makeText(label);
+    Widget labelWidget = _buildText(label);
     Widget iconAreaWidget = isSelected
-        ? _buildOpenedButton(iconData, _bottomBarTheme.selectedItemIconColor)
-        : _buildClosedButton(iconData);
+        ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor)
+        : _buildClosedButton(icon);
 
     return AnimatedContainer(
       duration: animationDuration,
