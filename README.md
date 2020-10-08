@@ -34,15 +34,15 @@ Scaffold(
         selectedIndex: 0,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.right,
-          mainActionButtonSize: 55,
+          size: 55,
           barHeightClosed: 75,
           barHeightOpened: 400,
-          mainActionButtonIconClosed: Icon(
+          iconOpened: Icon(
             Icons.add,
             color: Colors.white,
             size: 30,
           ),
-          mainActionButtonIconOpened: Icon(
+          icon: Icon(
             Icons.close,
             color: Colors.white,
             size: 30,
@@ -98,11 +98,11 @@ Scaffold(
         <li style="margin-left:10px;"><strong>marginBetweenPanelAndActtionButton:</strong> it seems so clear. No?. Request issue if so.</li>
         <li style="margin-left:10px;"><strong>barHeightClosed:</strong> main Widget height when sheet is closed</li>
         <li style="margin-left:10px;"><strong>barHeightOpened:</strong> main Widget height when sheet is opened</li>
-        <li style="margin-left:10px;"><strong>mainActionButtonPadding:</strong> space beetwen circle border and icon of main action button</li>
-        <li style="margin-left:10px;"><strong>mainActionButtonSize:</strong> size of main action button</li>
+        <li style="margin-left:10px;"><strong>margin:</strong> space beetwen circle border and icon of main action button</li>
+        <li style="margin-left:10px;"><strong>size:</strong> size of main action button</li>
     <li><h2>Colors</h2></li>
-        <li style="margin-left:10px;"><strong>mainActionButtonColorSplash:</strong> main action button splash color</li>
-        <li style="margin-left:10px;"><strong>mainActionButtonColor:</strong> main action button color</li>
+        <li style="margin-left:10px;"><strong>splash:</strong> main action button splash color</li>
+        <li style="margin-left:10px;"><strong>color:</strong> main action button color</li>
         <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> backgroun color of tab panel</li>
         <li style="margin-left:10px;"><strong>selectedItemBackgroundColor:</strong> background circle color of selected item</li>
         <li style="margin-left:10px;"><strong>selectedItemIconColor:</strong> color of selected item icon</li>
@@ -110,8 +110,8 @@ Scaffold(
         <li style="margin-left:10px;"><strong>itemIconColor:</strong> color of unselected item icon</li>
         <li style="margin-left:10px;"><strong>itemLabelColor:</strong> color of unselected item text</li>
     <li><h2>Widgets & Full Styles</h2></li>
-        <li style="margin-left:10px;"><strong>mainActionButtonIconClosed:</strong> icon when sheet is closed</li>
-        <li style="margin-left:10px;"><strong>mainActionButtonIconOpened:</strong> icon when sheet is opened</li>
+        <li style="margin-left:10px;"><strong>iconOpened:</strong> icon when sheet is closed</li>
+        <li style="margin-left:10px;"><strong>icon:</strong> icon when sheet is opened</li>
         <li style="margin-left:10px;"><strong>selectedItemLabelColor:</strong> text style of selected item text</li>
         <li style="margin-left:10px;"><strong>itemTextStyle:</strong> text style unselected item text</li>
         <li style="margin-left:10px;"><strong>borderRadius:</strong> main Widget border radius</li>

@@ -35,20 +35,9 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedIndex: selectedIndex,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
-          mainActionButtonSize: 55,
           barHeightClosed: 75,
           barHeightOpened: 400,
           selectedItemBackgroundColor: Colors.blue,
-          mainActionButtonIconClosed: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 30,
-          ),
-          mainActionButtonIconOpened: Icon(
-            Icons.close,
-            color: Colors.white,
-            size: 30,
-          ),
         ),
         onSelectItem: (index) => setState(() => selectedIndex = index),
         // Five is max
@@ -70,6 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Likes',
           ),
         ],
+        mainActionButtonTheme: MainActionButtonTheme(
+          size: 55,
+          icon: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
       ),
     );
   }

@@ -26,15 +26,6 @@ class BottomBarTheme {
   double barHeightOpened;
 
   final double itemWidth;
-
-  final double mainActionButtonSize;
-  final Widget mainActionButtonIconClosed;
-  final Widget mainActionButtonIconOpened;
-  final Color mainActionButtonColorSplash;
-  final Color mainActionButtonColor;
-  final EdgeInsets mainActionButtonPadding;
-  final Matrix4 mainActionButtonTransform;
-
   final BorderRadius borderRadius;
   final List<BoxShadow> boxShadow;
 
@@ -54,8 +45,6 @@ class BottomBarTheme {
     topLeft: Radius.circular(30.0),
     topRight: Radius.circular(30.0),
   );
-
-  static const _constMainActionButtonPadding = EdgeInsets.all(7);
 
   static const _constcontentPadding =
       EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
@@ -77,10 +66,6 @@ class BottomBarTheme {
     this.itemWidth = 60,
     this.barHeightClosed = 60,
     this.barHeightOpened = 300,
-    this.mainActionButtonSize = 30,
-    this.mainActionButtonPadding = _constMainActionButtonPadding,
-    this.mainActionButtonColorSplash = Colors.blue,
-    this.mainActionButtonColor = Colors.blue,
     this.barBackgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
@@ -89,11 +74,8 @@ class BottomBarTheme {
     this.itemLabelColor = Colors.grey,
     this.selectedItemTextStyle = _selectedItemDefaultTextStyle,
     this.itemTextStyle = _itemDefaultTextStyle,
-    this.mainActionButtonIconClosed,
-    this.mainActionButtonIconOpened,
     this.borderRadius = _defaultBorderRadius,
     this.boxShadow = _defaultboxShadow,
     this.mainButtonPosition = MainButtonPosition.Left,
-    this.mainActionButtonTransform,
   });
 }

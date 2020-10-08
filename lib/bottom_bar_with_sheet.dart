@@ -1,17 +1,19 @@
 library bottom_bar_with_sheet;
 
-import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-import 'package:bottom_bar_with_sheet/src/positions.dart';
+import 'src/bottom_bar_with_sheet_item.dart';
+import 'src/bottom_bar_with_sheet_theme.dart';
+import 'src/positions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'src/main_action_button_theme.dart';
 import 'src/size_helper.dart';
 
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
 export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 export 'package:bottom_bar_with_sheet/src/positions.dart';
+export 'src/main_action_button_theme.dart';
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -23,6 +25,7 @@ export 'package:bottom_bar_with_sheet/src/positions.dart';
 class BottomBarWithSheet extends StatefulWidget {
   final List<BottomBarWithSheetItem> items;
   final BottomBarTheme bottomBarTheme;
+  final MainActionButtonTheme mainActionButtonTheme;
   final Function onSelectItem;
   final int selectedIndex;
   final Widget sheetChild;
@@ -43,6 +46,7 @@ class BottomBarWithSheet extends StatefulWidget {
     @required this.sheetChild,
     @required this.items,
     @required this.bottomBarTheme,
+    @required this.mainActionButtonTheme,
     @required this.onSelectItem,
   }) {
     assert(items != null);
@@ -89,7 +93,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _actionButtonIcon = widget.bottomBarTheme.mainActionButtonIconClosed;
+    _actionButtonIcon = widget.mainActionButtonTheme.iconOpened;
     super.initState();
   }
 
@@ -119,10 +123,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     }
 
     setState(() {
-      _actionButtonIcon =
-          _actionButtonIcon == widget.bottomBarTheme.mainActionButtonIconOpened
-              ? widget.bottomBarTheme.mainActionButtonIconClosed
-              : widget.bottomBarTheme.mainActionButtonIconOpened;
+      _actionButtonIcon = _actionButtonIcon == widget.mainActionButtonTheme.icon
+          ? widget.mainActionButtonTheme.iconOpened ??
+              widget.mainActionButtonTheme.icon
+          : widget.mainActionButtonTheme.icon;
     });
 
     for (var i = 0; i < halfAnimationTime; i++) {
@@ -304,16 +308,15 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container _buildMainActionButtton() {
     return Container(
       color: Colors.transparent,
-      transform: widget.bottomBarTheme.mainActionButtonTransform ??
+      transform: widget.mainActionButtonTheme.transform ??
           Matrix4.translationValues(0.0, 0.0, 0.0),
       child: Padding(
-        padding: widget.bottomBarTheme.mainActionButtonPadding,
+        padding: widget.mainActionButtonTheme.margin,
         child: ClipOval(
           child: Material(
-            color: widget.bottomBarTheme.mainActionButtonColor, // button color
+            color: widget.mainActionButtonTheme.color, // button color
             child: InkWell(
-              splashColor: widget
-                  .bottomBarTheme.mainActionButtonColorSplash, // inkwell color
+              splashColor: widget.mainActionButtonTheme.splash, // inkwell color
               child: AnimatedBuilder(
                 animation: _arrowAnimationController,
                 builder: (BuildContext context, Widget child) {
@@ -323,8 +326,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                   );
                 },
                 child: SizedBox(
-                  width: widget.bottomBarTheme.mainActionButtonSize,
-                  height: widget.bottomBarTheme.mainActionButtonSize,
+                  width: widget.mainActionButtonTheme.size,
+                  height: widget.mainActionButtonTheme.size,
                   child: Opacity(
                     opacity: iconOpacity,
                     child: _actionButtonIcon,
@@ -369,7 +372,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       BuildContext context, double rightPadding, double leftPadding) {
     return MediaQuery.of(context).size.width / widget.items.length -
         (rightPadding +
-                widget.bottomBarTheme.mainActionButtonSize +
+                widget.mainActionButtonTheme.size +
                 leftPadding +
                 leftPadding +
                 4) /

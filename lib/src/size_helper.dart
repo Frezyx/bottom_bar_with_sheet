@@ -7,9 +7,9 @@ class SizeHelper {
     return (MediaQuery.of(context).size.width -
             widget.bottomBarTheme.contentPadding.left -
             widget.bottomBarTheme.contentPadding.right -
-            widget.bottomBarTheme.mainActionButtonSize -
-            widget.bottomBarTheme.mainActionButtonPadding.left -
-            widget.bottomBarTheme.mainActionButtonPadding.right) /
+            widget.mainActionButtonTheme.size -
+            widget.mainActionButtonTheme.margin.left -
+            widget.mainActionButtonTheme.margin.right) /
         2;
   }
 }
