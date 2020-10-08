@@ -8,25 +8,24 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-  final EdgeInsets contentPadding;
-  final Color backgroundColor;
-  final Color selectedItemBackgroundColor;
+  final double itemWidth;
+
   final Color selectedItemIconColor;
   final Color selectedItemLabelColor;
+  final Color selectedItemBackgroundColor;
+  final TextStyle selectedItemTextStyle;
 
   final Color itemIconColor;
   final Color itemLabelColor;
-
-  final TextStyle selectedItemTextStyle;
+  final Color backgroundColor;
   final TextStyle itemTextStyle;
 
   final MainButtonPosition mainButtonPosition;
 
   final double height;
   final double heightOpened;
-
-  final double itemWidth;
   final BoxDecoration decoration;
+  final EdgeInsets contentPadding;
 
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,

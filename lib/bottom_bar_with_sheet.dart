@@ -1,25 +1,22 @@
 library bottom_bar_with_sheet;
 
-import 'src/bottom_bar_with_sheet_item.dart';
-import 'src/bottom_bar_with_sheet_theme.dart';
-import 'src/positions.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'src/bottom_bar_with_sheet_item.dart';
+import 'src/bottom_bar_with_sheet_theme.dart';
 import 'src/main_action_button_theme.dart';
-import 'src/size_helper.dart';
+import 'src/positions.dart';
 
-export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
-export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-export 'package:bottom_bar_with_sheet/src/positions.dart';
+export 'src/bottom_bar_with_sheet_item.dart';
+export 'src/bottom_bar_with_sheet_theme.dart';
 export 'src/main_action_button_theme.dart';
+export 'src/positions.dart';
 
-// Hello !
-// ----------------------------------------------------------------------
-// You can check all widget annotation
-// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
-// ----------------------------------------------------------------------
+const constCurve = Curves.linear;
+const constDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
@@ -34,8 +31,6 @@ class BottomBarWithSheet extends StatefulWidget {
   final MainAxisAlignment bottomBarMainAxisAlignment;
   bool isOpened;
 
-  static const constDuration = Duration(milliseconds: 500);
-  static const constCurve = Curves.linear;
   BottomBarWithSheet({
     Key key,
     this.selectedIndex = 0,
@@ -51,6 +46,8 @@ class BottomBarWithSheet extends StatefulWidget {
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
+    assert(bottomBarTheme.mainButtonPosition == MainButtonPosition.Middle &&
+        items.length % 2 == 0);
   }
 
   @override
@@ -72,6 +69,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   final Curve curve;
   final MainAxisAlignment bottomBarMainAxisAlignment;
   final Widget sheetChild;
+
   _BottomBarWithSheetState({
     this.selectedIndex,
     this.isOpened,
@@ -84,7 +82,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Widget _actionButtonIcon;
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
-  double iconOpacity = 1;
+  double _iconOpacity = 1;
 
   @override
   void initState() {
@@ -105,7 +103,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   _animateIcon() async {
     setState(() {
-      iconOpacity = 1;
+      _iconOpacity = 1;
     });
 
     var animationTime = widget.duration.inMilliseconds / 50;
@@ -113,10 +111,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     var opacityPart = 1 / halfAnimationTime;
 
     for (var i = 0; i < halfAnimationTime; i++) {
-      iconOpacity -= opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+      _iconOpacity -= opacityPart;
+      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
         setState(() {
-          iconOpacity = iconOpacity;
+          _iconOpacity = _iconOpacity;
         });
       }
       await Future.delayed(const Duration(milliseconds: 50));
@@ -130,10 +128,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     });
 
     for (var i = 0; i < halfAnimationTime; i++) {
-      iconOpacity += opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+      _iconOpacity += opacityPart;
+      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
         setState(() {
-          iconOpacity = iconOpacity;
+          _iconOpacity = _iconOpacity;
         });
       }
       await Future.delayed(const Duration(milliseconds: 50));
@@ -239,7 +237,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
-    final rowWidth = SizeHelper.getRowWidth(widget, context);
+    final rowWidth = _SizeHelper.getRowWidth(widget, context);
     List<Widget> childrenLine = [];
     childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
     childrenLine.add(_buildMainActionButtton());
@@ -327,7 +325,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                   width: widget.mainActionButtonTheme.size,
                   height: widget.mainActionButtonTheme.size,
                   child: Opacity(
-                    opacity: iconOpacity,
+                    opacity: _iconOpacity,
                     child: _actionButtonIcon,
                   ),
                 ),
@@ -375,5 +373,17 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 leftPadding +
                 4) /
             widget.items.length;
+  }
+}
+
+class _SizeHelper {
+  static double getRowWidth(BottomBarWithSheet widget, BuildContext context) {
+    return (MediaQuery.of(context).size.width -
+            widget.bottomBarTheme.contentPadding.left -
+            widget.bottomBarTheme.contentPadding.right -
+            widget.mainActionButtonTheme.size -
+            widget.mainActionButtonTheme.margin.left -
+            widget.mainActionButtonTheme.margin.right) /
+        2;
   }
 }
