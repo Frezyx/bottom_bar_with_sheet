@@ -33,18 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
-        styleBottomBar: BottomBarTheme(
+        bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
-          mainActionButtonSize: 55,
-          barHeightClosed: 75,
-          barHeightOpened: 400,
-          mainActionButtonIconClosed: Icon(
+          height: 75,
+          heightOpened: 400,
+          selectedItemBackgroundColor: Colors.blue,
+        ),
+        mainActionButtonTheme: MainActionButtonTheme(
+          size: 55,
+          icon: Icon(
             Icons.add,
-            color: Colors.white,
-            size: 30,
-          ),
-          mainActionButtonIconOpened: Icon(
-            Icons.close,
             color: Colors.white,
             size: 30,
           ),
@@ -53,24 +51,20 @@ class _MyHomePageState extends State<MyHomePage> {
         // Five is max
         items: [
           BottomBarWithSheetItem(
-            iconData: Icons.people,
-            label: 'Profile',
-            selectedBackgroundColor: Colors.blue,
+            icon: Icons.people,
+            // label: 'Profile',
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.shopping_cart,
-            label: 'Cart',
-            selectedBackgroundColor: Colors.blue,
+            icon: Icons.shopping_cart,
+            // label: 'Cart',
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.settings,
-            label: 'Settings',
-            selectedBackgroundColor: Colors.blue,
+            icon: Icons.settings,
+            // label: 'Settings',
           ),
           BottomBarWithSheetItem(
-            iconData: Icons.favorite,
-            label: 'Likes',
-            selectedBackgroundColor: Colors.blue,
+            icon: Icons.favorite,
+            // label: 'Likes',
           ),
         ],
       ),

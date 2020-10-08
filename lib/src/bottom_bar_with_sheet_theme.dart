@@ -8,34 +8,24 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-  final EdgeInsets contentPadding;
-  final Color barBackgroundColor;
-  final Color selectedItemBackgroundColor;
+  final double itemWidth;
+
   final Color selectedItemIconColor;
   final Color selectedItemLabelColor;
+  final Color selectedItemBackgroundColor;
+  final TextStyle selectedItemTextStyle;
 
   final Color itemIconColor;
   final Color itemLabelColor;
-
-  final TextStyle selectedItemTextStyle;
+  final Color backgroundColor;
   final TextStyle itemTextStyle;
 
   final MainButtonPosition mainButtonPosition;
 
-  double barHeightClosed;
-  double barHeightOpened;
-
-  final double itemWidth;
-
-  final double mainActionButtonSize;
-  final Widget mainActionButtonIconClosed;
-  final Widget mainActionButtonIconOpened;
-  final Color mainActionButtonColorSplash;
-  final Color mainActionButtonColor;
-  final EdgeInsets mainActionButtonPadding;
-
-  final BorderRadius borderRadius;
-  final List<BoxShadow> boxShadow;
+  final double height;
+  final double heightOpened;
+  final BoxDecoration decoration;
+  final EdgeInsets contentPadding;
 
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
@@ -53,8 +43,6 @@ class BottomBarTheme {
     topLeft: Radius.circular(30.0),
     topRight: Radius.circular(30.0),
   );
-
-  static const _constMainActionButtonPadding = EdgeInsets.all(7);
 
   static const _constcontentPadding =
       EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
@@ -74,13 +62,9 @@ class BottomBarTheme {
   BottomBarTheme({
     this.contentPadding = _constcontentPadding,
     this.itemWidth = 60,
-    this.barHeightClosed = 60,
-    this.barHeightOpened = 300,
-    this.mainActionButtonSize = 30,
-    this.mainActionButtonPadding = _constMainActionButtonPadding,
-    this.mainActionButtonColorSplash = Colors.blue,
-    this.mainActionButtonColor = Colors.blue,
-    this.barBackgroundColor = Colors.white,
+    this.height = 60,
+    this.heightOpened = 300,
+    this.backgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
     this.selectedItemLabelColor = Colors.black,
@@ -88,10 +72,10 @@ class BottomBarTheme {
     this.itemLabelColor = Colors.grey,
     this.selectedItemTextStyle = _selectedItemDefaultTextStyle,
     this.itemTextStyle = _itemDefaultTextStyle,
-    this.mainActionButtonIconClosed,
-    this.mainActionButtonIconOpened,
-    this.borderRadius = _defaultBorderRadius,
-    this.boxShadow = _defaultboxShadow,
     this.mainButtonPosition = MainButtonPosition.Left,
+    this.decoration = const BoxDecoration(
+      borderRadius: _defaultBorderRadius,
+      boxShadow: _defaultboxShadow,
+    ),
   });
 }

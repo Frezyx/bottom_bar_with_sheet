@@ -11,11 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   
-  provider: ^4.0.2
+  provider: ">=4.0.2 <4.1.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 flutter:
 
