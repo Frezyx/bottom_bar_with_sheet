@@ -90,8 +90,8 @@ class BottomBarTheme {
   BottomBarTheme({
     this.contentPadding = _constcontentPadding,
     this.itemWidth = 60,
-    this.height = 60,
-    this.heightOpened = 300,
+    this.height = 75,
+    this.heightOpened = 400,
     this.backgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,

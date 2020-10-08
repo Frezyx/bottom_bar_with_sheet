@@ -19,32 +19,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    const Color color = Color(0xFF2B65E3);
-    const Color bgColor = Color(0xFFF4F8FD);
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: const Color(0xFFF4F8FD),
       appBar: AppBar(
         title: Text('bottom_bar_with_sheet v0.2.1'),
-        backgroundColor: color,
+        backgroundColor: const Color(0xFF2B65E3),
       ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
+        selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
-        selectedIndex: selectedIndex,
-        curve: Curves.easeInCirc,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
-          height: 75,
-          heightOpened: 400,
-          selectedItemBackgroundColor: color,
+          selectedItemBackgroundColor: const Color(0xFF2B65E3),
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 60,
-          color: color,
+          color: const Color(0xFF2B65E3),
           transform: Matrix4.translationValues(0.0, -31.0, 0.0),
           icon: Icon(
             Icons.add,
@@ -52,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             size: 35,
           ),
         ),
-        onSelectItem: (index) => setState(() => selectedIndex = index),
+        onSelectItem: (index) => setState(() => _selectedIndex = index),
         // Five is max
         items: [
           BottomBarWithSheetItem(
