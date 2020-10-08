@@ -46,7 +46,7 @@ class BottomBarWithSheet extends StatefulWidget {
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
-    assert(bottomBarTheme.mainButtonPosition == MainButtonPosition.Middle &&
+    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
   }
 
