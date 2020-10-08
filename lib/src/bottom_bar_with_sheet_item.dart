@@ -85,7 +85,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Icon(
         icon,
         size: 20,
-        color: _bottomBarTheme.itemLabelColor,
+        color: _bottomBarTheme.itemIconColor,
       ),
     );
   }

@@ -91,7 +91,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _actionButtonIcon = widget.mainActionButtonTheme.iconOpened;
+    _actionButtonIcon = widget.mainActionButtonTheme.icon;
     super.initState();
   }
 
@@ -384,6 +384,6 @@ class _SizeHelper {
             widget.mainActionButtonTheme.size -
             widget.mainActionButtonTheme.margin.left -
             widget.mainActionButtonTheme.margin.right) /
-        2;
+        widget.items.length;
   }
 }
