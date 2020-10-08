@@ -35,8 +35,8 @@ Scaffold(
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.right,
           size: 55,
-          barHeightClosed: 75,
-          barHeightOpened: 400,
+          height: 75,
+          heightOpened: 400,
           iconOpened: Icon(
             Icons.add,
             color: Colors.white,
@@ -92,18 +92,18 @@ Scaffold(
     <ul>
     <li><h2>Sizes</h2></li>
         <li style="margin-left:10px;"><strong>contentPadding:</strong> padding between content of widget and edges of widget</li>
-        <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> background color of main Widget</li>
+        <li style="margin-left:10px;"><strong>backgroundColor:</strong> background color of main Widget</li>
         <li style="margin-left:10px;"><strong>rightMargin:</strong> size of space between right mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>leftMargin:</strong> size of space between left mobile border and Widget insides</li>
         <li style="margin-left:10px;"><strong>marginBetweenPanelAndActtionButton:</strong> it seems so clear. No?. Request issue if so.</li>
-        <li style="margin-left:10px;"><strong>barHeightClosed:</strong> main Widget height when sheet is closed</li>
-        <li style="margin-left:10px;"><strong>barHeightOpened:</strong> main Widget height when sheet is opened</li>
+        <li style="margin-left:10px;"><strong>height:</strong> main Widget height when sheet is closed</li>
+        <li style="margin-left:10px;"><strong>heightOpened:</strong> main Widget height when sheet is opened</li>
         <li style="margin-left:10px;"><strong>margin:</strong> space beetwen circle border and icon of main action button</li>
         <li style="margin-left:10px;"><strong>size:</strong> size of main action button</li>
     <li><h2>Colors</h2></li>
         <li style="margin-left:10px;"><strong>splash:</strong> main action button splash color</li>
         <li style="margin-left:10px;"><strong>color:</strong> main action button color</li>
-        <li style="margin-left:10px;"><strong>barBackgroundColor:</strong> backgroun color of tab panel</li>
+        <li style="margin-left:10px;"><strong>backgroundColor:</strong> backgroun color of tab panel</li>
         <li style="margin-left:10px;"><strong>selectedItemBackgroundColor:</strong> background circle color of selected item</li>
         <li style="margin-left:10px;"><strong>selectedItemIconColor:</strong> color of selected item icon</li>
         <li style="margin-left:10px;"><strong>selectedItemLabelColor:</strong> color of selected item text</li>

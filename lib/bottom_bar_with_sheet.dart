@@ -143,8 +143,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   @override
   Widget build(BuildContext context) {
     final BottomBarTheme bottomBarTheme = widget.bottomBarTheme;
-    final backgroundColor = bottomBarTheme.barBackgroundColor ??
-        Theme.of(context).bottomAppBarColor;
+    final backgroundColor =
+        bottomBarTheme.backgroundColor ?? Theme.of(context).bottomAppBarColor;
     final leftPadding = widget.bottomBarTheme.contentPadding.left;
     final rightPadding = widget.bottomBarTheme.contentPadding.right;
     final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
@@ -162,9 +162,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         curve: curve,
         height: _calculateWidgetHeight(),
         padding: widget.bottomBarTheme.contentPadding,
-        decoration: BoxDecoration(
-          borderRadius: widget.bottomBarTheme.borderRadius,
-          boxShadow: widget.bottomBarTheme.boxShadow,
+        decoration: widget.bottomBarTheme.decoration.copyWith(
           color: backgroundColor,
         ),
         child: Column(
@@ -298,7 +296,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         color: Colors.transparent,
         child: SizedBox(
           width: itemWidth,
-          height: widget.bottomBarTheme.barHeightClosed,
+          height: widget.bottomBarTheme.height,
           child: item,
         ),
       ),
@@ -361,10 +359,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   double _calculateWidgetHeight() => widget.isOpened
-      ? widget.bottomBarTheme.barHeightOpened +
+      ? widget.bottomBarTheme.heightOpened +
           widget.bottomBarTheme.contentPadding.bottom +
           widget.bottomBarTheme.contentPadding.top
-      : widget.bottomBarTheme.barHeightClosed +
+      : widget.bottomBarTheme.height +
           widget.bottomBarTheme.contentPadding.bottom +
           widget.bottomBarTheme.contentPadding.top;
 

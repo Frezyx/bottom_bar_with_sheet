@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class BottomBarTheme {
   final EdgeInsets contentPadding;
-  final Color barBackgroundColor;
+  final Color backgroundColor;
   final Color selectedItemBackgroundColor;
   final Color selectedItemIconColor;
   final Color selectedItemLabelColor;
@@ -22,12 +22,11 @@ class BottomBarTheme {
 
   final MainButtonPosition mainButtonPosition;
 
-  double barHeightClosed;
-  double barHeightOpened;
+  final double height;
+  final double heightOpened;
 
   final double itemWidth;
-  final BorderRadius borderRadius;
-  final List<BoxShadow> boxShadow;
+  final BoxDecoration decoration;
 
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
@@ -64,9 +63,9 @@ class BottomBarTheme {
   BottomBarTheme({
     this.contentPadding = _constcontentPadding,
     this.itemWidth = 60,
-    this.barHeightClosed = 60,
-    this.barHeightOpened = 300,
-    this.barBackgroundColor = Colors.white,
+    this.height = 60,
+    this.heightOpened = 300,
+    this.backgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
     this.selectedItemLabelColor = Colors.black,
@@ -74,8 +73,10 @@ class BottomBarTheme {
     this.itemLabelColor = Colors.grey,
     this.selectedItemTextStyle = _selectedItemDefaultTextStyle,
     this.itemTextStyle = _itemDefaultTextStyle,
-    this.borderRadius = _defaultBorderRadius,
-    this.boxShadow = _defaultboxShadow,
     this.mainButtonPosition = MainButtonPosition.Left,
+    this.decoration = const BoxDecoration(
+      borderRadius: _defaultBorderRadius,
+      boxShadow: _defaultboxShadow,
+    ),
   });
 }

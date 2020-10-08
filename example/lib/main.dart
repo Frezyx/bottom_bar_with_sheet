@@ -35,8 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedIndex: selectedIndex,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
-          barHeightClosed: 75,
-          barHeightOpened: 400,
+          height: 75,
+          heightOpened: 400,
           selectedItemBackgroundColor: Colors.blue,
         ),
         onSelectItem: (index) => setState(() => selectedIndex = index),
