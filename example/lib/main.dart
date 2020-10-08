@@ -8,9 +8,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(),
     );
   }
@@ -30,9 +27,10 @@ class _MyHomePageState extends State<MyHomePage> {
     const Color bgColor = Color(0xFFF4F8FD);
     return Scaffold(
       backgroundColor: bgColor,
-      // appBar: AppBar(
-      //   title: Text('bottom_bar_with_sheet v0.2.1'),
-      // ),
+      appBar: AppBar(
+        title: Text('bottom_bar_with_sheet v0.2.1'),
+        backgroundColor: color,
+      ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),

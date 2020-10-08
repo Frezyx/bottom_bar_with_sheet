@@ -20,15 +20,35 @@ const constDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
+  /// items of [BottomBarWithSheet]
   final List<BottomBarWithSheetItem> items;
+
+  /// theme of [BottomBarWithSheet]
   final BottomBarTheme bottomBarTheme;
+
+  /// theme of [MainActionButtonTheme]
   final MainActionButtonTheme mainActionButtonTheme;
+
+  ///
   final Function onSelectItem;
+
+  /// index of selected [BottomBarWithSheetItem] from [items]
   final int selectedIndex;
+
+  /// Widget that displayed on bottom of [BottomBarWithSheet]
+  /// when [isOpened] == true
   final Widget sheetChild;
+
+  /// animation time of closing / opening [BottomBarWithSheet]
   final Duration duration;
+
+  /// the style of animation from the suggested ones of [Curve]
   final Curve curve;
+
+  /// The direction in which the widget content will line up
   final MainAxisAlignment bottomBarMainAxisAlignment;
+
+  /// Responsible for the open / closed state of the widget
   bool isOpened;
 
   BottomBarWithSheet({
@@ -310,9 +330,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         padding: widget.mainActionButtonTheme.margin,
         child: ClipOval(
           child: Material(
-            color: widget.mainActionButtonTheme.color, // button color
+            color: widget.mainActionButtonTheme.color,
             child: InkWell(
-              splashColor: widget.mainActionButtonTheme.splash, // inkwell color
+              splashColor: widget.mainActionButtonTheme.splash,
               child: AnimatedBuilder(
                 animation: _arrowAnimationController,
                 builder: (BuildContext context, Widget child) {
@@ -384,6 +404,6 @@ class _SizeHelper {
             widget.mainActionButtonTheme.size -
             widget.mainActionButtonTheme.margin.left -
             widget.mainActionButtonTheme.margin.right) /
-        widget.items.length;
+        2;
   }
 }
