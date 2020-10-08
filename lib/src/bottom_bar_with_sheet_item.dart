@@ -21,7 +21,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   Color itemIconColor;
   int _index;
   int _selectedIndex;
-  BottomBarTheme _styleBottomBar;
+  BottomBarTheme _bottomBarTheme;
   double itemWidth;
   MainAxisAlignment _bottomBarMainAxisAlignment;
 
@@ -42,14 +42,14 @@ class BottomBarWithSheetItem extends StatelessWidget {
         label,
         style: TextStyle(
           color: isSelected
-              ? _styleBottomBar.selectedItemLabelColor
-              : _styleBottomBar.itemLabelColor,
+              ? _bottomBarTheme.selectedItemLabelColor
+              : _bottomBarTheme.itemLabelColor,
           fontSize: isSelected
-              ? _styleBottomBar.selectedItemTextStyle.fontSize
-              : _styleBottomBar.itemTextStyle.fontSize,
+              ? _bottomBarTheme.selectedItemTextStyle.fontSize
+              : _bottomBarTheme.itemTextStyle.fontSize,
           fontWeight: isSelected
-              ? _styleBottomBar.selectedItemTextStyle.fontWeight
-              : _styleBottomBar.itemTextStyle.fontWeight,
+              ? _bottomBarTheme.selectedItemTextStyle.fontWeight
+              : _bottomBarTheme.itemTextStyle.fontWeight,
         ),
         textAlign: TextAlign.center,
       ),
@@ -83,7 +83,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Icon(
         icon,
         size: 20,
-        color: _styleBottomBar.itemLabelColor,
+        color: _bottomBarTheme.itemLabelColor,
       ),
     );
   }
@@ -98,19 +98,19 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _styleBottomBar = Provider.of<BottomBarTheme>(context);
+    _bottomBarTheme = Provider.of<BottomBarTheme>(context);
     _selectedIndex = Provider.of<int>(context);
     _bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
-    itemIconColor = itemIconColor ?? _styleBottomBar.itemIconColor;
+    itemIconColor = itemIconColor ?? _bottomBarTheme.itemIconColor;
     selectedBackgroundColor =
-        selectedBackgroundColor ?? _styleBottomBar.selectedItemBackgroundColor;
+        selectedBackgroundColor ?? _bottomBarTheme.selectedItemBackgroundColor;
 
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
     Widget labelWidget = _makeText(label);
     Widget iconAreaWidget = isSelected
-        ? _buildOpenedButton(iconData, _styleBottomBar.selectedItemIconColor)
+        ? _buildOpenedButton(iconData, _bottomBarTheme.selectedItemIconColor)
         : _buildClosedButton(iconData);
 
     return AnimatedContainer(

@@ -32,7 +32,7 @@ Scaffold(
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: 0,
-        styleBottomBar: BottomBarTheme(
+        bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.right,
           mainActionButtonSize: 55,
           barHeightClosed: 75,
@@ -88,7 +88,7 @@ Scaffold(
         <li style="margin-left:10px;"><strong>itemIconColor:</strong> custom color of element in tab panel </li>
     </ul>
 )<br>
-<strong>styleBottomBar:</strong> -> List of style settings to customize your bottom_bar_with_sheet ->(
+<strong>bottomBarTheme:</strong> -> List of style settings to customize your bottom_bar_with_sheet ->(
     <ul>
     <li><h2>Sizes</h2></li>
         <li style="margin-left:10px;"><strong>contentPadding:</strong> padding between content of widget and edges of widget</li>

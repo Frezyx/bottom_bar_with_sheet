@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
-        styleBottomBar: BottomBarTheme(
+        bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
           mainActionButtonSize: 55,
           barHeightClosed: 75,
