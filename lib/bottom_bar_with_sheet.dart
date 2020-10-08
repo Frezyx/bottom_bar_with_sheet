@@ -46,7 +46,7 @@ class BottomBarWithSheet extends StatefulWidget {
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
-    assert(bottomBarTheme.mainButtonPosition == MainButtonPosition.Middle &&
+    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
   }
 
@@ -91,7 +91,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _actionButtonIcon = widget.mainActionButtonTheme.iconOpened;
+    _actionButtonIcon = widget.mainActionButtonTheme.icon;
     super.initState();
   }
 
@@ -384,6 +384,6 @@ class _SizeHelper {
             widget.mainActionButtonTheme.size -
             widget.mainActionButtonTheme.margin.left -
             widget.mainActionButtonTheme.margin.right) /
-        2;
+        widget.items.length;
   }
 }

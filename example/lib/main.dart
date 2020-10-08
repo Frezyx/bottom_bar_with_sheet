@@ -7,6 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -25,26 +26,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const Color color = Color(0xFF2B65E3);
+    const Color bgColor = Color(0xFFF4F8FD);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.2.1'),
-      ),
+      backgroundColor: bgColor,
+      // appBar: AppBar(
+      //   title: Text('bottom_bar_with_sheet v0.2.1'),
+      // ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         sheetChild: Center(child: Text("Place for your another content")),
         selectedIndex: selectedIndex,
+        curve: Curves.easeInCirc,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
           height: 75,
           heightOpened: 400,
-          selectedItemBackgroundColor: Colors.blue,
+          selectedItemBackgroundColor: color,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
-          size: 55,
+          size: 60,
+          color: color,
+          transform: Matrix4.translationValues(0.0, -31.0, 0.0),
           icon: Icon(
             Icons.add,
             color: Colors.white,
-            size: 30,
+            size: 35,
           ),
         ),
         onSelectItem: (index) => setState(() => selectedIndex = index),
