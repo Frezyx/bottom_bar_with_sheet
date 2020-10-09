@@ -1,3 +1,14 @@
+## 0.3.0 - 09-10-2020
+
+### Big package update
+
+* Remove theme fields in own classes
+* Fix bar auto closing when item pressed
+* Make working with fields easier then before
+* Add transform field for MainActionButton
+* Add decoration field for bar theme
+* etc
+
 ## 0.2.1 - 30-09-2020
 
 * Added the ability to set own margins (content paddings).

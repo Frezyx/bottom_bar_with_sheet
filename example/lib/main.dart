@@ -8,9 +8,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(),
     );
   }
@@ -22,56 +19,68 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    const Color color = Color(0xFF2B65E3);
-    const Color bgColor = Color(0xFFF4F8FD);
     return Scaffold(
-      backgroundColor: bgColor,
-      // appBar: AppBar(
-      //   title: Text('bottom_bar_with_sheet v0.2.1'),
-      // ),
-      body: Center(child: Text("Place for your content")),
+      backgroundColor: Color(0xFFFFEEEE),
+      appBar: AppBar(
+        title: Text('bottom_bar_with_sheet v0.3.0',
+            style: TextStyle().copyWith(color: Colors.white)),
+        backgroundColor: Color(0xFFA81414),
+      ),
+      body: Center(
+          child: Text("Place for your content",
+              style: TextStyle().copyWith(color: Colors.black))),
       bottomNavigationBar: BottomBarWithSheet(
-        sheetChild: Center(child: Text("Place for your another content")),
-        selectedIndex: selectedIndex,
-        curve: Curves.easeInCirc,
+        selectedIndex: _selectedIndex,
+        sheetChild: Center(
+            child: Text("Place for your another content",
+                style: TextStyle().copyWith(color: Colors.white))),
+        curve: Curves.bounceOut,
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
-          height: 75,
-          heightOpened: 400,
-          selectedItemBackgroundColor: color,
+          backgroundColor: Color(0xFFA81414),
+          mainButtonPosition: MainButtonPosition.Left,
+          selectedItemBackgroundColor: Color(0xFFFE0000),
+          selectedItemIconColor: Colors.white,
+          itemIconColor: Colors.white,
+          itemLabelColor: Colors.white,
+          selectedItemLabelColor: Colors.white,
+          itemTextStyle:
+              TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
+          heightOpened: 600,
+          height: 80,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 60,
-          color: color,
-          transform: Matrix4.translationValues(0.0, -31.0, 0.0),
+          splash: Color(0xFFE47676),
+          color: Color(0xFFFE0000),
+          // transform: Matrix4.translationValues(0.0, -31.0, 0.0),
           icon: Icon(
             Icons.add,
             color: Colors.white,
             size: 35,
           ),
         ),
-        onSelectItem: (index) => setState(() => selectedIndex = index),
+        onSelectItem: (index) => setState(() => _selectedIndex = index),
         // Five is max
         items: [
           BottomBarWithSheetItem(
             icon: Icons.people,
-            // label: 'Profile',
+            label: 'Profile',
           ),
           BottomBarWithSheetItem(
             icon: Icons.shopping_cart,
-            // label: 'Cart',
+            label: 'Cart',
           ),
           BottomBarWithSheetItem(
             icon: Icons.settings,
-            // label: 'Settings',
+            label: 'Settings',
           ),
           BottomBarWithSheetItem(
             icon: Icons.favorite,
-            // label: 'Likes',
+            label: 'Likes',
           ),
         ],
       ),
