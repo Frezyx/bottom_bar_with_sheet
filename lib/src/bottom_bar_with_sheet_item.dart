@@ -8,68 +8,67 @@ import 'package:provider/provider.dart';
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
+const defaultDuration = Duration(milliseconds: 500);
+
 // ignore: must_be_immutable
 class BottomBarWithSheetItem extends StatelessWidget {
   final String label;
-  final IconData iconData;
+  final IconData icon;
   final Duration animationDuration;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
   bool isLeft;
-
   Color itemIconColor;
-  static const defaultDuration = Duration(milliseconds: 500);
-
-  int index;
-  int selectedIndex;
-  BottomBarTheme styleBottomBar;
+  int _index;
+  int _selectedIndex;
+  BottomBarTheme _bottomBarTheme;
   double itemWidth;
-  bool isOpened;
-  MainAxisAlignment bottomBarMainAxisAlignment;
+  MainAxisAlignment _bottomBarMainAxisAlignment;
 
   BottomBarWithSheetItem({
     Key key,
     this.label,
     this.itemWidth = 60,
     this.selectedBackgroundColor,
-    this.iconData,
+    @required this.icon,
     this.animationDuration = defaultDuration,
-    this.bottomBarMainAxisAlignment,
     this.itemIconColor,
   }) : super(key: key);
 
-  Center _makeText(String label) {
+  Widget _buildText(String label) {
     bool isSelected = _checkItemState();
-    return Center(
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected
-              ? styleBottomBar.selectedItemLabelColor
-              : styleBottomBar.itemLabelColor,
-          fontSize: isSelected
-              ? styleBottomBar.selectedItemTextStyle.fontSize
-              : styleBottomBar.itemTextStyle.fontSize,
-          fontWeight: isSelected
-              ? styleBottomBar.selectedItemTextStyle.fontWeight
-              : styleBottomBar.itemTextStyle.fontWeight,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
+    return label == null
+        ? Container()
+        : Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                color: isSelected
+                    ? _bottomBarTheme.selectedItemLabelColor
+                    : _bottomBarTheme.itemLabelColor,
+                fontSize: isSelected
+                    ? _bottomBarTheme.selectedItemTextStyle.fontSize
+                    : _bottomBarTheme.itemTextStyle.fontSize,
+                fontWeight: isSelected
+                    ? _bottomBarTheme.selectedItemTextStyle.fontWeight
+                    : _bottomBarTheme.itemTextStyle.fontWeight,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          );
   }
 
-  Widget _buildOpenedButton(IconData iconData, Color selectedItemIconColor) {
+  Widget _buildOpenedButton(IconData icon, Color selectedItemIconColor) {
     return Center(
       child: ClipOval(
         child: Material(
-          color: selectedBackgroundColor, // button color
+          color: selectedBackgroundColor,
           child: Ink(
             child: SizedBox(
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Icon(
-                iconData,
+                icon,
                 size: 17,
                 color: selectedItemIconColor,
               ),
@@ -86,42 +85,41 @@ class BottomBarWithSheetItem extends StatelessWidget {
       child: Icon(
         icon,
         size: 20,
-        color: styleBottomBar.itemLabelColor,
+        color: _bottomBarTheme.itemIconColor,
       ),
     );
   }
 
   void setIndex(int index) {
-    this.index = index;
+    this._index = index;
   }
 
   bool _checkItemState() {
-    return index == selectedIndex;
+    return _index == _selectedIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    styleBottomBar = Provider.of<BottomBarTheme>(context);
-    selectedIndex = Provider.of<int>(context);
-    isOpened = Provider.of<bool>(context);
-    bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
+    _bottomBarTheme = Provider.of<BottomBarTheme>(context);
+    _selectedIndex = Provider.of<int>(context);
+    _bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
-    itemIconColor = itemIconColor ?? styleBottomBar.itemIconColor;
+    itemIconColor = itemIconColor ?? _bottomBarTheme.itemIconColor;
     selectedBackgroundColor =
-        selectedBackgroundColor ?? styleBottomBar.selectedItemBackgroundColor;
+        selectedBackgroundColor ?? _bottomBarTheme.selectedItemBackgroundColor;
 
     bool isSelected = _checkItemState();
     double iconTopSpacer = isSelected ? 0 : 2;
-    Widget labelWidget = _makeText(label);
+    Widget labelWidget = _buildText(label);
     Widget iconAreaWidget = isSelected
-        ? _buildOpenedButton(iconData, styleBottomBar.selectedItemIconColor)
-        : _buildClosedButton(iconData);
+        ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor)
+        : _buildClosedButton(icon);
 
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: bottomBarMainAxisAlignment,
+          mainAxisAlignment: _bottomBarMainAxisAlignment,
           children: <Widget>[
             SizedBox(height: iconTopSpacer),
             iconAreaWidget,

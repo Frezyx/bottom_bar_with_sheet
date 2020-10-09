@@ -8,34 +8,52 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-  final EdgeInsets contentPadding;
-  final Color barBackgroundColor;
-  final Color selectedItemBackgroundColor;
-  final Color selectedItemIconColor;
-  final Color selectedItemLabelColor;
-
-  final Color itemIconColor;
-  final Color itemLabelColor;
-
-  final TextStyle selectedItemTextStyle;
-  final TextStyle itemTextStyle;
-
-  final MainButtonPosition mainButtonPosition;
-
-  double barHeightClosed;
-  double barHeightOpened;
-
+  /// [BottomBarWithSheetItem] width
   final double itemWidth;
 
-  final double mainActionButtonSize;
-  final Widget mainActionButtonIconClosed;
-  final Widget mainActionButtonIconOpened;
-  final Color mainActionButtonColorSplash;
-  final Color mainActionButtonColor;
-  final EdgeInsets mainActionButtonPadding;
+  /// [BottomBarWithSheet] background color
+  final Color backgroundColor;
 
-  final BorderRadius borderRadius;
-  final List<BoxShadow> boxShadow;
+  /// selected [BottomBarWithSheetItem] icon color
+  final Color selectedItemIconColor;
+
+  /// selected [BottomBarWithSheetItem] label color
+  final Color selectedItemLabelColor;
+
+  /// selected [BottomBarWithSheetItem] circle background color
+  final Color selectedItemBackgroundColor;
+
+  /// selected [BottomBarWithSheetItem] text style
+  final TextStyle selectedItemTextStyle;
+
+  /// UNselected [BottomBarWithSheetItem] icon color
+  final Color itemIconColor;
+
+  /// UNselected [BottomBarWithSheetItem] label color
+  final Color itemLabelColor;
+
+  /// UNselected [BottomBarWithSheetItem] text style
+  final TextStyle itemTextStyle;
+
+  /// enum filed that response for the position of MainActionButton position
+  /// this field have 3 possible values:
+  ///
+  /// [MainButtonPosition.Left] - button displayed on left side
+  /// [MainButtonPosition.Right] - button displayed on right side
+  /// [MainButtonPosition.Center] - button displayed on center side
+  final MainButtonPosition mainButtonPosition;
+
+  /// [BottomBarWithSheet] height when [isOpened] == false
+  final double height;
+
+  /// [BottomBarWithSheet] height when [isOpened] == true
+  final double heightOpened;
+
+  /// [BottomBarWithSheet] widget [BoxDecoration]
+  final BoxDecoration decoration;
+
+  /// [EdgeInsets] to create padding between content of widget and sides
+  final EdgeInsets contentPadding;
 
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
@@ -53,8 +71,6 @@ class BottomBarTheme {
     topLeft: Radius.circular(30.0),
     topRight: Radius.circular(30.0),
   );
-
-  static const _constMainActionButtonPadding = EdgeInsets.all(7);
 
   static const _constcontentPadding =
       EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
@@ -74,13 +90,9 @@ class BottomBarTheme {
   BottomBarTheme({
     this.contentPadding = _constcontentPadding,
     this.itemWidth = 60,
-    this.barHeightClosed = 60,
-    this.barHeightOpened = 300,
-    this.mainActionButtonSize = 30,
-    this.mainActionButtonPadding = _constMainActionButtonPadding,
-    this.mainActionButtonColorSplash = Colors.blue,
-    this.mainActionButtonColor = Colors.blue,
-    this.barBackgroundColor = Colors.white,
+    this.height = 75,
+    this.heightOpened = 400,
+    this.backgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
     this.selectedItemLabelColor = Colors.black,
@@ -88,10 +100,10 @@ class BottomBarTheme {
     this.itemLabelColor = Colors.grey,
     this.selectedItemTextStyle = _selectedItemDefaultTextStyle,
     this.itemTextStyle = _itemDefaultTextStyle,
-    this.mainActionButtonIconClosed,
-    this.mainActionButtonIconOpened,
-    this.borderRadius = _defaultBorderRadius,
-    this.boxShadow = _defaultboxShadow,
     this.mainButtonPosition = MainButtonPosition.Left,
+    this.decoration = const BoxDecoration(
+      borderRadius: _defaultBorderRadius,
+      boxShadow: _defaultboxShadow,
+    ),
   });
 }

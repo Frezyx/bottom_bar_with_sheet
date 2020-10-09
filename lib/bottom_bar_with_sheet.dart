@@ -1,38 +1,58 @@
 library bottom_bar_with_sheet;
 
-import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-import 'package:bottom_bar_with_sheet/src/positions.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-import 'src/size_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_item.dart';
-export 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
-export 'package:bottom_bar_with_sheet/src/positions.dart';
+import 'src/bottom_bar_with_sheet_item.dart';
+import 'src/bottom_bar_with_sheet_theme.dart';
+import 'src/main_action_button_theme.dart';
+import 'src/positions.dart';
 
-// Hello !
-// ----------------------------------------------------------------------
-// You can check all widget annotation
-// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
-// ----------------------------------------------------------------------
+export 'src/bottom_bar_with_sheet_item.dart';
+export 'src/bottom_bar_with_sheet_theme.dart';
+export 'src/main_action_button_theme.dart';
+export 'src/positions.dart';
+
+const constCurve = Curves.linear;
+const constDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
+  /// navigation buttons of [BottomBarWithSheet]
   final List<BottomBarWithSheetItem> items;
-  final BottomBarTheme styleBottomBar;
-  final Function onSelectItem;
-  final int selectedIndex;
-  final Widget sheetChild;
-  bool isOpened;
-  Duration duration;
-  Curve curve;
-  MainAxisAlignment bottomBarMainAxisAlignment;
 
-  static const constDuration = Duration(milliseconds: 500);
-  static const constCurve = Curves.linear;
+  /// theme of [BottomBarWithSheet]
+  final BottomBarTheme bottomBarTheme;
+
+  /// theme of [MainActionButtonTheme]
+  final MainActionButtonTheme mainActionButtonTheme;
+
+  /// Callback [Function] works by clicking on one of [items]
+  ///
+  /// Return int [index] of selected button
+  final Function onSelectItem;
+
+  /// index of selected [BottomBarWithSheetItem] from [items]
+  final int selectedIndex;
+
+  /// Widget that displayed on bottom of [BottomBarWithSheet]
+  /// when [isOpened] == true
+  final Widget sheetChild;
+
+  /// animation time of closing / opening [BottomBarWithSheet]
+  final Duration duration;
+
+  /// the style of animation from the suggested ones of [Curve]
+  final Curve curve;
+
+  /// The direction in which the widget content will line up
+  final MainAxisAlignment bottomBarMainAxisAlignment;
+
+  /// Responsible for the open / closed state of the widget
+  bool isOpened;
+
   BottomBarWithSheet({
     Key key,
     this.selectedIndex = 0,
@@ -42,11 +62,14 @@ class BottomBarWithSheet extends StatefulWidget {
     this.curve = constCurve,
     @required this.sheetChild,
     @required this.items,
-    @required this.styleBottomBar,
+    @required this.bottomBarTheme,
+    @required this.mainActionButtonTheme,
     @required this.onSelectItem,
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
+    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
+        items.length % 2 == 0);
   }
 
   @override
@@ -63,26 +86,25 @@ class BottomBarWithSheet extends StatefulWidget {
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
   int selectedIndex;
-  bool isOpened;
-  Duration duration;
-  Curve curve;
-  _BottomBarWithSheetState(
-      {this.selectedIndex,
-      this.isOpened,
-      this.bottomBarMainAxisAlignment,
-      this.duration,
-      this.curve,
-      this.sheetChild});
+  final bool isOpened;
+  final Duration duration;
+  final Curve curve;
+  final MainAxisAlignment bottomBarMainAxisAlignment;
+  final Widget sheetChild;
 
+  _BottomBarWithSheetState({
+    this.selectedIndex,
+    this.isOpened,
+    this.bottomBarMainAxisAlignment,
+    this.duration,
+    this.curve,
+    this.sheetChild,
+  });
+
+  Widget _actionButtonIcon;
   AnimationController _arrowAnimationController;
   Animation _arrowAnimation;
-  var bottomSheetController;
-  bool isAnimated = false;
-  MainAxisAlignment bottomBarMainAxisAlignment;
-  Widget sheetChild;
-  Widget actionButtonIcon;
-
-  double iconOpacity = 1;
+  double _iconOpacity = 1;
 
   @override
   void initState() {
@@ -91,7 +113,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    actionButtonIcon = widget.styleBottomBar.mainActionButtonIconClosed;
+    _actionButtonIcon = widget.mainActionButtonTheme.icon;
     super.initState();
   }
 
@@ -103,7 +125,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   _animateIcon() async {
     setState(() {
-      iconOpacity = 1;
+      _iconOpacity = 1;
     });
 
     var animationTime = widget.duration.inMilliseconds / 50;
@@ -111,27 +133,27 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     var opacityPart = 1 / halfAnimationTime;
 
     for (var i = 0; i < halfAnimationTime; i++) {
-      iconOpacity -= opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+      _iconOpacity -= opacityPart;
+      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
         setState(() {
-          iconOpacity = iconOpacity;
+          _iconOpacity = _iconOpacity;
         });
       }
       await Future.delayed(const Duration(milliseconds: 50));
     }
 
     setState(() {
-      actionButtonIcon =
-          actionButtonIcon == widget.styleBottomBar.mainActionButtonIconOpened
-              ? widget.styleBottomBar.mainActionButtonIconClosed
-              : widget.styleBottomBar.mainActionButtonIconOpened;
+      _actionButtonIcon = _actionButtonIcon == widget.mainActionButtonTheme.icon
+          ? widget.mainActionButtonTheme.iconOpened ??
+              widget.mainActionButtonTheme.icon
+          : widget.mainActionButtonTheme.icon;
     });
 
     for (var i = 0; i < halfAnimationTime; i++) {
-      iconOpacity += opacityPart;
-      if (iconOpacity > 0.03 && i > halfAnimationTime / 3) {
+      _iconOpacity += opacityPart;
+      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
         setState(() {
-          iconOpacity = iconOpacity;
+          _iconOpacity = _iconOpacity;
         });
       }
       await Future.delayed(const Duration(milliseconds: 50));
@@ -140,16 +162,16 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   @override
   Widget build(BuildContext context) {
-    final BottomBarTheme styleBottomBar = widget.styleBottomBar;
-    final backgroundColor = styleBottomBar.barBackgroundColor ??
-        Theme.of(context).bottomAppBarColor;
-    final leftPadding = widget.styleBottomBar.contentPadding.left;
-    final rightPadding = widget.styleBottomBar.contentPadding.right;
+    final BottomBarTheme bottomBarTheme = widget.bottomBarTheme;
+    final backgroundColor =
+        bottomBarTheme.backgroundColor ?? Theme.of(context).bottomAppBarColor;
+    final leftPadding = widget.bottomBarTheme.contentPadding.left;
+    final rightPadding = widget.bottomBarTheme.contentPadding.right;
     final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
 
     return MultiProvider(
       providers: [
-        Provider<BottomBarTheme>.value(value: styleBottomBar),
+        Provider<BottomBarTheme>.value(value: bottomBarTheme),
         Provider<int>.value(value: widget.selectedIndex),
         Provider<bool>.value(value: widget.isOpened),
         Provider<MainAxisAlignment>.value(
@@ -159,16 +181,14 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         duration: duration,
         curve: curve,
         height: _calculateWidgetHeight(),
-        padding: widget.styleBottomBar.contentPadding,
-        decoration: BoxDecoration(
-          borderRadius: widget.styleBottomBar.borderRadius,
-          boxShadow: widget.styleBottomBar.boxShadow,
+        padding: widget.bottomBarTheme.contentPadding,
+        decoration: widget.bottomBarTheme.decoration.copyWith(
           color: backgroundColor,
         ),
         child: Column(
           children: <Widget>[
             Row(
-              mainAxisAlignment: widget.styleBottomBar.mainButtonPosition ==
+              mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
                       MainButtonPosition.Middle
                   ? MainAxisAlignment.center
                   : MainAxisAlignment.end,
@@ -183,7 +203,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   List<Widget> _buildBody(itemWidth) {
-    switch (widget.styleBottomBar.mainButtonPosition) {
+    switch (widget.bottomBarTheme.mainButtonPosition) {
       case MainButtonPosition.Right:
         return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
         break;
@@ -239,7 +259,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _buildCenteredView(
       double itemWidth, int leftCount, int rightCount) {
-    final rowWidth = SizeHelper.getRowWidth(widget, context);
+    final rowWidth = _SizeHelper.getRowWidth(widget, context);
     List<Widget> childrenLine = [];
     childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
     childrenLine.add(_buildMainActionButtton());
@@ -257,8 +277,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   double _calculateInnerWidth() =>
       MediaQuery.of(context).size.width -
-      widget.styleBottomBar.contentPadding.left -
-      widget.styleBottomBar.contentPadding.right;
+      widget.bottomBarTheme.contentPadding.left -
+      widget.bottomBarTheme.contentPadding.right;
 
   Container _getSeporatedItems(RowPosition position, double rowWidth) {
     final isLeft = position == RowPosition.Left;
@@ -285,13 +305,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       onTap: () {
         if (widget.isOpened) {
           _animateIcon();
-          _arrowAnimationController.isCompleted
-              ? _arrowAnimationController.reverse().then((value) {
-                  // Call back in future version
-                })
-              : _arrowAnimationController.forward().then((value) {
-                  // Call back in future version
-                });
+          _changeWidgetState();
         }
         setState(() {
           widget.onSelectItem(i);
@@ -302,7 +316,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         color: Colors.transparent,
         child: SizedBox(
           width: itemWidth,
-          height: widget.styleBottomBar.barHeightClosed,
+          height: widget.bottomBarTheme.height,
           child: item,
         ),
       ),
@@ -312,14 +326,15 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Container _buildMainActionButtton() {
     return Container(
       color: Colors.transparent,
+      transform: widget.mainActionButtonTheme.transform ??
+          Matrix4.translationValues(0.0, 0.0, 0.0),
       child: Padding(
-        padding: widget.styleBottomBar.mainActionButtonPadding,
+        padding: widget.mainActionButtonTheme.margin,
         child: ClipOval(
           child: Material(
-            color: widget.styleBottomBar.mainActionButtonColor, // button color
+            color: widget.mainActionButtonTheme.color,
             child: InkWell(
-              splashColor: widget
-                  .styleBottomBar.mainActionButtonColorSplash, // inkwell color
+              splashColor: widget.mainActionButtonTheme.splash,
               child: AnimatedBuilder(
                 animation: _arrowAnimationController,
                 builder: (BuildContext context, Widget child) {
@@ -329,9 +344,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                   );
                 },
                 child: SizedBox(
-                  width: widget.styleBottomBar.mainActionButtonSize,
-                  height: widget.styleBottomBar.mainActionButtonSize,
-                  child: Opacity(opacity: iconOpacity, child: actionButtonIcon),
+                  width: widget.mainActionButtonTheme.size,
+                  height: widget.mainActionButtonTheme.size,
+                  child: Opacity(
+                    opacity: _iconOpacity,
+                    child: _actionButtonIcon,
+                  ),
                 ),
               ),
               onTap: () {
@@ -347,11 +365,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   void _changeWidgetState() {
     setState(() => widget.isOpened = !widget.isOpened);
-
     _arrowAnimationController.isCompleted
-        ? _arrowAnimationController.reverse().then((value) {
-            // Call back in future version
-          })
+        ? _arrowAnimationController.reverse().then(
+            (value) {
+              // Call back in future version
+            },
+          )
         : _arrowAnimationController.forward().then(
             (value) {
               // Call back in future version
@@ -360,21 +379,33 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   double _calculateWidgetHeight() => widget.isOpened
-      ? widget.styleBottomBar.barHeightOpened +
-          widget.styleBottomBar.contentPadding.bottom +
-          widget.styleBottomBar.contentPadding.top
-      : widget.styleBottomBar.barHeightClosed +
-          widget.styleBottomBar.contentPadding.bottom +
-          widget.styleBottomBar.contentPadding.top;
+      ? widget.bottomBarTheme.heightOpened +
+          widget.bottomBarTheme.contentPadding.bottom +
+          widget.bottomBarTheme.contentPadding.top
+      : widget.bottomBarTheme.height +
+          widget.bottomBarTheme.contentPadding.bottom +
+          widget.bottomBarTheme.contentPadding.top;
 
   double _calculateItemWidth(
       BuildContext context, double rightPadding, double leftPadding) {
     return MediaQuery.of(context).size.width / widget.items.length -
         (rightPadding +
-                widget.styleBottomBar.mainActionButtonSize +
+                widget.mainActionButtonTheme.size +
                 leftPadding +
                 leftPadding +
                 4) /
             widget.items.length;
+  }
+}
+
+class _SizeHelper {
+  static double getRowWidth(BottomBarWithSheet widget, BuildContext context) {
+    return (MediaQuery.of(context).size.width -
+            widget.bottomBarTheme.contentPadding.left -
+            widget.bottomBarTheme.contentPadding.right -
+            widget.mainActionButtonTheme.size -
+            widget.mainActionButtonTheme.margin.left -
+            widget.mainActionButtonTheme.margin.right) /
+        2;
   }
 }

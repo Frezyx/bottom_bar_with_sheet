@@ -1,6 +1,6 @@
 name: bottom_bar_with_sheet
 description: This package help you to create bottom bar with FloatingActionButton which buld BottomSheet widget on every page.
-version: 0.2.1
+version: 0.3.0
 author: Stanislav Ilin https://github.com/Frezyx youngfrezyx@gmail.com
 homepage: https://github.com/Frezyx/bottom_bar_with_sheet
 
@@ -11,11 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   
-  provider: ^4.0.2
+  provider: ">=4.0.2 <4.1.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 flutter:
 
