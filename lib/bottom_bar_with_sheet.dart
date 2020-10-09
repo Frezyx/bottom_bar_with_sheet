@@ -20,7 +20,7 @@ const constDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
-  /// items of [BottomBarWithSheet]
+  /// navigation buttons of [BottomBarWithSheet]
   final List<BottomBarWithSheetItem> items;
 
   /// theme of [BottomBarWithSheet]
@@ -29,7 +29,9 @@ class BottomBarWithSheet extends StatefulWidget {
   /// theme of [MainActionButtonTheme]
   final MainActionButtonTheme mainActionButtonTheme;
 
+  /// Callback [Function] works by clicking on one of [items]
   ///
+  /// Return int [index] of selected button
   final Function onSelectItem;
 
   /// index of selected [BottomBarWithSheetItem] from [items]

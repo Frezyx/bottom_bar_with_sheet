@@ -11,6 +11,9 @@ class BottomBarTheme {
   /// [BottomBarWithSheetItem] width
   final double itemWidth;
 
+  /// [BottomBarWithSheet] background color
+  final Color backgroundColor;
+
   /// selected [BottomBarWithSheetItem] icon color
   final Color selectedItemIconColor;
 
@@ -28,9 +31,6 @@ class BottomBarTheme {
 
   /// UNselected [BottomBarWithSheetItem] label color
   final Color itemLabelColor;
-
-  /// UNselected [BottomBarWithSheetItem] circle background color
-  final Color backgroundColor;
 
   /// UNselected [BottomBarWithSheetItem] text style
   final TextStyle itemTextStyle;
