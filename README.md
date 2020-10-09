@@ -1,5 +1,8 @@
 # bottom_bar_with_sheet
 
+[![Build Status](https://travis-ci.com/Frezyx/bottom_bar_with_sheet.svg?branch=master)](https://travis-ci.com/Frezyx/bottom_bar_with_sheet) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
+![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social)
+
 💥Non-standard way to use more space of screens in your application💥<br>
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉First of all look at screens!
