@@ -1,3 +1,7 @@
+## 0.3.1 - 10-10-2020
+
+* fix support the latest published version of included packages
+
 ## 0.3.0 - 09-10-2020
 
 ### Big package update
