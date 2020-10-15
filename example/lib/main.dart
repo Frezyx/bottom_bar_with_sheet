@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(
             child: Text("Place for your another content",
                 style: TextStyle().copyWith(color: Colors.white))),
+        disableMainActionButton: true,
         curve: Curves.bounceOut,
         bottomBarTheme: BottomBarTheme(
           backgroundColor: Color(0xFFA81414),

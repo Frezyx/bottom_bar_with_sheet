@@ -53,6 +53,9 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Responsible for the open / closed state of the widget
   bool isOpened;
 
+  /// This field can replace mainActionButton
+  final bool disableMainActionButton;
+
   BottomBarWithSheet({
     Key key,
     this.selectedIndex = 0,
@@ -60,6 +63,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
     this.duration = constDuration,
     this.curve = constCurve,
+    this.disableMainActionButton = false,
     @required this.sheetChild,
     @required this.items,
     @required this.bottomBarTheme,
@@ -193,7 +197,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                   ? MainAxisAlignment.center
                   : MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: _buildBody(itemWidth),
+              children: _buildBody(itemWidth, widget.disableMainActionButton),
             ),
             widget.isOpened ? Expanded(child: sheetChild) : Container()
           ],
@@ -202,43 +206,53 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  List<Widget> _buildBody(itemWidth) {
+  List<Widget> _buildBody(itemWidth, bool disableMainActionButton) {
     switch (widget.bottomBarTheme.mainButtonPosition) {
       case MainButtonPosition.Right:
-        return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
+        return [
+          _buildButtonsRow(itemWidth, disableMainActionButton),
+          _buildMainActionButtton(disableMainActionButton)
+        ];
         break;
       case MainButtonPosition.Left:
-        return [_buildMainActionButtton(), _buildButtonsRow(itemWidth)];
+        return [
+          _buildMainActionButtton(disableMainActionButton),
+          _buildButtonsRow(itemWidth, disableMainActionButton)
+        ];
         break;
       case MainButtonPosition.Middle:
-        return _buildCentredBody(itemWidth);
+        return _buildCentredBody(itemWidth, disableMainActionButton);
         break;
       default:
-        return [_buildButtonsRow(itemWidth), _buildMainActionButtton()];
+        return [
+          _buildButtonsRow(itemWidth, disableMainActionButton),
+          _buildMainActionButtton(disableMainActionButton)
+        ];
         break;
     }
   }
 
-  List<Widget> _buildCentredBody(itemWidth) {
+  List<Widget> _buildCentredBody(itemWidth, bool disableMainActionButton) {
     final count = widget.items.length;
     final isEven = count % 2 == 0;
     return [
       isEven
-          ? _buildButtonsRow(itemWidth,
+          ? _buildButtonsRow(itemWidth, disableMainActionButton,
               leftCount: count ~/ 2, rightCount: count ~/ 2)
-          : _buildButtonsRow(itemWidth,
+          : _buildButtonsRow(itemWidth, disableMainActionButton,
               leftCount: count ~/ 2 - 1, rightCount: count ~/ 2 + 1)
     ];
   }
 
-  Container _buildButtonsRow(double itemWidth,
+  Container _buildButtonsRow(double itemWidth, bool disableMainActionButton,
       {int leftCount, int rightCount}) {
     if (leftCount != null && rightCount != null) {
       for (var i = 0; i < widget.items.length; i++) {
         if (i < leftCount) widget.items[i].isLeft = true;
         widget.items[i].setIndex(i);
       }
-      return _buildCenteredView(itemWidth, leftCount, rightCount);
+      return _buildCenteredView(
+          itemWidth, leftCount, rightCount, disableMainActionButton);
     } else
       return _buildStandartView(itemWidth);
   }
@@ -257,12 +271,13 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Container _buildCenteredView(
-      double itemWidth, int leftCount, int rightCount) {
-    final rowWidth = _SizeHelper.getRowWidth(widget, context);
+  Container _buildCenteredView(double itemWidth, int leftCount, int rightCount,
+      bool disableMainActionButton) {
+    final rowWidth =
+        _SizeHelper.getRowWidth(disableMainActionButton, widget, context);
     List<Widget> childrenLine = [];
     childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
-    childrenLine.add(_buildMainActionButtton());
+    childrenLine.add(_buildMainActionButtton(disableMainActionButton));
     childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
 
     return Container(
@@ -323,44 +338,46 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Container _buildMainActionButtton() {
-    return Container(
-      color: Colors.transparent,
-      transform: widget.mainActionButtonTheme.transform ??
-          Matrix4.translationValues(0.0, 0.0, 0.0),
-      child: Padding(
-        padding: widget.mainActionButtonTheme.margin,
-        child: ClipOval(
-          child: Material(
-            color: widget.mainActionButtonTheme.color,
-            child: InkWell(
-              splashColor: widget.mainActionButtonTheme.splash,
-              child: AnimatedBuilder(
-                animation: _arrowAnimationController,
-                builder: (BuildContext context, Widget child) {
-                  return Transform.rotate(
-                    angle: _arrowAnimation.value * 2.0 * math.pi,
-                    child: child,
-                  );
-                },
-                child: SizedBox(
-                  width: widget.mainActionButtonTheme.size,
-                  height: widget.mainActionButtonTheme.size,
-                  child: Opacity(
-                    opacity: _iconOpacity,
-                    child: _actionButtonIcon,
+  Container _buildMainActionButtton(bool disableMainActionButton) {
+    return disableMainActionButton
+        ? SizedBox()
+        : Container(
+            color: Colors.transparent,
+            transform: widget.mainActionButtonTheme.transform ??
+                Matrix4.translationValues(0.0, 0.0, 0.0),
+            child: Padding(
+              padding: widget.mainActionButtonTheme.margin,
+              child: ClipOval(
+                child: Material(
+                  color: widget.mainActionButtonTheme.color,
+                  child: InkWell(
+                    splashColor: widget.mainActionButtonTheme.splash,
+                    child: AnimatedBuilder(
+                      animation: _arrowAnimationController,
+                      builder: (BuildContext context, Widget child) {
+                        return Transform.rotate(
+                          angle: _arrowAnimation.value * 2.0 * math.pi,
+                          child: child,
+                        );
+                      },
+                      child: SizedBox(
+                        width: widget.mainActionButtonTheme.size,
+                        height: widget.mainActionButtonTheme.size,
+                        child: Opacity(
+                          opacity: _iconOpacity,
+                          child: _actionButtonIcon,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      _animateIcon();
+                      _changeWidgetState();
+                    },
                   ),
                 ),
               ),
-              onTap: () {
-                _animateIcon();
-                _changeWidgetState();
-              },
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
   void _changeWidgetState() {
@@ -399,13 +416,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 }
 
 class _SizeHelper {
-  static double getRowWidth(BottomBarWithSheet widget, BuildContext context) {
+  static double getRowWidth(bool disableMainActionButton,
+      BottomBarWithSheet widget, BuildContext context) {
+    final mainActionButtonSize = disableMainActionButton
+        ? 0.0
+        : widget.mainActionButtonTheme.size -
+            widget.mainActionButtonTheme.margin.left -
+            widget.mainActionButtonTheme.margin.right;
+
     return (MediaQuery.of(context).size.width -
             widget.bottomBarTheme.contentPadding.left -
             widget.bottomBarTheme.contentPadding.right -
-            widget.mainActionButtonTheme.size -
-            widget.mainActionButtonTheme.margin.left -
-            widget.mainActionButtonTheme.margin.right) /
+            mainActionButtonSize) /
         2;
   }
 }
