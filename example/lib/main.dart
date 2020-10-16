@@ -20,6 +20,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  bool _isOpened = false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text("Place for your another content",
                 style: TextStyle().copyWith(color: Colors.white))),
         disableMainActionButton: true,
+        isOpened: _isOpened,
         curve: Curves.bounceOut,
         bottomBarTheme: BottomBarTheme(
           backgroundColor: Color(0xFFA81414),
@@ -51,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           itemTextStyle:
               TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
           heightOpened: 600,
-          height: 80,
+          height: 0,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 60,
@@ -84,6 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Likes',
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFFFE0000),
+        onPressed: () => setState(() => _isOpened = !_isOpened),
+        child: Icon(
+          _isOpened
+              ? Icons.arrow_downward_outlined
+              : Icons.arrow_upward_outlined,
+        ),
       ),
     );
   }

@@ -171,7 +171,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         bottomBarTheme.backgroundColor ?? Theme.of(context).bottomAppBarColor;
     final leftPadding = widget.bottomBarTheme.contentPadding.left;
     final rightPadding = widget.bottomBarTheme.contentPadding.right;
-    final itemWidth = _calculateItemWidth(context, rightPadding, leftPadding);
+    final itemWidth = _calculateItemWidth(
+        context, rightPadding, leftPadding, widget.disableMainActionButton);
 
     return MultiProvider(
       providers: [
@@ -338,7 +339,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Container _buildMainActionButtton(bool disableMainActionButton) {
+  Widget _buildMainActionButtton(bool disableMainActionButton) {
     return disableMainActionButton
         ? SizedBox()
         : Container(
@@ -403,14 +404,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           widget.bottomBarTheme.contentPadding.bottom +
           widget.bottomBarTheme.contentPadding.top;
 
-  double _calculateItemWidth(
-      BuildContext context, double rightPadding, double leftPadding) {
+  double _calculateItemWidth(BuildContext context, double rightPadding,
+      double leftPadding, bool disableMainActionButton) {
+    final mainActionButtonSize =
+        disableMainActionButton ? 0.0 : widget.mainActionButtonTheme.size;
     return MediaQuery.of(context).size.width / widget.items.length -
-        (rightPadding +
-                widget.mainActionButtonTheme.size +
-                leftPadding +
-                leftPadding +
-                4) /
+        (rightPadding + mainActionButtonSize + leftPadding + leftPadding + 4) /
             widget.items.length;
   }
 }
