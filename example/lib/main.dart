@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(
             child: Text("Place for your another content",
                 style: TextStyle().copyWith(color: Colors.white))),
-        disableMainActionButton: true,
+        disableMainActionButton: false,
         isOpened: _isOpened,
         curve: Curves.bounceOut,
         bottomBarTheme: BottomBarTheme(
@@ -55,17 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
           heightOpened: 600,
           height: 0,
         ),
-        mainActionButtonTheme: MainActionButtonTheme(
-          size: 60,
-          splash: Color(0xFFE47676),
-          color: Color(0xFFFE0000),
-          // transform: Matrix4.translationValues(0.0, -31.0, 0.0),
-          icon: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 35,
-          ),
-        ),
+        mainActionButtonBuilder: (context) {
+          return Container(
+            height: 100,
+            width: 100,
+            color: Colors.black,
+          );
+        },
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         // Five is max
         items: [

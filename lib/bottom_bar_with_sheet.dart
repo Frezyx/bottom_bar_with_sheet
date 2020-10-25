@@ -2,6 +2,7 @@ library bottom_bar_with_sheet;
 
 import 'dart:math' as math;
 
+import 'package:bottom_bar_with_sheet/src/builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +57,9 @@ class BottomBarWithSheet extends StatefulWidget {
   /// This field can replace mainActionButton
   final bool disableMainActionButton;
 
+  /// Method to create custom mainActionButton
+  final FullBuilder mainActionButtonBuilder;
+
   BottomBarWithSheet({
     Key key,
     this.selectedIndex = 0,
@@ -64,16 +68,19 @@ class BottomBarWithSheet extends StatefulWidget {
     this.duration = constDuration,
     this.curve = constCurve,
     this.disableMainActionButton = false,
+    this.mainActionButtonBuilder,
     @required this.sheetChild,
     @required this.items,
     @required this.bottomBarTheme,
-    @required this.mainActionButtonTheme,
+    this.mainActionButtonTheme,
     @required this.onSelectItem,
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
+    assert(mainActionButtonBuilder != null && disableMainActionButton != true ||
+        disableMainActionButton == false);
   }
 
   @override
@@ -340,45 +347,48 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   Widget _buildMainActionButtton(bool disableMainActionButton) {
-    return disableMainActionButton
-        ? SizedBox()
-        : Container(
-            color: Colors.transparent,
-            transform: widget.mainActionButtonTheme.transform ??
-                Matrix4.translationValues(0.0, 0.0, 0.0),
-            child: Padding(
-              padding: widget.mainActionButtonTheme.margin,
-              child: ClipOval(
-                child: Material(
-                  color: widget.mainActionButtonTheme.color,
-                  child: InkWell(
-                    splashColor: widget.mainActionButtonTheme.splash,
-                    child: AnimatedBuilder(
-                      animation: _arrowAnimationController,
-                      builder: (BuildContext context, Widget child) {
-                        return Transform.rotate(
-                          angle: _arrowAnimation.value * 2.0 * math.pi,
-                          child: child,
-                        );
-                      },
-                      child: SizedBox(
-                        width: widget.mainActionButtonTheme.size,
-                        height: widget.mainActionButtonTheme.size,
-                        child: Opacity(
-                          opacity: _iconOpacity,
-                          child: _actionButtonIcon,
-                        ),
-                      ),
+    if (widget.mainActionButtonBuilder != null)
+      return widget.mainActionButtonBuilder(context);
+    else if (disableMainActionButton)
+      return SizedBox();
+    else
+      return Container(
+        color: Colors.transparent,
+        transform: widget.mainActionButtonTheme.transform ??
+            Matrix4.translationValues(0.0, 0.0, 0.0),
+        child: Padding(
+          padding: widget.mainActionButtonTheme.margin,
+          child: ClipOval(
+            child: Material(
+              color: widget.mainActionButtonTheme.color,
+              child: InkWell(
+                splashColor: widget.mainActionButtonTheme.splash,
+                child: AnimatedBuilder(
+                  animation: _arrowAnimationController,
+                  builder: (BuildContext context, Widget child) {
+                    return Transform.rotate(
+                      angle: _arrowAnimation.value * 2.0 * math.pi,
+                      child: child,
+                    );
+                  },
+                  child: SizedBox(
+                    width: widget.mainActionButtonTheme.size,
+                    height: widget.mainActionButtonTheme.size,
+                    child: Opacity(
+                      opacity: _iconOpacity,
+                      child: _actionButtonIcon,
                     ),
-                    onTap: () {
-                      _animateIcon();
-                      _changeWidgetState();
-                    },
                   ),
                 ),
+                onTap: () {
+                  _animateIcon();
+                  _changeWidgetState();
+                },
               ),
             ),
-          );
+          ),
+        ),
+      );
   }
 
   void _changeWidgetState() {
