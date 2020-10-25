@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('bottom_bar_with_sheet v0.3.0')),
+      appBar: AppBar(title: Text('bottom_bar_with_sheet v0.3.2')),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,

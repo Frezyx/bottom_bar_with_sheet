@@ -1,3 +1,7 @@
+## 0.3.2 - 10-10-2020
+
+* fix example images in repository README.md
+
 ## 0.3.1 - 10-10-2020
 
 * fix support the latest published version of included packages
