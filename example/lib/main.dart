@@ -39,12 +39,11 @@ class _MyHomePageState extends State<MyHomePage> {
         sheetChild: Center(
             child: Text("Place for your another content",
                 style: TextStyle().copyWith(color: Colors.white))),
-        disableMainActionButton: false,
+        disableMainActionButton: true,
         isOpened: _isOpened,
-        curve: Curves.bounceOut,
+        curve: Curves.easeIn,
         bottomBarTheme: BottomBarTheme(
           backgroundColor: Color(0xFFA81414),
-          mainButtonPosition: MainButtonPosition.Left,
           selectedItemBackgroundColor: Color(0xFFFE0000),
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.white,
@@ -53,33 +52,29 @@ class _MyHomePageState extends State<MyHomePage> {
           itemTextStyle:
               TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
           heightOpened: 600,
-          height: 0,
+          height: 70,
+          heightClosed: 0.0,
         ),
-        mainActionButtonBuilder: (context) {
-          return Container(
-            height: 100,
-            width: 100,
-            color: Colors.black,
-          );
-        },
+        mainActionButtonTheme:
+            MainActionButtonTheme(icon: Icon(Icons.arrow_upward_outlined)),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         // Five is max
         items: [
           BottomBarWithSheetItem(
             icon: Icons.people,
-            label: 'Profile',
+            // label: 'Profile',
           ),
           BottomBarWithSheetItem(
             icon: Icons.shopping_cart,
-            label: 'Cart',
+            // label: 'Cart',
           ),
           BottomBarWithSheetItem(
             icon: Icons.settings,
-            label: 'Settings',
+            // label: 'Settings',
           ),
           BottomBarWithSheetItem(
             icon: Icons.favorite,
-            label: 'Likes',
+            // label: 'Likes',
           ),
         ],
       ),

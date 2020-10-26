@@ -58,6 +58,8 @@ class BottomBarWithSheet extends StatefulWidget {
   final bool disableMainActionButton;
 
   /// Method to create custom mainActionButton
+  /// The feature is under development
+  @Deprecated('The feature is under development')
   final FullBuilder mainActionButtonBuilder;
 
   BottomBarWithSheet({
@@ -72,15 +74,14 @@ class BottomBarWithSheet extends StatefulWidget {
     @required this.sheetChild,
     @required this.items,
     @required this.bottomBarTheme,
-    this.mainActionButtonTheme,
+    @required this.mainActionButtonTheme,
     @required this.onSelectItem,
   }) {
     assert(items != null);
     assert(items.length >= 2 && items.length <= 5);
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
-    assert(mainActionButtonBuilder != null && disableMainActionButton != true ||
-        disableMainActionButton == false);
+    assert(mainActionButtonBuilder != null || mainActionButtonTheme != null);
   }
 
   @override
@@ -120,11 +121,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   @override
   void initState() {
     super.initState();
+    MainActionButtonTheme(icon: Icon(Icons.arrow_upward));
     _arrowAnimationController =
         AnimationController(vsync: this, duration: duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _actionButtonIcon = widget.mainActionButtonTheme.icon;
+    _actionButtonIcon = widget.mainActionButtonTheme?.icon ?? null;
     super.initState();
   }
 
@@ -337,12 +339,23 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       },
       child: Container(
         color: Colors.transparent,
-        child: SizedBox(
-          width: itemWidth,
-          height: widget.bottomBarTheme.height,
-          child: item,
-        ),
+        child: widget.bottomBarTheme.heightClosed <= 0.0
+            ? AnimatedBuilder(
+                animation: _arrowAnimationController,
+                builder: (BuildContext context, Widget child) {
+                  return _buildItemSizedBox(itemWidth, item);
+                },
+              )
+            : _buildItemSizedBox(itemWidth, item),
       ),
+    );
+  }
+
+  SizedBox _buildItemSizedBox(double itemWidth, BottomBarWithSheetItem item) {
+    return SizedBox(
+      width: itemWidth,
+      height: widget.bottomBarTheme.height * 1.0 - _arrowAnimation.value,
+      child: item,
     );
   }
 
@@ -410,14 +423,15 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       ? widget.bottomBarTheme.heightOpened +
           widget.bottomBarTheme.contentPadding.bottom +
           widget.bottomBarTheme.contentPadding.top
-      : widget.bottomBarTheme.height +
+      : widget.bottomBarTheme.heightClosed +
           widget.bottomBarTheme.contentPadding.bottom +
           widget.bottomBarTheme.contentPadding.top;
 
   double _calculateItemWidth(BuildContext context, double rightPadding,
       double leftPadding, bool disableMainActionButton) {
-    final mainActionButtonSize =
-        disableMainActionButton ? 0.0 : widget.mainActionButtonTheme.size;
+    final mainActionButtonSize = disableMainActionButton
+        ? 0.0
+        : widget.mainActionButtonTheme?.size ?? 0.0;
     return MediaQuery.of(context).size.width / widget.items.length -
         (rightPadding + mainActionButtonSize + leftPadding + leftPadding + 4) /
             widget.items.length;

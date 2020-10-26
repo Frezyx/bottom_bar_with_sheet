@@ -81,8 +81,9 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | itemWidth | double | custom size of BottomBarWithSheetItem's |
-| height | MainActionButtonTheme | **BottomBarWithSheet** height when **isOpened** == false |
-| heightOpened | MainActionButtonTheme | **BottomBarWithSheet** height when **isOpened** == true |
+| height | double | **BottomBarWithSheet** icons line height |
+| heightOpened | double | **BottomBarWithSheet** height when **isOpened** == true |
+| heightClosed | double | **BottomBarWithSheet** height when **isOpened** == false |
 | decoration | BoxDecoration | decoration of **BottomBarWithSheet** |
 | contentPadding | EdgeInsets | create padding between content of widget and sides |
 | backgroundColor | Color | **BottomBarWithSheet** background color |

@@ -43,11 +43,14 @@ class BottomBarTheme {
   /// [MainButtonPosition.Center] - button displayed on center side
   final MainButtonPosition mainButtonPosition;
 
-  /// [BottomBarWithSheet] height when [isOpened] == false
+  /// [BottomBarWithSheet] icons line height
   final double height;
 
   /// [BottomBarWithSheet] height when [isOpened] == true
   final double heightOpened;
+
+  /// [BottomBarWithSheet] height when [isOpened] == false
+  final double heightClosed;
 
   /// [BottomBarWithSheet] widget [BoxDecoration]
   final BoxDecoration decoration;
@@ -92,6 +95,7 @@ class BottomBarTheme {
     this.itemWidth = 60,
     this.height = 75,
     this.heightOpened = 400,
+    this.heightClosed = 75,
     this.backgroundColor = Colors.white,
     this.selectedItemBackgroundColor = Colors.blue,
     this.selectedItemIconColor = Colors.white,
