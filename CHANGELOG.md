@@ -1,3 +1,11 @@
+## 0.4.0 - 27-10-2020
+
+### New UI way
+
+* Added ability to disable MainActionButton
+* Added ability to set 0 initial height of widget
+* Created [example](https://github.com/Frezyx/bottom_bar_with_sheet/example/lib/examples/fab_outside_bottom_bar.dart) of new usage way of package 
+  
 ## 0.3.2 - 10-10-2020
 
 * fix example images in repository README.md
@@ -5,6 +13,7 @@
 ## 0.3.1 - 10-10-2020
 
 * fix support the latest published version of included packages
+
 
 ## 0.3.0 - 09-10-2020
 

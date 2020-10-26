@@ -16,7 +16,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.3.2
+  bottom_bar_with_sheet: ^0.4.0
 ```
 
 ### Add import package
@@ -66,6 +66,7 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | isOpened | bool | Responsible for the open / closed state of the widget |
+| disableMainActionButton | bool | disable MainActionButton if true , enable if false |
 | sheetChild | Widget | that displayed on bottom of **BottomBarWithSheet** when **isOpened** == true |
 | items | List BottomBarWithSheetItem | navigation buttons of **BottomBarWithSheet** |
 | bottomBarTheme | BottomBarTheme | theme of **BottomBarWithSheet** |
@@ -81,8 +82,9 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | itemWidth | double | custom size of BottomBarWithSheetItem's |
-| height | MainActionButtonTheme | **BottomBarWithSheet** height when **isOpened** == false |
-| heightOpened | MainActionButtonTheme | **BottomBarWithSheet** height when **isOpened** == true |
+| height | double | **BottomBarWithSheet** icons line height |
+| heightOpened | double | **BottomBarWithSheet** height when **isOpened** == true |
+| heightClosed | double | **BottomBarWithSheet** height when **isOpened** == false |
 | decoration | BoxDecoration | decoration of **BottomBarWithSheet** |
 | contentPadding | EdgeInsets | create padding between content of widget and sides |
 | backgroundColor | Color | **BottomBarWithSheet** background color |
