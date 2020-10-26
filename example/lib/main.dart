@@ -29,19 +29,14 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle().copyWith(color: Colors.white)),
         backgroundColor: const Color(0xFF2B65E3),
       ),
-      body: Center(
-          child: Text("Place for your content",
-              style: TextStyle().copyWith(color: Colors.black))),
+      body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
-        bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
-          selectedItemBackgroundColor: const Color(0xFF2B65E3),
-        ),
+        curve: Curves.bounceOut,
+        bottomBarTheme: BottomBarTheme(),
         mainActionButtonTheme: MainActionButtonTheme(
-          size: 60,
-          color: const Color(0xFF2B65E3),
+          size: 55,
           icon: Icon(
             Icons.add,
             color: Colors.white,
