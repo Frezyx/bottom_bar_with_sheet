@@ -24,39 +24,24 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFEEEE),
       appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.3.0',
+        title: Text('bottom_bar_with_sheet v0.4.0',
             style: TextStyle().copyWith(color: Colors.white)),
-        backgroundColor: Color(0xFFA81414),
+        backgroundColor: const Color(0xFF2B65E3),
       ),
       body: Center(
           child: Text("Place for your content",
               style: TextStyle().copyWith(color: Colors.black))),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(
-            child: Text("Place for your another content",
-                style: TextStyle().copyWith(color: Colors.white))),
-        curve: Curves.bounceOut,
+        sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
-          backgroundColor: Color(0xFFA81414),
-          mainButtonPosition: MainButtonPosition.Left,
-          selectedItemBackgroundColor: Color(0xFFFE0000),
-          selectedItemIconColor: Colors.white,
-          itemIconColor: Colors.white,
-          itemLabelColor: Colors.white,
-          selectedItemLabelColor: Colors.white,
-          itemTextStyle:
-              TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
-          heightOpened: 600,
-          height: 80,
+          mainButtonPosition: MainButtonPosition.Middle,
+          selectedItemBackgroundColor: const Color(0xFF2B65E3),
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 60,
-          splash: Color(0xFFE47676),
-          color: Color(0xFFFE0000),
-          // transform: Matrix4.translationValues(0.0, -31.0, 0.0),
+          color: const Color(0xFF2B65E3),
           icon: Icon(
             Icons.add,
             color: Colors.white,
@@ -64,24 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
-        // Five is max
         items: [
-          BottomBarWithSheetItem(
-            icon: Icons.people,
-            label: 'Profile',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.shopping_cart,
-            label: 'Cart',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.settings,
-            label: 'Settings',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.favorite,
-            label: 'Likes',
-          ),
+          BottomBarWithSheetItem(icon: Icons.people),
+          BottomBarWithSheetItem(icon: Icons.shopping_cart),
+          BottomBarWithSheetItem(icon: Icons.settings),
+          BottomBarWithSheetItem(icon: Icons.favorite),
         ],
       ),
     );
