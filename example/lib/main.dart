@@ -20,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  bool _isOpened = false;
 
   @override
   Widget build(BuildContext context) {
