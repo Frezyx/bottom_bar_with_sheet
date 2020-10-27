@@ -72,13 +72,11 @@ class BottomBarWithSheet extends StatefulWidget {
     this.disableMainActionButton = false,
     this.mainActionButtonBuilder,
     @required this.sheetChild,
-    @required this.items,
+    this.items,
     @required this.bottomBarTheme,
     @required this.mainActionButtonTheme,
     @required this.onSelectItem,
   }) {
-    assert(items != null);
-    assert(items.length >= 2 && items.length <= 5);
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
     assert(mainActionButtonBuilder != null || mainActionButtonTheme != null);
@@ -272,11 +270,13 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.items.map((item) {
-          var i = widget.items.indexOf(item);
-          item.setIndex(i);
-          return _buildItem(i, itemWidth, item);
-        }).toList(),
+        children: widget.items == null
+            ? []
+            : widget.items.map((item) {
+                var i = widget.items.indexOf(item);
+                item.setIndex(i);
+                return _buildItem(i, itemWidth, item);
+              }).toList(),
       ),
     );
   }
@@ -337,24 +337,14 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           selectedIndex = i;
         });
       },
-      child: Container(
-        color: Colors.transparent,
-        child: widget.bottomBarTheme.heightClosed <= 0.0
-            ? AnimatedBuilder(
-                animation: _arrowAnimationController,
-                builder: (BuildContext context, Widget child) {
-                  return _buildItemSizedBox(itemWidth, item);
-                },
-              )
-            : _buildItemSizedBox(itemWidth, item),
-      ),
+      child: _buildItemSizedBox(itemWidth, item),
     );
   }
 
   SizedBox _buildItemSizedBox(double itemWidth, BottomBarWithSheetItem item) {
     return SizedBox(
       width: itemWidth,
-      height: widget.bottomBarTheme.height * 1.0 - _arrowAnimation.value,
+      height: widget.bottomBarTheme.height,
       child: item,
     );
   }
@@ -419,6 +409,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           );
   }
 
+  // TODO: simplify math
+
   double _calculateWidgetHeight() => widget.isOpened
       ? widget.bottomBarTheme.heightOpened +
           widget.bottomBarTheme.contentPadding.bottom +
@@ -429,12 +421,21 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   double _calculateItemWidth(BuildContext context, double rightPadding,
       double leftPadding, bool disableMainActionButton) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final count = widget.items != null ? widget.items.length : 1.0;
+    final mainActionButtonPaddings = widget.mainActionButtonTheme == null
+        ? 0.0
+        : widget.mainActionButtonTheme.margin.left +
+            widget.mainActionButtonTheme.margin.right;
     final mainActionButtonSize = disableMainActionButton
         ? 0.0
         : widget.mainActionButtonTheme?.size ?? 0.0;
-    return MediaQuery.of(context).size.width / widget.items.length -
-        (rightPadding + mainActionButtonSize + leftPadding + leftPadding + 4) /
-            widget.items.length;
+    final sideSize = rightPadding +
+        mainActionButtonSize +
+        mainActionButtonPaddings +
+        leftPadding;
+    final itemWidth = (screenWidth - sideSize) / count;
+    return itemWidth;
   }
 }
 
@@ -443,14 +444,12 @@ class _SizeHelper {
       BottomBarWithSheet widget, BuildContext context) {
     final mainActionButtonSize = disableMainActionButton
         ? 0.0
-        : widget.mainActionButtonTheme.size -
-            widget.mainActionButtonTheme.margin.left -
+        : widget.mainActionButtonTheme.size +
+            widget.mainActionButtonTheme.margin.left +
             widget.mainActionButtonTheme.margin.right;
-
-    return (MediaQuery.of(context).size.width -
-            widget.bottomBarTheme.contentPadding.left -
-            widget.bottomBarTheme.contentPadding.right -
-            mainActionButtonSize) /
-        2;
+    final sideSize = widget.bottomBarTheme.contentPadding.left +
+        widget.bottomBarTheme.contentPadding.right +
+        mainActionButtonSize;
+    return (MediaQuery.of(context).size.width - sideSize) / 2;
   }
 }

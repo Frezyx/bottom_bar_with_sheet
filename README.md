@@ -66,6 +66,7 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | isOpened | bool | Responsible for the open / closed state of the widget |
+| disableMainActionButton | bool | disable MainActionButton if true , enable if false |
 | sheetChild | Widget | that displayed on bottom of **BottomBarWithSheet** when **isOpened** == true |
 | items | List BottomBarWithSheetItem | navigation buttons of **BottomBarWithSheet** |
 | bottomBarTheme | BottomBarTheme | theme of **BottomBarWithSheet** |
