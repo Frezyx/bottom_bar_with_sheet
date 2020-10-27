@@ -27,14 +27,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('bottom_bar_with_sheet v0.4.0',
             style: TextStyle().copyWith(color: Colors.white)),
-        backgroundColor: const Color(0xFF2B65E3),
       ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
-        curve: Curves.bounceOut,
-        bottomBarTheme: BottomBarTheme(),
+        bottomBarTheme: BottomBarTheme(
+          mainButtonPosition: MainButtonPosition.Middle,
+        ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 55,
           icon: Icon(
