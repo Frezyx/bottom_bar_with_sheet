@@ -35,12 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
         ),
-        mainActionButtonTheme: MainActionButtonTheme(
-          size: 55,
-          icon: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 35,
+        mainActionButton: MainActionButton(
+          width: 100,
+          child: Container(
+            width: 20,
+            height: 20,
+            color: Colors.black,
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
