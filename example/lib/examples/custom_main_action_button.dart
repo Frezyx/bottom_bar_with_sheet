@@ -26,21 +26,21 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('bottom_bar_with_sheet v0.5.0',
-            style: TextStyle(color: Colors.white)),
+            style: TextStyle().copyWith(color: Colors.white)),
       ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
+          height: 70,
+          heightClosed: 80,
           mainButtonPosition: MainButtonPosition.Middle,
         ),
-        mainActionButtonTheme: MainActionButtonTheme(
-          size: 55,
-          icon: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 35,
+        mainActionButton: MainActionButton(
+          width: 50,
+          child: Image.network(
+            'https://wsofter.ru/wp-content/uploads/2019/08/1_ilc2aqp5szd1wi0copd1hw.png',
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),

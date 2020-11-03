@@ -16,7 +16,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.4.0
+  bottom_bar_with_sheet: ^0.5.0
 ```
 
 ### Add import package
@@ -76,6 +76,7 @@ Scaffold(
 | duration | Duration | animation time of closing / opening **BottomBarWithSheet** |
 | curve | Curve | the style of animation from the suggested ones of **Curve** |
 | bottomBarMainAxisAlignment | MainAxisAlignment | The direction in which the widget content will line up |
+| mainActionButton | MainActionButton | Custom version of Main Action Button |
 
 ## Attributes of BottomBarTheme
 
