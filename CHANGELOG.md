@@ -1,3 +1,7 @@
+## 0.5.0 - 5-11-2020
+
+### Implement custom mainActionButton
+
 ## 0.4.0 - 27-10-2020
 
 ### New UI way
