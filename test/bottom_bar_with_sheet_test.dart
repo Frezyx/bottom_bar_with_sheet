@@ -19,6 +19,20 @@ void main() {
       expect(item, findsOneWidget);
     },
   );
+
+  testWidgets(
+    'Tap MainActionButton test',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: App()));
+      final button = find.byType(MainActionButton);
+
+      await tester.tap(button);
+      await tester.pump();
+
+      final text = find.text('Place for your another content');
+      expect(text, findsOneWidget);
+    },
+  );
 }
 
 class App extends StatefulWidget {
@@ -47,6 +61,14 @@ class _AppState extends State<App> {
             Icons.add,
             color: Colors.white,
             size: 35,
+          ),
+        ),
+        mainActionButton: MainActionButton(
+          width: 50,
+          child: Container(
+            width: 50.0,
+            height: 50.0,
+            color: Colors.blue,
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
