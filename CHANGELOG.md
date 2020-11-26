@@ -1,3 +1,7 @@
+## 0.5.1 - 5-11-2020
+
+### Created Widget tests
+
 ## 0.5.0 - 5-11-2020
 
 ### Implement custom mainActionButton
