@@ -1,13 +1,5 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -31,6 +23,37 @@ void main() {
 
       final text = find.text('Place for your another content');
       expect(text, findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Tap BottomBarWithSheetItem test',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: App()));
+      final button = find.byType(BottomBarWithSheetItem).first;
+
+      await tester.tap(button);
+      await tester.pump();
+
+      expect(button, findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Close BottomBar after open test',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: App()));
+
+      final button = find.byType(MainActionButton);
+
+      await tester.tap(button);
+      await tester.pump();
+
+      await tester.tap(button);
+      await tester.pump();
+
+      final text = find.text('Place for your another content');
+      expect(text, findsNothing);
     },
   );
 }
