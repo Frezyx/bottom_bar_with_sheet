@@ -1,5 +1,8 @@
 name: Auto Tests
 on:
+  push:
+    branches:
+      - '**'
   pull_request:
     branches:
       - '**'
