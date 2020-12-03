@@ -1,6 +1,6 @@
 # bottom_bar_with_sheet
 
-[![Build Status](https://travis-ci.com/Frezyx/bottom_bar_with_sheet.svg?branch=master)](https://travis-ci.com/Frezyx/bottom_bar_with_sheet) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FFrezyx%2Fbottom_bar_with_sheet%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/Frezyx/bottom_bar_with_sheet/goto?ref=master) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
 ![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social)
 
 💥Non-standard way to use more space of screens in your application💥<br>
