@@ -6,9 +6,6 @@ on:
     branches: [ master, test, ci ]
 jobs:
   build:
-    defaults:
-      run:
-        working-directory: packages/bloc
     runs-on: ubuntu-latest
     container:
       image: google/dart:2.10.0
@@ -22,8 +19,6 @@ jobs:
         run: dart test --coverage=coverage && pub run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info
       - name: Check Code Coverage
         uses: ChicagoFlutter/lcov-cop@v1.0.0
-        with:
-          path: packages/bloc/coverage/lcov.info
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
