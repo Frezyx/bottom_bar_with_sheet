@@ -7,8 +7,10 @@
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉First of all look at screens!
 
-| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example1.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example2.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example3.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example4.gif?raw=true) |
-| :------------: | :------------: | :------------: | :------------: |
+| ------------- | ------------- |
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example1.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example2.gif?raw=true) |
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example3.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example4.gif?raw=true) |
+
 
 ## Getting Started
 
