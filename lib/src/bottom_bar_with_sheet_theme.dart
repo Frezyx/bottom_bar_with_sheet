@@ -58,6 +58,9 @@ class BottomBarTheme {
   /// [EdgeInsets] to create padding between content of widget and sides
   final EdgeInsets contentPadding;
 
+  /// [double] size of item icon when item is pressed
+  final double selectedItemIconSize;
+
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
     fontWeight: FontWeight.w500,
@@ -109,5 +112,6 @@ class BottomBarTheme {
       borderRadius: _defaultBorderRadius,
       boxShadow: _defaultboxShadow,
     ),
+    this.selectedItemIconSize = 17,
   });
 }

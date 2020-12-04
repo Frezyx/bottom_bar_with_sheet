@@ -24,23 +24,44 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         title: Text('bottom_bar_with_sheet v0.5.3',
-            style: TextStyle().copyWith(color: Colors.white)),
+            style: TextStyle(color: Colors.white)),
       ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(child: Text("Place for your another content")),
+        sheetChild: Center(
+            child: Text("Place for your another content",
+                style: TextStyle(color: Colors.white))),
         bottomBarTheme: BottomBarTheme(
+          backgroundColor: Colors.purple,
+          itemIconColor: Colors.white,
+          selectedItemIconColor: Colors.white,
+          selectedItemBackgroundColor: Colors.purple,
           height: 70,
           heightClosed: 80,
           mainButtonPosition: MainButtonPosition.Middle,
+          selectedItemIconSize: 20,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10.0,
+                spreadRadius: 3.0,
+                offset: Offset(5.0, 5.0),
+              )
+            ],
+          ),
         ),
         mainActionButton: MainActionButton(
           width: 50,
-          child: Image.network(
-            'https://wsofter.ru/wp-content/uploads/2019/08/1_ilc2aqp5szd1wi0copd1hw.png',
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30,
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),

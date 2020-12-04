@@ -9,6 +9,8 @@
 
 | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example1.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example2.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example3.gif?raw=true) |
 | :------------: | :------------: | :------------: |
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example4.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example5.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/example6.gif?raw=true) |
+
 
 ## Getting Started
 
@@ -16,7 +18,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.5.1
+  bottom_bar_with_sheet: ^0.5.3
 ```
 
 ### Add import package
@@ -61,6 +63,8 @@ Scaffold(
     );
 ```
 
+**More examples you can see** [here](https://github.com/Frezyx/bottom_bar_with_sheet/tree/master/example/lib)
+
 ## Attributes
 
 | Attribute  | Type | Annotation |
@@ -96,6 +100,7 @@ Scaffold(
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
 | selectedItemBackgroundColor | Color | selected item icon color |
+| selectedItemIconSize | double | size of item icon when item is pressed |
 | mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.Left, MainButtonPosition.Right , MainButtonPosition.Center |
 
 ## Attributes of MainActionButtonTheme

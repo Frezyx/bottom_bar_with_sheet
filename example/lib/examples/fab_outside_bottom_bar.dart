@@ -1,6 +1,18 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
+    );
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -15,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color(0xFFFFEEEE),
       appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.5.1',
+        title: Text('bottom_bar_with_sheet v0.5.3',
             style: TextStyle().copyWith(color: Colors.white)),
         backgroundColor: Color(0xFFFF8D8D),
       ),
