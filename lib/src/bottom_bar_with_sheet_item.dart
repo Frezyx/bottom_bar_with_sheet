@@ -58,7 +58,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
           );
   }
 
-  Widget _buildOpenedButton(IconData icon, Color selectedItemIconColor) {
+  Widget _buildOpenedButton(
+      IconData icon, Color selectedItemIconColor, double selectedItemIconSize) {
     return Center(
       child: ClipOval(
         child: Material(
@@ -69,7 +70,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Icon(
                 icon,
-                size: 17,
+                size: selectedItemIconSize,
                 color: selectedItemIconColor,
               ),
             )),
@@ -112,7 +113,8 @@ class BottomBarWithSheetItem extends StatelessWidget {
     double iconTopSpacer = isSelected ? 0 : 2;
     Widget labelWidget = _buildText(label);
     Widget iconAreaWidget = isSelected
-        ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor)
+        ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor,
+            _bottomBarTheme.selectedItemIconSize)
         : _buildClosedButton(icon);
 
     return AnimatedContainer(

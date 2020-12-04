@@ -16,7 +16,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^0.5.1
+  bottom_bar_with_sheet: ^0.5.2
 ```
 
 ### Add import package
@@ -96,6 +96,7 @@ Scaffold(
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
 | selectedItemBackgroundColor | Color | selected item icon color |
+| selectedItemIconSize | double | size of item icon when item is pressed |
 | mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.Left, MainButtonPosition.Right , MainButtonPosition.Center |
 
 ## Attributes of MainActionButtonTheme
