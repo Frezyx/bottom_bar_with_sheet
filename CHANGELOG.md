@@ -1,3 +1,8 @@
+## 0.5.2 - 5-11-2020
+
+* Added selectedItemIconSize field in BottomBarTheme class
+* Remove ci/cd logic from travis to GithubActions
+
 ## 0.5.1 - 5-11-2020
 
 ### Created Widget tests
