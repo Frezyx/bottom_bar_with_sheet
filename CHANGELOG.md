@@ -1,3 +1,8 @@
+## 0.5.3 - 4-12-2020
+
+* Added new usage examples
+* Update documentation
+
 ## 0.5.2 - 4-12-2020
 
 * Added selectedItemIconSize field in BottomBarTheme class
