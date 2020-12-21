@@ -1,3 +1,7 @@
+## 0.5.4 - 21-12-2020
+
+* Fix preview overload
+
 ## 0.5.3 - 4-12-2020
 
 * Added new usage examples
