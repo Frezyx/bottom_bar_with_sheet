@@ -87,6 +87,7 @@ class BottomBarWithSheet extends StatefulWidget {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
     assert(mainActionButton != null || mainActionButtonTheme != null);
+
   }
 
   @override
@@ -191,7 +192,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   List<Widget> _buildBody(
-      itemWidth, bool disableMainActionButton, BottomBarBloc barBloc) {
+    double itemWidth,
+    bool disableMainActionButton,
+    BottomBarBloc barBloc,
+  ) {
     switch (widget.bottomBarTheme.mainButtonPosition) {
       case MainButtonPosition.Right:
         return [
@@ -218,7 +222,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   List<Widget> _buildCentredBody(
-      itemWidth, bool disableMainActionButton, BottomBarBloc barBloc) {
+      double itemWidth, bool disableMainActionButton, BottomBarBloc barBloc) {
     final count = widget.items.length;
     final isEven = count % 2 == 0;
     return [
@@ -375,7 +379,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         animation: _arrowAnimationController,
         builder: (BuildContext context, Widget child) {
           return Transform.rotate(
-            angle: _arrowAnimation.value * 2.0 * math.pi,
+            angle: (_arrowAnimation.value * 2.0 * math.pi) as double,
             child: child,
           );
         },
@@ -399,7 +403,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
               animation: _arrowAnimationController,
               builder: (BuildContext context, Widget child) {
                 return Transform.rotate(
-                  angle: _arrowAnimation.value * 2.0 * math.pi,
+                  angle: (_arrowAnimation.value * 2.0 * math.pi) as double,
                   child: child,
                 );
               },

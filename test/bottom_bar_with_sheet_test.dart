@@ -94,7 +94,7 @@ class _AppState extends State<App> {
             color: Colors.blue,
           ),
         ),
-        onSelectItem: (index) => setState(() => _selectedIndex = index),
+        onSelectItem: (int index) => setState(() => _selectedIndex = index),
         items: [
           BottomBarWithSheetItem(icon: Icons.people),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
