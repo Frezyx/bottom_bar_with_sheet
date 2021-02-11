@@ -1,4 +1,4 @@
-## 0.5.4 - 11-02-2021
+## 0.5.5 - 11-02-2021
 
 * Refactor code on BottomBar and BarItem
 * Add pedantic dependency
