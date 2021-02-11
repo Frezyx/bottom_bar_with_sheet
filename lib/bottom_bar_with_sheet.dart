@@ -18,6 +18,12 @@ export 'src/main_action_button_theme.dart';
 export 'src/positions.dart';
 export 'src/main_action_button.dart';
 
+/// Hello !
+/// ----------------------------------------------------------------------
+/// You can check all widget annotation
+/// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
+/// ----------------------------------------------------------------------
+
 const constCurve = Curves.linear;
 const constDuration = Duration(milliseconds: 500);
 
@@ -53,14 +59,14 @@ class BottomBarWithSheet extends StatefulWidget {
   /// The direction in which the widget content will line up
   final MainAxisAlignment bottomBarMainAxisAlignment;
 
-  /// Responsible for the open / closed state of the widget
-  bool isOpened;
-
   /// This field can replace mainActionButton
   final bool disableMainActionButton;
 
   /// Widget [MainActionButton] to create custom mainActionButton
   final MainActionButton mainActionButton;
+
+  /// Responsible for the open / closed state of the widget
+  bool isOpened;
 
   BottomBarWithSheet({
     Key key,

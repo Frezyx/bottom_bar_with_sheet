@@ -2,11 +2,11 @@ import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// Hello !
-// ----------------------------------------------------------------------
-// You can check all widget annotation
-// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
-// ----------------------------------------------------------------------
+/// Hello !
+/// ----------------------------------------------------------------------
+/// You can check all widget annotation
+/// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
+/// ----------------------------------------------------------------------
 
 const defaultDuration = Duration(milliseconds: 500);
 
