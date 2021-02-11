@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('bottom_bar_with_sheet v0.5.5+1',
+        title: Text('bottom_bar_with_sheet v0.5.5+2',
             style: TextStyle(color: Colors.white)),
       ),
       body: Center(child: Text("Place for your content")),
