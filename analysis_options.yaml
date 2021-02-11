@@ -1,8 +1,0 @@
-linter:
-  rules:
-    - parameter_assignments
-
-analyzer:
-  errors:
-    missing_required_param: error
-    unnecessary_const: warning
