@@ -1,7 +1,8 @@
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart' ;
+import 'package:bottom_bar_with_sheet/src/blocs/bottom_bar_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'file:///C:/Users/FREZY/Desktop/FlutterProjects/package/bottom_bar_with_sheet/lib/src/theme/bottom_bar_with_sheet_theme.dart';
+import 'package:bottom_bar_with_sheet/src/theme/bottom_bar_with_sheet_theme.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -23,9 +24,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   double itemWidth;
 
   int _index;
-  int _selectedIndex;
-  MainAxisAlignment _bottomBarMainAxisAlignment;
-  BottomBarTheme _bottomBarTheme;
+
 
   BottomBarWithSheetItem({
     Key key,
@@ -37,8 +36,9 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.itemIconColor,
   }) : super(key: key);
 
-  Widget _buildText(String label) {
-    var isSelected = _checkItemState();
+  Widget _buildText(String label, {@required BottomBarBloc barBloc}) {
+    final bottomBarTheme = barBloc.bottomBarTheme;
+    final isSelected = _checkItemState(barBloc);
     return label == null
         ? Container()
         : Center(
@@ -46,14 +46,14 @@ class BottomBarWithSheetItem extends StatelessWidget {
               label,
               style: TextStyle(
                 color: isSelected
-                    ? _bottomBarTheme.selectedItemLabelColor
-                    : _bottomBarTheme.itemLabelColor,
+                    ? bottomBarTheme.selectedItemLabelColor
+                    : bottomBarTheme.itemLabelColor,
                 fontSize: isSelected
-                    ? _bottomBarTheme.selectedItemTextStyle.fontSize
-                    : _bottomBarTheme.itemTextStyle.fontSize,
+                    ? bottomBarTheme.selectedItemTextStyle.fontSize
+                    : bottomBarTheme.itemTextStyle.fontSize,
                 fontWeight: isSelected
-                    ? _bottomBarTheme.selectedItemTextStyle.fontWeight
-                    : _bottomBarTheme.itemTextStyle.fontWeight,
+                    ? bottomBarTheme.selectedItemTextStyle.fontWeight
+                    : bottomBarTheme.itemTextStyle.fontWeight,
               ),
               textAlign: TextAlign.center,
             ),
@@ -82,47 +82,46 @@ class BottomBarWithSheetItem extends StatelessWidget {
     );
   }
 
-  Widget _buildClosedButton(IconData icon) {
+  Widget _buildClosedButton(Color color, IconData icon) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: Icon(
         icon,
         size: 20,
-        color: _bottomBarTheme.itemIconColor,
+        color: color,
       ),
     );
   }
 
   void setIndex(int index) {
-    this._index = index;
+    _index = index;
   }
 
-  bool _checkItemState() {
-    return _index == _selectedIndex;
+  bool _checkItemState(BottomBarBloc barBloc) {
+    return _index == barBloc.selectedIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = Provider.of<int>(context);
-    _bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
+    final barBloc = Provider.of<BottomBarBloc>(context);
 
-    itemIconColor = itemIconColor ?? _bottomBarTheme.itemIconColor;
+    itemIconColor = itemIconColor ?? barBloc.bottomBarTheme.itemIconColor;
     selectedBackgroundColor =
-        selectedBackgroundColor ?? _bottomBarTheme.selectedItemBackgroundColor;
+        selectedBackgroundColor ?? barBloc.bottomBarTheme.selectedItemBackgroundColor;
 
-    final isSelected = _checkItemState();
+    final isSelected = _checkItemState(barBloc);
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
-    final labelWidget = _buildText(label);
+    final labelWidget = _buildText(label, barBloc: barBloc);
     final iconAreaWidget = isSelected
-        ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor,
-            _bottomBarTheme.selectedItemIconSize)
-        : _buildClosedButton(icon);
+        ? _buildOpenedButton(icon, barBloc.bottomBarTheme.selectedItemIconColor,
+        barBloc.bottomBarTheme.selectedItemIconSize)
+        : _buildClosedButton(barBloc.bottomBarTheme.itemIconColor, icon);
 
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: _bottomBarMainAxisAlignment,
+        mainAxisAlignment: barBloc.mainAxisAlignment,
         children: <Widget>[
           SizedBox(height: iconTopSpacer),
           iconAreaWidget,
