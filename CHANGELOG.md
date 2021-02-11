@@ -1,3 +1,9 @@
+## 0.5.4 - 11-02-2021
+
+* Refactor code on BottomBar and BarItem
+* Add pedantic dependency
+* Replace providing variables into BottomBarBloc
+
 ## 0.5.3 - 4-12-2020
 
 * Added new usage examples
