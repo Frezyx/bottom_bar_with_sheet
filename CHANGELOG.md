@@ -1,3 +1,7 @@
+## 0.5.5+1 - 11-02-2021
+
+* Fix pub.dev issues
+
 ## 0.5.5 - 11-02-2021
 
 * Refactor code on BottomBar and BarItem
