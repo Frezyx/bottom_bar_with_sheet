@@ -1,8 +1,6 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart' ;
 import 'package:bottom_bar_with_sheet/src/blocs/bottom_bar_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bottom_bar_with_sheet/src/theme/bottom_bar_with_sheet_theme.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------

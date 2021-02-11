@@ -354,9 +354,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   Widget _buildActionButton(bool disableMainActionButton) {
-    if (disableMainActionButton)
+    if (disableMainActionButton) {
       return SizedBox();
-    else
+    } else {
       return Container(
         color: Colors.transparent,
         transform: widget.mainActionButtonTheme?.transform ??
@@ -365,6 +365,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             ? _buildMainActionButton(widget.mainActionButton)
             : _buildDefaultMainActionButton(),
       );
+    }
   }
 
   Widget _buildMainActionButton(Widget button) {
@@ -464,7 +465,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     return itemWidth;
   }
 
-  _animateIcon() async {
+  Future<void> _animateIcon() async {
     setState(() {
       _iconOpacity = 1;
     });

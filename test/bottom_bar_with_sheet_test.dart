@@ -74,7 +74,7 @@ class _AppState extends State<App> {
     return Scaffold(
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(child: Text("Place for your another content")),
+        sheetChild: Center(child: Text('Place for your another content')),
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
         ),
