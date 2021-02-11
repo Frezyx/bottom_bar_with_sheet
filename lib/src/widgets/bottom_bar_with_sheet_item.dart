@@ -23,7 +23,6 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
   int _index;
 
-
   BottomBarWithSheetItem({
     Key key,
     this.label,
@@ -104,15 +103,15 @@ class BottomBarWithSheetItem extends StatelessWidget {
     final barBloc = Provider.of<BottomBarBloc>(context);
 
     itemIconColor = itemIconColor ?? barBloc.bottomBarTheme.itemIconColor;
-    selectedBackgroundColor =
-        selectedBackgroundColor ?? barBloc.bottomBarTheme.selectedItemBackgroundColor;
+    selectedBackgroundColor = selectedBackgroundColor ??
+        barBloc.bottomBarTheme.selectedItemBackgroundColor;
 
     final isSelected = _checkItemState(barBloc);
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
     final labelWidget = _buildText(label, barBloc: barBloc);
     final iconAreaWidget = isSelected
         ? _buildOpenedButton(icon, barBloc.bottomBarTheme.selectedItemIconColor,
-        barBloc.bottomBarTheme.selectedItemIconSize)
+            barBloc.bottomBarTheme.selectedItemIconSize)
         : _buildClosedButton(barBloc.bottomBarTheme.itemIconColor, icon);
 
     return AnimatedContainer(
