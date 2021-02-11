@@ -87,7 +87,6 @@ class BottomBarWithSheet extends StatefulWidget {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
         items.length % 2 == 0);
     assert(mainActionButton != null || mainActionButtonTheme != null);
-
   }
 
   @override
@@ -440,8 +439,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             },
           );
   }
-
-  // TODO: simplify math
 
   double get _calculateWidgetHeight {
     final t = widget.bottomBarTheme;

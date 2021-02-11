@@ -1,5 +1,9 @@
 ## 0.5.5 - 11-02-2021
 
+* Fix pub.dev issues
+
+## 0.5.5 - 11-02-2021
+
 * Refactor code on BottomBar and BarItem
 * Add pedantic dependency
 * Replace providing variables into BottomBarBloc
