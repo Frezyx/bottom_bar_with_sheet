@@ -152,11 +152,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
     return MultiProvider(
       providers: [
-        Provider<BottomBarTheme>.value(value: bottomBarTheme),
         Provider<int>.value(value: widget.selectedIndex),
         Provider<bool>.value(value: widget.isOpened),
         Provider<MainAxisAlignment>.value(
-            value: widget.bottomBarMainAxisAlignment),
+          value: widget.bottomBarMainAxisAlignment,
+        ),
       ],
       child: AnimatedContainer(
         duration: duration,
@@ -188,12 +188,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       case MainButtonPosition.Right:
         return [
           _buildButtonsRow(itemWidth, disableMainActionButton),
-          _buildMainActionButtton(disableMainActionButton)
+          _buildActionButton(disableMainActionButton)
         ];
         break;
       case MainButtonPosition.Left:
         return [
-          _buildMainActionButtton(disableMainActionButton),
+          _buildActionButton(disableMainActionButton),
           _buildButtonsRow(itemWidth, disableMainActionButton)
         ];
         break;
@@ -203,7 +203,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       default:
         return [
           _buildButtonsRow(itemWidth, disableMainActionButton),
-          _buildMainActionButtton(disableMainActionButton)
+          _buildActionButton(disableMainActionButton)
         ];
         break;
     }
@@ -231,10 +231,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       return _buildCenteredView(
           itemWidth, leftCount, rightCount, disableMainActionButton);
     } else
-      return _buildStandartView(itemWidth);
+      return _buildCommonView(itemWidth);
   }
 
-  Container _buildStandartView(double itemWidth) {
+  Container _buildCommonView(double itemWidth) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,7 +256,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         SizeHelper.getRowWidth(disableMainActionButton, widget, context);
     List<Widget> childrenLine = [];
     childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth));
-    childrenLine.add(_buildMainActionButtton(disableMainActionButton));
+    childrenLine.add(_buildActionButton(disableMainActionButton));
     childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth));
 
     return Container(
@@ -318,7 +318,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Widget _buildMainActionButtton(bool disableMainActionButton) {
+  Widget _buildActionButton(bool disableMainActionButton) {
     if (disableMainActionButton)
       return SizedBox();
     else
@@ -403,13 +403,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   // TODO: simplify math
 
-  double get _calculateWidgetHeight => widget.isOpened
-      ? widget.bottomBarTheme.heightOpened +
-          widget.bottomBarTheme.contentPadding.bottom +
-          widget.bottomBarTheme.contentPadding.top
-      : widget.bottomBarTheme.heightClosed +
-          widget.bottomBarTheme.contentPadding.bottom +
-          widget.bottomBarTheme.contentPadding.top;
+  double get _calculateWidgetHeight {
+    final t = widget.bottomBarTheme;
+    return widget.isOpened
+        ? t.heightOpened + t.contentPadding.bottom + t.contentPadding.top
+        : t.heightClosed + t.contentPadding.bottom + t.contentPadding.top;
+  }
 
   double _calculateItemWidth(BuildContext context, double rightPadding,
       double leftPadding, bool disableMainActionButton) {

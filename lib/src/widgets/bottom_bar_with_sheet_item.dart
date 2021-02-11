@@ -1,6 +1,7 @@
-import 'file:///C:/Users/FREZY/Desktop/FlutterProjects/package/bottom_bar_with_sheet/lib/src/theme/bottom_bar_with_sheet_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'file:///C:/Users/FREZY/Desktop/FlutterProjects/package/bottom_bar_with_sheet/lib/src/theme/bottom_bar_with_sheet_theme.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -19,11 +20,12 @@ class BottomBarWithSheetItem extends StatelessWidget {
   Color selectedLabelColor;
   bool isLeft;
   Color itemIconColor;
+  double itemWidth;
+
   int _index;
   int _selectedIndex;
-  BottomBarTheme _bottomBarTheme;
-  double itemWidth;
   MainAxisAlignment _bottomBarMainAxisAlignment;
+  BottomBarTheme _bottomBarTheme;
 
   BottomBarWithSheetItem({
     Key key,
@@ -36,7 +38,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   }) : super(key: key);
 
   Widget _buildText(String label) {
-    bool isSelected = _checkItemState();
+    var isSelected = _checkItemState();
     return label == null
         ? Container()
         : Center(
@@ -101,7 +103,6 @@ class BottomBarWithSheetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _bottomBarTheme = Provider.of<BottomBarTheme>(context);
     _selectedIndex = Provider.of<int>(context);
     _bottomBarMainAxisAlignment = Provider.of<MainAxisAlignment>(context);
 
@@ -109,10 +110,10 @@ class BottomBarWithSheetItem extends StatelessWidget {
     selectedBackgroundColor =
         selectedBackgroundColor ?? _bottomBarTheme.selectedItemBackgroundColor;
 
-    bool isSelected = _checkItemState();
-    double iconTopSpacer = isSelected ? 0 : 2;
-    Widget labelWidget = _buildText(label);
-    Widget iconAreaWidget = isSelected
+    final isSelected = _checkItemState();
+    final iconTopSpacer = isSelected ? 0.0 : 2.0;
+    final labelWidget = _buildText(label);
+    final iconAreaWidget = isSelected
         ? _buildOpenedButton(icon, _bottomBarTheme.selectedItemIconColor,
             _bottomBarTheme.selectedItemIconSize)
         : _buildClosedButton(icon);
@@ -120,14 +121,15 @@ class BottomBarWithSheetItem extends StatelessWidget {
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: _bottomBarMainAxisAlignment,
-          children: <Widget>[
-            SizedBox(height: iconTopSpacer),
-            iconAreaWidget,
-            labelWidget,
-            SizedBox(height: 2),
-          ]),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: _bottomBarMainAxisAlignment,
+        children: <Widget>[
+          SizedBox(height: iconTopSpacer),
+          iconAreaWidget,
+          labelWidget,
+          SizedBox(height: 2),
+        ],
+      ),
     );
   }
 }
