@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.5.1',
+        title: Text('bottom_bar_with_sheet v0.5.5',
             style: TextStyle(color: Colors.white)),
       ),
       body: Center(child: Text("Place for your content")),
