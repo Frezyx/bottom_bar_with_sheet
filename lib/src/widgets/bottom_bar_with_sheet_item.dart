@@ -1,4 +1,4 @@
-import 'package:bottom_bar_with_sheet/src/bottom_bar_with_sheet_theme.dart';
+import 'file:///C:/Users/FREZY/Desktop/FlutterProjects/package/bottom_bar_with_sheet/lib/src/theme/bottom_bar_with_sheet_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

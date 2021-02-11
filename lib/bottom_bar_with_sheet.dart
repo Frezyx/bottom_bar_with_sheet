@@ -2,21 +2,21 @@ library bottom_bar_with_sheet;
 
 import 'dart:math' as math;
 
-import 'src/main_action_button.dart';
+import 'src/widgets/main_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'src/bottom_bar_with_sheet_item.dart';
-import 'src/bottom_bar_with_sheet_theme.dart';
-import 'src/main_action_button_theme.dart';
-import 'src/positions.dart';
-import 'src/size_helper.dart';
+import 'src/widgets/bottom_bar_with_sheet_item.dart';
+import 'src/theme/bottom_bar_with_sheet_theme.dart';
+import 'src/theme/main_action_button_theme.dart';
+import 'src/enums/positions.dart';
+import 'src/utils/size_helper.dart';
 
-export 'src/bottom_bar_with_sheet_item.dart';
-export 'src/bottom_bar_with_sheet_theme.dart';
-export 'src/main_action_button_theme.dart';
-export 'src/positions.dart';
-export 'src/main_action_button.dart';
+export 'src/widgets/bottom_bar_with_sheet_item.dart';
+export 'src/theme/bottom_bar_with_sheet_theme.dart';
+export 'src/theme/main_action_button_theme.dart';
+export 'src/enums/positions.dart';
+export 'src/widgets/main_action_button.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
