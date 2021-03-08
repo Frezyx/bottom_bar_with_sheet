@@ -14,25 +14,29 @@ const defaultDuration = Duration(milliseconds: 500);
 class BottomBarWithSheetItem<T> extends StatelessWidget {
   final String label;
   final T icon;
-  final bool weHaveIconData;
+  final bool _isIconData;
   final Duration animationDuration;
+
+  /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
+  final bool noSelectionState;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
   bool isLeft;
   Color itemIconColor;
-  double itemWidth;
+  //UNUSED and INGORED//double itemWidth;
 
   int _index;
 
   BottomBarWithSheetItem({
     Key key,
     this.label,
-    this.itemWidth = 60,
+    //UNIUSED AND IGNORED//this.itemWidth = 60,
     this.selectedBackgroundColor,
     @required this.icon,
     this.animationDuration = defaultDuration,
+    this.noSelectionState = false,
     this.itemIconColor,
-  }) : weHaveIconData = icon is IconData, super(key: key);
+  }) : _isIconData = icon is IconData, assert( icon is IconData || icon is Widget), super(key: key);
 
   Widget _buildText(String label, {@required BottomBarBloc barBloc}) {
     final bottomBarTheme = barBloc.bottomBarTheme;
@@ -87,7 +91,7 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
   }
 
   bool _checkItemState(BottomBarBloc barBloc) {
-    return _index == barBloc.selectedIndex;
+    return noSelectionState ? false :  (_index == barBloc.selectedIndex);
   }
 
   @override
@@ -102,8 +106,8 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
     final labelWidget = _buildText(label, barBloc: barBloc);
     final iconAreaWidget = isSelected
-        ? _buildOpenedButton( !weHaveIconData ? icon : Icon( icon as IconData, size: barBloc.bottomBarTheme.selectedItemIconSize, color: barBloc.bottomBarTheme.selectedItemIconColor, ))
-        : _buildClosedButton( !weHaveIconData ? icon : Icon( icon as IconData, size: 20, color: barBloc.bottomBarTheme.itemIconColor ));
+        ? _buildOpenedButton( !_isIconData ? icon : Icon( icon as IconData, size: barBloc.bottomBarTheme.selectedItemIconSize, color: barBloc.bottomBarTheme.selectedItemIconColor ))
+        : _buildClosedButton( !_isIconData ? icon : Icon( icon as IconData, size: barBloc.bottomBarTheme.itemIconSize, color: barBloc.bottomBarTheme.itemIconColor ));
 
     return AnimatedContainer(
       duration: animationDuration,
