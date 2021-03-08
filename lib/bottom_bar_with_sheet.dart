@@ -66,8 +66,11 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Widget [MainActionButton] to create custom mainActionButton
   final MainActionButton mainActionButton;
 
-  /// Responsible for the open / closed state of the widget
-  bool isOpened;
+  /// Initial open / closed state of the widget
+  final bool isOpened;
+
+  ///  If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed
+  final bool noAutoClose;
 
   BottomBarWithSheet({
     Key key,
@@ -82,6 +85,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.items,
     @required this.bottomBarTheme,
     this.mainActionButtonTheme,
+    this.noAutoClose,
     @required this.onSelectItem,
   }) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
@@ -93,29 +97,17 @@ class BottomBarWithSheet extends StatefulWidget {
   _BottomBarWithSheetState createState() => _BottomBarWithSheetState(
         selectedIndex: selectedIndex,
         isOpened: isOpened,
-        bottomBarMainAxisAlignment: bottomBarMainAxisAlignment,
-        duration: duration,
-        curve: curve,
-        sheetChild: sheetChild,
       );
 }
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
   int selectedIndex;
-  final bool isOpened;
-  final Duration duration;
-  final Curve curve;
-  final MainAxisAlignment bottomBarMainAxisAlignment;
-  final Widget sheetChild;
+  bool isOpened;
 
   _BottomBarWithSheetState({
     this.selectedIndex,
     this.isOpened,
-    this.bottomBarMainAxisAlignment,
-    this.duration,
-    this.curve,
-    this.sheetChild,
   });
 
   Widget _actionButtonIcon;
@@ -128,7 +120,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.initState();
     MainActionButtonTheme(icon: Icon(Icons.arrow_upward));
     _arrowAnimationController =
-        AnimationController(vsync: this, duration: duration);
+        AnimationController(vsync: this, duration: widget.duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
     _actionButtonIcon = widget.mainActionButtonTheme?.icon;
@@ -155,7 +147,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         providers: [
           ChangeNotifierProvider<BottomBarBloc>(
             create: (ctx) => BottomBarBloc(
-              isOpened: widget.isOpened,
+              isOpened: isOpened,
               selectedIndex: widget.selectedIndex,
               mainAxisAlignment: widget.bottomBarMainAxisAlignment,
               bottomBarTheme: widget.bottomBarTheme,
@@ -165,8 +157,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         builder: (BuildContext context, _) {
           final barBloc = Provider.of<BottomBarBloc>(context);
           return AnimatedContainer(
-            duration: duration,
-            curve: curve,
+            duration: widget.duration,
+            curve: widget.curve,
             height: _calculateWidgetHeight,
             padding: widget.bottomBarTheme.contentPadding,
             decoration: widget.bottomBarTheme.decoration.copyWith(
@@ -183,7 +175,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                   children: _buildBody(
                       itemWidth, widget.disableMainActionButton, barBloc),
                 ),
-                widget.isOpened ? Expanded(child: sheetChild) : Container()
+                isOpened ? Expanded(child: widget.sheetChild) : Container()
               ],
             ),
           );
@@ -292,9 +284,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final rowWidth =
         SizeHelper.getRowWidth(disableMainActionButton, widget, context);
     final childrenLine = <Widget>[];
-    childrenLine.add(_getSeporatedItems(RowPosition.Left, rowWidth, barBloc));
+    childrenLine.add(_getSeparatedItems(RowPosition.Left, rowWidth, barBloc));
     childrenLine.add(_buildActionButton(disableMainActionButton));
-    childrenLine.add(_getSeporatedItems(RowPosition.Right, rowWidth, barBloc));
+    childrenLine.add(_getSeparatedItems(RowPosition.Right, rowWidth, barBloc));
 
     return Container(
       width: _calculateInnerWidth(),
@@ -311,7 +303,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       widget.bottomBarTheme.contentPadding.left -
       widget.bottomBarTheme.contentPadding.right;
 
-  Container _getSeporatedItems(
+  Container _getSeparatedItems(
       RowPosition position, double rowWidth, BottomBarBloc barBloc) {
     final isLeft = position == RowPosition.Left;
     return Container(
@@ -335,7 +327,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       BottomBarWithSheetItem item, BottomBarBloc barBloc) {
     return GestureDetector(
       onTap: () {
-        if (widget.isOpened) {
+        if (!widget.noAutoClose && isOpened) {
           _animateIcon();
           _changeWidgetState();
         }
@@ -426,7 +418,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   void _changeWidgetState() {
-    setState(() => widget.isOpened = !widget.isOpened);
+    setState(() => isOpened = !isOpened);
     _arrowAnimationController.isCompleted
         ? _arrowAnimationController.reverse().then(
             (value) {
@@ -442,7 +434,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   double get _calculateWidgetHeight {
     final t = widget.bottomBarTheme;
-    return widget.isOpened
+    return isOpened
         ? t.heightOpened + t.contentPadding.bottom + t.contentPadding.top
         : t.heightClosed + t.contentPadding.bottom + t.contentPadding.top;
   }
