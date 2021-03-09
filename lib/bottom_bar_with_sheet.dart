@@ -85,7 +85,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.items,
     @required this.bottomBarTheme,
     this.mainActionButtonTheme,
-    this.noAutoClose,
+    this.noAutoClose = false,
     @required this.onSelectItem,
   }) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
