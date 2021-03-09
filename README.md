@@ -87,7 +87,6 @@ Scaffold(
 
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
-| itemWidth | double | custom size of BottomBarWithSheetItem's |
 | height | double | **BottomBarWithSheet** icons line height |
 | heightOpened | double | **BottomBarWithSheet** height when **isOpened** == true |
 | heightClosed | double | **BottomBarWithSheet** height when **isOpened** == false |
