@@ -71,6 +71,7 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | isOpened | bool | Responsible for the open / closed state of the widget |
+| autoClose | bool | If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed |
 | disableMainActionButton | bool | disable MainActionButton if true , enable if false |
 | sheetChild | Widget | that displayed on bottom of **BottomBarWithSheet** when **isOpened** == true |
 | items | List BottomBarWithSheetItem | navigation buttons of **BottomBarWithSheet** |
@@ -87,7 +88,6 @@ Scaffold(
 
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
-| itemWidth | double | custom size of BottomBarWithSheetItem's |
 | height | double | **BottomBarWithSheet** icons line height |
 | heightOpened | double | **BottomBarWithSheet** height when **isOpened** == true |
 | heightClosed | double | **BottomBarWithSheet** height when **isOpened** == false |

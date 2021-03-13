@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 // ----------------------------------------------------------------------
 
 class BottomBarTheme {
-  /// [BottomBarWithSheetItem] width
-  final double itemWidth;
+  // [BottomBarWithSheetItem] width (CURRENTLY UNUSED AND IGNORED)
+  //final double itemWidth;
 
   /// [BottomBarWithSheet] background color
   final Color backgroundColor;
@@ -61,6 +61,9 @@ class BottomBarTheme {
   /// [double] size of item icon when item is pressed
   final double selectedItemIconSize;
 
+  /// [double] size of item icon when item is not selected
+  final double itemIconSize;
+
   static const _selectedItemDefaultTextStyle = TextStyle(
     fontSize: 12.0,
     fontWeight: FontWeight.w500,
@@ -95,7 +98,7 @@ class BottomBarTheme {
 
   BottomBarTheme({
     this.contentPadding = _constcontentPadding,
-    this.itemWidth = 60,
+    //UNUSED AND IGNORED//this.itemWidth = 60,
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,
@@ -112,6 +115,7 @@ class BottomBarTheme {
       borderRadius: _defaultBorderRadius,
       boxShadow: _defaultboxShadow,
     ),
+    this.itemIconSize = 20,
     this.selectedItemIconSize = 17,
   });
 }

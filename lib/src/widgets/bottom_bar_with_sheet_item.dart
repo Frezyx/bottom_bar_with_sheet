@@ -11,25 +11,27 @@ import 'package:provider/provider.dart';
 const defaultDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
-class BottomBarWithSheetItem extends StatelessWidget {
+class BottomBarWithSheetItem<T> extends StatelessWidget {
   final String label;
   final IconData icon;
   final Duration animationDuration;
+
+  /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
+  final bool noSelectionState;
   Color selectedBackgroundColor;
   Color selectedLabelColor;
   bool isLeft;
   Color itemIconColor;
-  double itemWidth;
 
   int _index;
 
   BottomBarWithSheetItem({
     Key key,
     this.label,
-    this.itemWidth = 60,
     this.selectedBackgroundColor,
     @required this.icon,
     this.animationDuration = defaultDuration,
+    this.noSelectionState = false,
     this.itemIconColor,
   }) : super(key: key);
 
@@ -57,8 +59,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
           );
   }
 
-  Widget _buildOpenedButton(
-      IconData icon, Color selectedItemIconColor, double selectedItemIconSize) {
+  Widget _buildOpenedButton(Widget icon) {
     return Center(
       child: ClipOval(
         child: Material(
@@ -67,11 +68,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
             child: SizedBox(
                 child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Icon(
-                icon,
-                size: selectedItemIconSize,
-                color: selectedItemIconColor,
-              ),
+              child: icon,
             )),
           ),
         ),
@@ -79,14 +76,10 @@ class BottomBarWithSheetItem extends StatelessWidget {
     );
   }
 
-  Widget _buildClosedButton(Color color, IconData icon) {
+  Widget _buildClosedButton(Widget icon) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
-      child: Icon(
-        icon,
-        size: 20,
-        color: color,
-      ),
+      child: icon,
     );
   }
 
@@ -95,7 +88,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
   }
 
   bool _checkItemState(BottomBarBloc barBloc) {
-    return _index == barBloc.selectedIndex;
+    return noSelectionState ? false : (_index == barBloc.selectedIndex);
   }
 
   @override
@@ -110,9 +103,18 @@ class BottomBarWithSheetItem extends StatelessWidget {
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
     final labelWidget = _buildText(label, barBloc: barBloc);
     final iconAreaWidget = isSelected
-        ? _buildOpenedButton(icon, barBloc.bottomBarTheme.selectedItemIconColor,
-            barBloc.bottomBarTheme.selectedItemIconSize)
-        : _buildClosedButton(barBloc.bottomBarTheme.itemIconColor, icon);
+        ? _buildOpenedButton(
+            Icon(icon,
+                size: barBloc.bottomBarTheme.selectedItemIconSize,
+                color: barBloc.bottomBarTheme.selectedItemIconColor),
+          )
+        : _buildClosedButton(
+            Icon(
+              icon,
+              size: barBloc.bottomBarTheme.itemIconSize,
+              color: barBloc.bottomBarTheme.itemIconColor,
+            ),
+          );
 
     return AnimatedContainer(
       duration: animationDuration,
