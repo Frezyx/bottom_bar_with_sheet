@@ -70,7 +70,7 @@ class BottomBarWithSheet extends StatefulWidget {
   final bool isOpened;
 
   ///  If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed
-  final bool noAutoClose;
+  final bool autoClose;
 
   BottomBarWithSheet({
     Key key,
@@ -85,7 +85,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.items,
     @required this.bottomBarTheme,
     this.mainActionButtonTheme,
-    this.noAutoClose = false,
+    this.autoClose = true,
     @required this.onSelectItem,
   }) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
@@ -327,7 +327,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       BottomBarWithSheetItem item, BottomBarBloc barBloc) {
     return GestureDetector(
       onTap: () {
-        if (!widget.noAutoClose && isOpened) {
+        if (!widget.autoClose && isOpened) {
           _animateIcon();
           _changeWidgetState();
         }

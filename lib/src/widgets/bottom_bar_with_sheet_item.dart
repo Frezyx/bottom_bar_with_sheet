@@ -13,8 +13,7 @@ const defaultDuration = Duration(milliseconds: 500);
 // ignore: must_be_immutable
 class BottomBarWithSheetItem<T> extends StatelessWidget {
   final String label;
-  final T icon;
-  final bool _isIconData;
+  final IconData icon;
   final Duration animationDuration;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
@@ -23,20 +22,18 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
   Color selectedLabelColor;
   bool isLeft;
   Color itemIconColor;
-  //UNUSED and INGORED//double itemWidth;
 
   int _index;
 
   BottomBarWithSheetItem({
     Key key,
     this.label,
-    //UNIUSED AND IGNORED//this.itemWidth = 60,
     this.selectedBackgroundColor,
     @required this.icon,
     this.animationDuration = defaultDuration,
     this.noSelectionState = false,
     this.itemIconColor,
-  }) : _isIconData = icon is IconData, assert( icon is IconData || icon is Widget), super(key: key);
+  }) : super(key: key);
 
   Widget _buildText(String label, {@required BottomBarBloc barBloc}) {
     final bottomBarTheme = barBloc.bottomBarTheme;
@@ -62,7 +59,7 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
           );
   }
 
-  Widget _buildOpenedButton( Widget icon ) {
+  Widget _buildOpenedButton(Widget icon) {
     return Center(
       child: ClipOval(
         child: Material(
@@ -79,7 +76,7 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
     );
   }
 
-  Widget _buildClosedButton( Widget icon) {
+  Widget _buildClosedButton(Widget icon) {
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: icon,
@@ -91,7 +88,7 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
   }
 
   bool _checkItemState(BottomBarBloc barBloc) {
-    return noSelectionState ? false :  (_index == barBloc.selectedIndex);
+    return noSelectionState ? false : (_index == barBloc.selectedIndex);
   }
 
   @override
@@ -106,8 +103,18 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
     final labelWidget = _buildText(label, barBloc: barBloc);
     final iconAreaWidget = isSelected
-        ? _buildOpenedButton( !_isIconData ? icon : Icon( icon as IconData, size: barBloc.bottomBarTheme.selectedItemIconSize, color: barBloc.bottomBarTheme.selectedItemIconColor ))
-        : _buildClosedButton( !_isIconData ? icon : Icon( icon as IconData, size: barBloc.bottomBarTheme.itemIconSize, color: barBloc.bottomBarTheme.itemIconColor ));
+        ? _buildOpenedButton(
+            Icon(icon,
+                size: barBloc.bottomBarTheme.selectedItemIconSize,
+                color: barBloc.bottomBarTheme.selectedItemIconColor),
+          )
+        : _buildClosedButton(
+            Icon(
+              icon,
+              size: barBloc.bottomBarTheme.itemIconSize,
+              color: barBloc.bottomBarTheme.itemIconColor,
+            ),
+          );
 
     return AnimatedContainer(
       duration: animationDuration,
