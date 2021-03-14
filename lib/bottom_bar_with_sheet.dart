@@ -327,7 +327,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       BottomBarWithSheetItem item, BottomBarBloc barBloc) {
     return GestureDetector(
       onTap: () {
-        if (!widget.autoClose && isOpened) {
+        if (widget.autoClose && isOpened) {
           _animateIcon();
           _changeWidgetState();
         }
