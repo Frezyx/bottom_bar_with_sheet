@@ -87,11 +87,11 @@ class BottomBarTheme {
   static const _defaultboxShadow = [
     BoxShadow(
       color: Colors.black12,
-      blurRadius: 10.0,
+      blurRadius: 15.0,
       spreadRadius: 3.0,
       offset: Offset(
-        5.0,
-        5.0,
+        0.0,
+        10.0,
       ),
     )
   ];

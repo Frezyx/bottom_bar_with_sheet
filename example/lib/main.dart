@@ -24,16 +24,34 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.6.0',
-            style: TextStyle(color: Colors.white)),
+      backgroundColor: Colors.blue,
+      body: Center(
+        child: Text(
+          "Place for your content",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
       ),
-      body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(child: Text("Place for your another content")),
+        sheetChild: Center(
+          child: Text(
+            "Another content",
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 20,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.Middle,
+          selectedItemBackgroundColor: Colors.white,
+          selectedItemIconColor: Colors.blue,
+          selectedItemIconSize: 20,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 55,
