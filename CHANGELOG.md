@@ -1,3 +1,7 @@
+## 0.6.0 - 11-02-2021
+
+* Add **autoClose** field then works to close automatically when clicked on BottomBarWithSheetItem 
+
 ## 0.5.5+2 - 11-02-2021
 
 * Format code

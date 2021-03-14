@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color(0xFFFFEEEE),
       appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.5.5+2',
+        title: Text('bottom_bar_with_sheet v0.6.0',
             style: TextStyle().copyWith(color: Colors.white)),
         backgroundColor: Color(0xFFFF8D8D),
       ),
