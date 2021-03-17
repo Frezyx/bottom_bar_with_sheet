@@ -20,6 +20,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  final _scrollController = PageController(initialPage: 0);
   final tasks = <String>['Something task'];
   final tasksExamples = <String>[
     'Buy new cool book',
@@ -34,31 +35,47 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              child: Text(
-                'Today tasks',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
-                ),
+      body: PageView(
+        controller: _scrollController,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+            child: Text(
+              'Home Page',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(height: 5),
-            Wrap(
-              children: tasks
-                  .map(
-                    (e) => _buildTaskCard(e),
-                  )
-                  .toList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: Text(
+                    'Today tasks',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Wrap(
+                  children: tasks
+                      .map(
+                        (e) => _buildTaskCard(e),
+                      )
+                      .toList(),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
@@ -74,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         bottomBarTheme: BottomBarTheme(
           backgroundColor: Colors.white,
-          itemIconColor: Colors.grey[900],
+          itemIconColor: Colors.grey[500],
           selectedItemIconColor: Colors.grey[900],
           selectedItemBackgroundColor: Colors.white,
           height: 70,
@@ -102,12 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         onSelectItem: (index) {
-          print(index);
           setState(() => _selectedIndex = index);
+          _scrollController.animateToPage(
+            index,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
         },
         items: [
-          BottomBarWithSheetItem(icon: Icons.home),
-          BottomBarWithSheetItem(icon: Icons.favorite),
+          BottomBarWithSheetItem(icon: Icons.home_rounded),
+          BottomBarWithSheetItem(icon: Icons.calendar_today_rounded),
         ],
       ),
     );
