@@ -20,20 +20,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  bool _isOpened = false;
+  bool _isOpened = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFFFEEEE),
-      appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.6.0',
-            style: TextStyle().copyWith(color: Colors.white)),
-        backgroundColor: Color(0xFFFF8D8D),
-      ),
       body: Center(
-          child: Text("Place for your content",
-              style: TextStyle().copyWith(color: Colors.black))),
+        child: Text(
+          "Place for your content",
+          style: TextStyle(
+            color: Color(0xFFFF8D8D),
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: _buildSheetChild(),
@@ -65,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFFF8D8D),
-        onPressed: () => setState(() => _isOpened = !_isOpened),
+        onPressed: () => _openCloseSheet(),
         child: Icon(
           _isOpened
               ? Icons.arrow_downward_outlined
@@ -73,6 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void _openCloseSheet() {
+    setState(() => _isOpened = !_isOpened);
   }
 
   Widget _buildSheetChild() {
