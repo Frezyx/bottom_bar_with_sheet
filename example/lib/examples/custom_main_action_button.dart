@@ -24,29 +24,27 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('bottom_bar_with_sheet v0.6.0',
-            style: TextStyle().copyWith(color: Colors.white)),
-      ),
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
           height: 70,
-          heightClosed: 80,
+          heightClosed: 100,
           mainButtonPosition: MainButtonPosition.Middle,
         ),
+        mainActionButtonTheme: MainActionButtonTheme(
+          icon: null,
+          transform: Matrix4.translationValues(0, -30, 0),
+        ),
         mainActionButton: MainActionButton(
-          width: 50,
-          child: Image.network(
-            'https://wsofter.ru/wp-content/uploads/2019/08/1_ilc2aqp5szd1wi0copd1hw.png',
+          width: 100,
+          child: Image.asset(
+            'assets/images/vinyl.png',
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [
-          BottomBarWithSheetItem(icon: Icons.people),
-          BottomBarWithSheetItem(icon: Icons.shopping_cart),
           BottomBarWithSheetItem(icon: Icons.settings),
           BottomBarWithSheetItem(icon: Icons.favorite),
         ],
