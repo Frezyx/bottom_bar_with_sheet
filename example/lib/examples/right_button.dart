@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemIconSize: 20,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(50.0),
             ),
           ),
         ),

@@ -7,8 +7,8 @@
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉First of all look at screens!
 
-| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/update-examles/example/rep_files/examples/main.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/update-examles/example/rep_files/examples/left_button.gif?raw=true) | 
-| :------------: | :------------: |
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/update-examles/example/rep_files/examples/left_button.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/update-examles/example/rep_files/examples/main.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/update-examles/example/rep_files/examples/right_button.gif?raw=true) | 
+| :------------: | :------------: | :------------: |
 
 
 ## Getting Started
