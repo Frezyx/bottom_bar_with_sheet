@@ -24,12 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Color(0xFF111111),
       body: Center(
         child: Text(
           "Place for your content",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.green,
             fontSize: 20,
             fontWeight: FontWeight.w900,
           ),
@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
+        autoClose: false,
         sheetChild: Center(
           child: Text(
             "Another content",
@@ -48,13 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
-          selectedItemBackgroundColor: Colors.white,
-          selectedItemIconColor: Colors.blue,
+          height: 70,
+          heightClosed: 70,
+          heightOpened: 300,
+          backgroundColor: Colors.grey[900],
+          mainButtonPosition: MainButtonPosition.Left,
+          selectedItemBackgroundColor: Colors.transparent,
+          selectedItemIconColor: Colors.green,
+          itemIconColor: Colors.white,
           selectedItemIconSize: 20,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+            ),
+          ),
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 55,
+          color: Colors.green,
+          splash: Colors.green[800],
           icon: Icon(
             Icons.add,
             color: Colors.white,
@@ -63,10 +76,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [
-          BottomBarWithSheetItem(icon: Icons.people),
+          BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
           BottomBarWithSheetItem(icon: Icons.settings),
           BottomBarWithSheetItem(icon: Icons.favorite),
+          BottomBarWithSheetItem(icon: Icons.donut_large),
+          BottomBarWithSheetItem(icon: Icons.bar_chart_sharp),
+          BottomBarWithSheetItem(icon: Icons.backup_rounded),
+          BottomBarWithSheetItem(icon: Icons.camera_alt),
         ],
       ),
     );

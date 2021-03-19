@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.orange,
       body: Center(
         child: Text(
           "Place for your content",
@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
+        autoClose: false,
         sheetChild: Center(
           child: Text(
             "Another content",
@@ -47,14 +48,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
+        duration: Duration(milliseconds: 700),
+        curve: Curves.fastOutSlowIn,
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
-          selectedItemBackgroundColor: Colors.white,
-          selectedItemIconColor: Colors.blue,
+          height: 80,
+          heightClosed: 80,
+          heightOpened: 500,
+          backgroundColor: Colors.white,
+          mainButtonPosition: MainButtonPosition.Right,
+          selectedItemBackgroundColor: Colors.orange,
+          selectedItemIconColor: Colors.white,
+          itemIconColor: Colors.grey[500],
           selectedItemIconSize: 20,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(50.0),
+            ),
+          ),
         ),
         mainActionButtonTheme: MainActionButtonTheme(
-          size: 55,
+          size: 65,
+          color: Colors.orange,
+          splash: Colors.orange[800],
           icon: Icon(
             Icons.add,
             color: Colors.white,
@@ -63,10 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [
-          BottomBarWithSheetItem(icon: Icons.people),
-          BottomBarWithSheetItem(icon: Icons.shopping_cart),
+          BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.settings),
           BottomBarWithSheetItem(icon: Icons.favorite),
+          BottomBarWithSheetItem(icon: Icons.bar_chart_sharp),
         ],
       ),
     );

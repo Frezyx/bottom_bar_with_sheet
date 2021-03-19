@@ -1,4 +1,8 @@
-## 0.6.0 - 11-02-2021
+## 0.6.1 - 19-03-2021
+
+* Update all examples and README.md
+
+## 0.6.0 - 14-03-2021
 
 * Add **autoClose** field then works to close automatically when clicked on BottomBarWithSheetItem 
 

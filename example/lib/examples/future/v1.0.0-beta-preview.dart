@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "v 0.6.0-beta",
+              "v 1.0.0-beta",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 36.0,

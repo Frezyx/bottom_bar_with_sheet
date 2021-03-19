@@ -143,6 +143,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final itemWidth = _calculateItemWidth(
         context, rightPadding, leftPadding, widget.disableMainActionButton);
 
+    //TODO: USE THIS FIELD
+    // final isOpenedLocal =
+    //     widget.disableMainActionButton ? widget.isOpened : widget.isOpened;
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<BottomBarBloc>(
@@ -327,7 +331,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       BottomBarWithSheetItem item, BottomBarBloc barBloc) {
     return GestureDetector(
       onTap: () {
-        if (!widget.autoClose && isOpened) {
+        if (widget.autoClose && isOpened) {
           _animateIcon();
           _changeWidgetState();
         }
