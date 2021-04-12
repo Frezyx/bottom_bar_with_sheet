@@ -196,22 +196,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           _buildButtonsRow(itemWidth, disableMainActionButton, barBloc),
           _buildActionButton(disableMainActionButton)
         ];
-        break;
       case MainButtonPosition.Left:
         return [
           _buildActionButton(disableMainActionButton),
           _buildButtonsRow(itemWidth, disableMainActionButton, barBloc)
         ];
-        break;
       case MainButtonPosition.Middle:
         return _buildCentredBody(itemWidth, disableMainActionButton, barBloc);
-        break;
       default:
         return [
           _buildButtonsRow(itemWidth, disableMainActionButton, barBloc),
           _buildActionButton(disableMainActionButton)
         ];
-        break;
     }
   }
 
