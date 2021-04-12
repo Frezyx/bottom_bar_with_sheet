@@ -12,30 +12,30 @@ const defaultDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
 class BottomBarWithSheetItem<T> extends StatelessWidget {
-  final String label;
+  final String? label;
   final IconData icon;
   final Duration animationDuration;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
   final bool noSelectionState;
-  Color selectedBackgroundColor;
-  Color selectedLabelColor;
-  bool isLeft;
-  Color itemIconColor;
+  Color? selectedBackgroundColor;
+  Color? selectedLabelColor;
+  bool? isLeft;
+  Color? itemIconColor;
 
-  int _index;
+  int? _index;
 
   BottomBarWithSheetItem({
-    Key key,
+    Key? key,
     this.label,
     this.selectedBackgroundColor,
-    @required this.icon,
+    required this.icon,
     this.animationDuration = defaultDuration,
     this.noSelectionState = false,
     this.itemIconColor,
   }) : super(key: key);
 
-  Widget _buildText(String label, {@required BottomBarBloc barBloc}) {
+  Widget _buildText(String? label, {required BottomBarBloc barBloc}) {
     final bottomBarTheme = barBloc.bottomBarTheme;
     final isSelected = _checkItemState(barBloc);
     return label == null
