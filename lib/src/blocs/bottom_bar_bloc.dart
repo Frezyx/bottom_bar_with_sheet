@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 class BottomBarBloc extends ChangeNotifier {
   BottomBarBloc({
-    @required int selectedIndex,
-    @required bool isOpened,
-    @required MainAxisAlignment mainAxisAlignment,
-    @required BottomBarTheme bottomBarTheme,
+    required int selectedIndex,
+    required bool? isOpened,
+    required MainAxisAlignment mainAxisAlignment,
+    required BottomBarTheme bottomBarTheme,
   })  : _selectedIndex = selectedIndex,
         _isOpened = isOpened,
         _mainAxisAlignment = mainAxisAlignment,
         _bottomBarTheme = bottomBarTheme;
 
   int _selectedIndex;
-  bool _isOpened;
+  bool? _isOpened;
   MainAxisAlignment _mainAxisAlignment;
   BottomBarTheme _bottomBarTheme;
 
@@ -32,9 +32,9 @@ class BottomBarBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isOpened => _isOpened;
+  bool? get isOpened => _isOpened;
 
-  set isOpened(bool value) {
+  set isOpened(bool? value) {
     _isOpened = value;
     notifyListeners();
   }

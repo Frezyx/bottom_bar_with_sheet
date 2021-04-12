@@ -14,7 +14,7 @@ class MainActionButtonTheme {
 
   /// icon that displayed when the
   /// [BottomBarWithSheet] field [isOpened] == true
-  final Widget iconOpened;
+  final Widget? iconOpened;
 
   /// icon that displayed when the
   /// [BottomBarWithSheet] field [isOpened] == false
@@ -32,10 +32,10 @@ class MainActionButtonTheme {
   /// This field can set transform location of [MainActionButton]
   ///
   /// Check https://github.com/Frezyx/bottom_bar_with_sheet for understand more
-  final Matrix4 transform;
+  final Matrix4? transform;
 
   MainActionButtonTheme({
-    @required this.icon,
+    required this.icon,
     this.size = 30,
     this.iconOpened,
     this.splash = Colors.blue,
