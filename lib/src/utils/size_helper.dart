@@ -8,10 +8,10 @@ class SizeHelper {
     final mainActionButtonSize = disableMainActionButton
         ? 0.0
         : isMainActionButtonSet
-            ? widget.mainActionButton.width
-            : widget.mainActionButtonTheme.size +
-                widget.mainActionButtonTheme.margin.left +
-                widget.mainActionButtonTheme.margin.right;
+            ? widget.mainActionButton!.width
+            : widget.mainActionButtonTheme!.size +
+                widget.mainActionButtonTheme!.margin.left +
+                widget.mainActionButtonTheme!.margin.right;
     final sideSize = widget.bottomBarTheme.contentPadding.left +
         widget.bottomBarTheme.contentPadding.right +
         mainActionButtonSize;

@@ -60,7 +60,7 @@ void main() {
 
 class App extends StatefulWidget {
   const App({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
