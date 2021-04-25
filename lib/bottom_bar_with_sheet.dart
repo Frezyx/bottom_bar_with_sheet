@@ -148,40 +148,52 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     //     widget.disableMainActionButton ? widget.isOpened : widget.isOpened;
 
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<BottomBarBloc>(
-            create: (ctx) => BottomBarBloc(
-              isOpened: isOpened,
-              selectedIndex: widget.selectedIndex,
-              mainAxisAlignment: widget.bottomBarMainAxisAlignment,
-              bottomBarTheme: widget.bottomBarTheme,
-            ),
+      providers: [
+        ChangeNotifierProvider<BottomBarBloc>(
+          create: (ctx) => BottomBarBloc(
+            isOpened: isOpened,
+            selectedIndex: widget.selectedIndex,
+            mainAxisAlignment: widget.bottomBarMainAxisAlignment,
+            bottomBarTheme: widget.bottomBarTheme,
           ),
-        ],
-        builder: (BuildContext context, _) {
-          final barBloc = Provider.of<BottomBarBloc>(context);
-          return AnimatedContainer(
-            duration: widget.duration,
-            curve: widget.curve,
-            height: _calculateWidgetHeight,
-            padding: widget.bottomBarTheme.contentPadding,
-            decoration: widget.bottomBarTheme.decoration,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
-                          MainButtonPosition.middle
-                      ? MainAxisAlignment.center
-                      : MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _buildBody(
-                      itemWidth, widget.disableMainActionButton, barBloc),
-                ),
-                isOpened! ? Expanded(child: widget.sheetChild) : Container()
-              ],
-            ),
-          );
-        });
+        ),
+      ],
+      builder: (BuildContext context, _) {
+        final barBloc = Provider.of<BottomBarBloc>(context);
+        return AnimatedContainer(
+          color: _getBackgroundColor(context),
+          duration: widget.duration,
+          curve: widget.curve,
+          height: _calculateWidgetHeight,
+          padding: widget.bottomBarTheme.contentPadding,
+          decoration: widget.bottomBarTheme.decoration,
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
+                        MainButtonPosition.middle
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildBody(
+                    itemWidth, widget.disableMainActionButton, barBloc),
+              ),
+              isOpened! ? Expanded(child: widget.sheetChild) : Container()
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// Returns colors of bar background if set
+  /// Else return default theme [Color] canvasColor
+  Color? _getBackgroundColor(BuildContext context) {
+    return widget.bottomBarTheme.backgroundColor != null
+        ? widget.bottomBarTheme.backgroundColor
+        : widget.bottomBarTheme.decoration?.color == null
+            ? Theme.of(context).canvasColor
+            : widget.bottomBarTheme.decoration?.color;
   }
 
   List<Widget> _buildBody(
