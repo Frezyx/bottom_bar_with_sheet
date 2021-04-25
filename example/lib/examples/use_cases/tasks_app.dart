@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 70,
           heightClosed: 80,
           heightOpened: 300,
-          mainButtonPosition: MainButtonPosition.Middle,
+          mainButtonPosition: MainButtonPosition.middle,
           selectedItemIconSize: 20,
           decoration: BoxDecoration(
             boxShadow: [

@@ -1,2 +1,2 @@
-enum MainButtonPosition { Left, Middle, Right, Outside }
-enum RowPosition { Left, Right }
+enum MainButtonPosition { left, middle, right, outside }
+enum RowPosition { left, right }

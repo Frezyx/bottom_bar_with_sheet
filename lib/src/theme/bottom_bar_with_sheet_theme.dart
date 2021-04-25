@@ -12,34 +12,34 @@ class BottomBarTheme {
   //final double itemWidth;
 
   /// [BottomBarWithSheet] background color
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// selected [BottomBarWithSheetItem] icon color
-  final Color selectedItemIconColor;
+  final Color? selectedItemIconColor;
 
   /// selected [BottomBarWithSheetItem] label color
-  final Color selectedItemLabelColor;
+  final Color? selectedItemLabelColor;
 
   /// selected [BottomBarWithSheetItem] circle background color
-  final Color selectedItemBackgroundColor;
+  final Color? selectedItemBackgroundColor;
 
   /// selected [BottomBarWithSheetItem] text style
-  final TextStyle selectedItemTextStyle;
+  final TextStyle? selectedItemTextStyle;
 
   /// UNselected [BottomBarWithSheetItem] icon color
-  final Color itemIconColor;
+  final Color? itemIconColor;
 
   /// UNselected [BottomBarWithSheetItem] label color
-  final Color itemLabelColor;
+  final Color? itemLabelColor;
 
   /// UNselected [BottomBarWithSheetItem] text style
-  final TextStyle itemTextStyle;
+  final TextStyle? itemTextStyle;
 
   /// enum filed that response for the position of MainActionButton position
   /// this field have 3 possible values:
   ///
-  /// [MainButtonPosition.Left] - button displayed on left side
-  /// [MainButtonPosition.Right] - button displayed on right side
+  /// [MainButtonPosition.left] - button displayed on left side
+  /// [MainButtonPosition.right] - button displayed on right side
   /// [MainButtonPosition.Center] - button displayed on center side
   final MainButtonPosition mainButtonPosition;
 
@@ -53,7 +53,7 @@ class BottomBarTheme {
   final double heightClosed;
 
   /// [BottomBarWithSheet] widget [BoxDecoration]
-  final BoxDecoration decoration;
+  final BoxDecoration? decoration;
 
   /// [EdgeInsets] to create padding between content of widget and sides
   final EdgeInsets contentPadding;
@@ -64,57 +64,24 @@ class BottomBarTheme {
   /// [double] size of item icon when item is not selected
   final double itemIconSize;
 
-  static const _selectedItemDefaultTextStyle = TextStyle(
-    fontSize: 12.0,
-    fontWeight: FontWeight.w500,
-    color: Colors.black,
-  );
-
-  static const _itemDefaultTextStyle = TextStyle(
-    fontSize: 11.0,
-    fontWeight: FontWeight.w400,
-    color: Colors.black,
-  );
-
-  static const _defaultBorderRadius = BorderRadius.only(
-    topLeft: Radius.circular(30.0),
-    topRight: Radius.circular(30.0),
-  );
-
   static const _constcontentPadding =
       EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
 
-  static const _defaultboxShadow = [
-    BoxShadow(
-      color: Colors.black12,
-      blurRadius: 15.0,
-      spreadRadius: 3.0,
-      offset: Offset(
-        0.0,
-        10.0,
-      ),
-    )
-  ];
-
-  BottomBarTheme({
+  const BottomBarTheme({
     this.contentPadding = _constcontentPadding,
-    //UNUSED AND IGNORED//this.itemWidth = 60,
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,
-    this.backgroundColor = Colors.white,
-    this.selectedItemBackgroundColor = Colors.blue,
-    this.selectedItemIconColor = Colors.white,
-    this.selectedItemLabelColor = Colors.black,
-    this.itemIconColor = Colors.grey,
-    this.itemLabelColor = Colors.grey,
-    this.selectedItemTextStyle = _selectedItemDefaultTextStyle,
-    this.itemTextStyle = _itemDefaultTextStyle,
-    this.mainButtonPosition = MainButtonPosition.Left,
-    this.decoration = const BoxDecoration(
-      borderRadius: _defaultBorderRadius,
-      boxShadow: _defaultboxShadow,
-    ),
+    this.backgroundColor,
+    this.selectedItemBackgroundColor,
+    this.selectedItemIconColor,
+    this.selectedItemLabelColor,
+    this.itemIconColor,
+    this.itemLabelColor,
+    this.selectedItemTextStyle,
+    this.itemTextStyle,
+    this.mainButtonPosition = MainButtonPosition.middle,
+    this.decoration,
     this.itemIconSize = 20,
     this.selectedItemIconSize = 17,
   });
