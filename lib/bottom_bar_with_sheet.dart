@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'src/blocs/bottom_bar_bloc.dart';
 import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
+import 'src/theme/default_bottom_bar_with_sheet_theme.dart';
 import 'src/theme/main_action_button_theme.dart';
 import 'src/utils/size_helper.dart';
 import 'src/widgets/bottom_bar_with_sheet_item.dart';
@@ -81,11 +82,11 @@ class BottomBarWithSheet extends StatefulWidget {
     this.curve = constCurve,
     this.disableMainActionButton = false,
     this.mainActionButton,
-    required this.sheetChild,
     this.items,
-    required this.bottomBarTheme,
+    this.bottomBarTheme = defaultTheme,
     this.mainActionButtonTheme,
     this.autoClose = true,
+    required this.sheetChild,
     required this.onSelectItem,
   }) : super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||

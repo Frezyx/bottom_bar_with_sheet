@@ -96,9 +96,8 @@ class BottomBarTheme {
     )
   ];
 
-  BottomBarTheme({
+  const BottomBarTheme({
     this.contentPadding = _constcontentPadding,
-    //UNUSED AND IGNORED//this.itemWidth = 60,
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,
