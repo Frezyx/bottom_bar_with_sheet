@@ -35,7 +35,7 @@ class MainActionButtonTheme {
   final Matrix4? transform;
 
   const MainActionButtonTheme({
-    this.icon = const Icon(Icons.add, size: 40),
+    this.icon = const Icon(Icons.add, size: 40, color: Colors.white),
     this.size = 50,
     this.iconOpened,
     this.splash,

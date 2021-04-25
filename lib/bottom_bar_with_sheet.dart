@@ -189,11 +189,15 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   /// Returns colors of bar background if set
   /// Else return default theme [Color] canvasColor
   Color? _getBackgroundColor(BuildContext context) {
-    return widget.bottomBarTheme.backgroundColor != null
-        ? widget.bottomBarTheme.backgroundColor
-        : widget.bottomBarTheme.decoration?.color == null
-            ? Theme.of(context).canvasColor
-            : widget.bottomBarTheme.decoration?.color;
+    final bgColor = widget.bottomBarTheme.backgroundColor;
+    final decoration = widget.bottomBarTheme.decoration;
+
+    if (bgColor != null && decoration == null) {
+      return bgColor;
+    } else if (decoration == null && bgColor == null) {
+      return Theme.of(context).canvasColor;
+    }
+    return null;
   }
 
   List<Widget> _buildBody(
@@ -397,7 +401,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       padding: widget.mainActionButtonTheme!.margin,
       child: ClipOval(
         child: Material(
-          color: widget.mainActionButtonTheme!.color,
+          color: widget.mainActionButtonTheme?.color ??
+              Theme.of(context).iconTheme.color,
           child: InkWell(
             splashColor: widget.mainActionButtonTheme!.splash,
             child: AnimatedBuilder(
