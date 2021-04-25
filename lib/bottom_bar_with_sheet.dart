@@ -91,7 +91,6 @@ class BottomBarWithSheet extends StatefulWidget {
   }) : super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
         items!.length % 2 == 0);
-    assert(mainActionButton == null || mainActionButtonTheme == null);
     assert(bottomBarTheme.backgroundColor == null ||
         bottomBarTheme.decoration?.color == null);
   }
