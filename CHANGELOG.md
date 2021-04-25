@@ -1,5 +1,9 @@
 ## 1.0.0 - 12-04-2021
 
+* Provide key value to super class in BottomBarWithSheet widget
+
+## 1.0.0 - 12-04-2021
+
 * **Breaking change** migrated to null safety.
 
 ## 0.6.1 - 19-03-2021
