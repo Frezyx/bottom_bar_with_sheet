@@ -1,4 +1,9 @@
-## 1.0.0 - 12-04-2021
+## 1.1.0 - 25-04-2021
+
+* Simplify package using with default themes
+* Make bottomBarTheme, mainActionButtonTheme optional
+
+## 1.0.1 - 25-04-2021
 
 * Provide key value to super class in BottomBarWithSheet widget
 
