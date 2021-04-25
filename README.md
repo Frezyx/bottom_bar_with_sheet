@@ -38,7 +38,7 @@ Scaffold(
         selectedIndex: 0,
         sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
+          mainButtonPosition: MainButtonPosition.middle,
           selectedItemBackgroundColor: const Color(0xFF2B65E3),
         ),
         mainActionButtonTheme: MainActionButtonTheme(
@@ -100,7 +100,7 @@ Scaffold(
 | itemTextStyle | Color | unselected item text style |
 | selectedItemBackgroundColor | Color | selected item icon color |
 | selectedItemIconSize | double | size of item icon when item is pressed |
-| mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.Left, MainButtonPosition.Right , MainButtonPosition.Center |
+| mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center |
 
 ## Attributes of MainActionButtonTheme
 

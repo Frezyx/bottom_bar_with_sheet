@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           curve: Curves.easeOutExpo,
           duration: Duration(seconds: 1),
           bottomBarTheme: BottomBarTheme(
-            mainButtonPosition: MainButtonPosition.Middle,
+            mainButtonPosition: MainButtonPosition.middle,
             selectedItemIconColor: Colors.blue,
             selectedItemBackgroundColor: Colors.transparent,
             selectedItemIconSize: 20,

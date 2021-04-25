@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemBackgroundColor: Colors.purple,
           height: 70,
           heightClosed: 80,
-          mainButtonPosition: MainButtonPosition.Middle,
+          mainButtonPosition: MainButtonPosition.middle,
           selectedItemIconSize: 20,
           decoration: BoxDecoration(
             boxShadow: [

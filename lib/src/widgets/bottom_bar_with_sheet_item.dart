@@ -48,11 +48,11 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
                     ? bottomBarTheme.selectedItemLabelColor
                     : bottomBarTheme.itemLabelColor,
                 fontSize: isSelected
-                    ? bottomBarTheme.selectedItemTextStyle.fontSize
-                    : bottomBarTheme.itemTextStyle.fontSize,
+                    ? bottomBarTheme.selectedItemTextStyle?.fontSize
+                    : bottomBarTheme.itemTextStyle?.fontSize,
                 fontWeight: isSelected
-                    ? bottomBarTheme.selectedItemTextStyle.fontWeight
-                    : bottomBarTheme.itemTextStyle.fontWeight,
+                    ? bottomBarTheme.selectedItemTextStyle?.fontWeight
+                    : bottomBarTheme.itemTextStyle?.fontWeight,
               ),
               textAlign: TextAlign.center,
             ),

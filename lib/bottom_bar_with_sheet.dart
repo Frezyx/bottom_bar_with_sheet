@@ -89,9 +89,11 @@ class BottomBarWithSheet extends StatefulWidget {
     required this.sheetChild,
     required this.onSelectItem,
   }) : super(key: key) {
-    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.Middle ||
+    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
         items!.length % 2 == 0);
     assert(mainActionButton != null || mainActionButtonTheme != null);
+    assert(bottomBarTheme.backgroundColor == null ||
+        bottomBarTheme.decoration?.color == null);
   }
 
   @override
@@ -136,8 +138,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   @override
   Widget build(BuildContext context) {
-    final bottomBarTheme = widget.bottomBarTheme;
-    final backgroundColor = bottomBarTheme.backgroundColor;
     final leftPadding = widget.bottomBarTheme.contentPadding.left;
     final rightPadding = widget.bottomBarTheme.contentPadding.right;
     final itemWidth = _calculateItemWidth(
@@ -165,14 +165,12 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             curve: widget.curve,
             height: _calculateWidgetHeight,
             padding: widget.bottomBarTheme.contentPadding,
-            decoration: widget.bottomBarTheme.decoration.copyWith(
-              color: backgroundColor,
-            ),
+            decoration: widget.bottomBarTheme.decoration,
             child: Column(
               children: <Widget>[
                 Row(
                   mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
-                          MainButtonPosition.Middle
+                          MainButtonPosition.middle
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,17 +190,17 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     BottomBarBloc barBloc,
   ) {
     switch (widget.bottomBarTheme.mainButtonPosition) {
-      case MainButtonPosition.Right:
+      case MainButtonPosition.right:
         return [
           _buildButtonsRow(itemWidth, disableMainActionButton, barBloc),
           _buildActionButton(disableMainActionButton)
         ];
-      case MainButtonPosition.Left:
+      case MainButtonPosition.left:
         return [
           _buildActionButton(disableMainActionButton),
           _buildButtonsRow(itemWidth, disableMainActionButton, barBloc)
         ];
-      case MainButtonPosition.Middle:
+      case MainButtonPosition.middle:
         return _buildCentredBody(itemWidth, disableMainActionButton, barBloc);
       default:
         return [
@@ -284,9 +282,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final rowWidth =
         SizeHelper.getRowWidth(disableMainActionButton, widget, context);
     final childrenLine = <Widget>[];
-    childrenLine.add(_getSeparatedItems(RowPosition.Left, rowWidth, barBloc));
+    childrenLine.add(_getSeparatedItems(RowPosition.left, rowWidth, barBloc));
     childrenLine.add(_buildActionButton(disableMainActionButton));
-    childrenLine.add(_getSeparatedItems(RowPosition.Right, rowWidth, barBloc));
+    childrenLine.add(_getSeparatedItems(RowPosition.right, rowWidth, barBloc));
 
     return Container(
       width: _calculateInnerWidth(),
@@ -305,7 +303,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   Container _getSeparatedItems(
       RowPosition position, double rowWidth, BottomBarBloc barBloc) {
-    final isLeft = position == RowPosition.Left;
+    final isLeft = position == RowPosition.left;
     return Container(
       width: rowWidth,
       child: Row(
