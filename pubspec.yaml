@@ -1,6 +1,6 @@
 name: bottom_bar_with_sheet
 description: This package help you to create bottom bar with FloatingActionButton which buld BottomSheet widget on every page.
-version: 1.0.0
+version: 1.0.1
 author: youngfrezyx@gmail.com
 homepage: https://github.com/Frezyx/bottom_bar_with_sheet
 

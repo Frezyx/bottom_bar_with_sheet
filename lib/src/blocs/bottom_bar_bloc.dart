@@ -8,7 +8,7 @@ class BottomBarBloc extends ChangeNotifier {
     required bool? isOpened,
     required MainAxisAlignment mainAxisAlignment,
     required BottomBarTheme bottomBarTheme,
-  })  : _selectedIndex = selectedIndex,
+  })   : _selectedIndex = selectedIndex,
         _isOpened = isOpened,
         _mainAxisAlignment = mainAxisAlignment,
         _bottomBarTheme = bottomBarTheme;
