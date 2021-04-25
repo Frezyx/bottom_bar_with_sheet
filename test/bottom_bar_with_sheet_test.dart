@@ -76,7 +76,7 @@ class _AppState extends State<App> {
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text('Place for your another content')),
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.Middle,
+          mainButtonPosition: MainButtonPosition.middle,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
           size: 55,

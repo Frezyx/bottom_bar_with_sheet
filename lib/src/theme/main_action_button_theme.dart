@@ -18,13 +18,13 @@ class MainActionButtonTheme {
 
   /// icon that displayed when the
   /// [BottomBarWithSheet] field [isOpened] == false
-  final Widget icon;
+  final Widget? icon;
 
   /// splash color of widget circle
-  final Color splash;
+  final Color? splash;
 
   /// background color of widget circle
-  final Color color;
+  final Color? color;
 
   /// side paddings of [MainActionButton]
   final EdgeInsets margin;
@@ -34,12 +34,12 @@ class MainActionButtonTheme {
   /// Check https://github.com/Frezyx/bottom_bar_with_sheet for understand more
   final Matrix4? transform;
 
-  MainActionButtonTheme({
-    required this.icon,
-    this.size = 30,
+  const MainActionButtonTheme({
+    this.icon = const Icon(Icons.add, size: 40, color: Colors.white),
+    this.size = 50,
     this.iconOpened,
-    this.splash = Colors.blue,
-    this.color = Colors.blue,
+    this.splash,
+    this.color,
     this.margin = _constMargin,
     this.transform,
   });

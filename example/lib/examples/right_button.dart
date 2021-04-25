@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
           heightClosed: 80,
           heightOpened: 500,
           backgroundColor: Colors.white,
-          mainButtonPosition: MainButtonPosition.Right,
+          mainButtonPosition: MainButtonPosition.right,
           selectedItemBackgroundColor: Colors.orange,
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.grey[500],
