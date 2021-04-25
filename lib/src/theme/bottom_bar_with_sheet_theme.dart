@@ -64,25 +64,8 @@ class BottomBarTheme {
   /// [double] size of item icon when item is not selected
   final double itemIconSize;
 
-  static const _defaultBorderRadius = BorderRadius.only(
-    topLeft: Radius.circular(30.0),
-    topRight: Radius.circular(30.0),
-  );
-
   static const _constcontentPadding =
       EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
-
-  static const _defaultboxShadow = [
-    BoxShadow(
-      color: Colors.black12,
-      blurRadius: 15.0,
-      spreadRadius: 3.0,
-      offset: Offset(
-        0.0,
-        10.0,
-      ),
-    )
-  ];
 
   const BottomBarTheme({
     this.contentPadding = _constcontentPadding,
