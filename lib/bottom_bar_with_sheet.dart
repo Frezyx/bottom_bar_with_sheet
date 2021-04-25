@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'src/blocs/bottom_bar_bloc.dart';
 import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
-import 'src/theme/default_bottom_bar_with_sheet_theme.dart';
+import 'src/theme/defaults.dart';
 import 'src/theme/main_action_button_theme.dart';
 import 'src/utils/size_helper.dart';
 import 'src/widgets/bottom_bar_with_sheet_item.dart';
@@ -83,15 +83,15 @@ class BottomBarWithSheet extends StatefulWidget {
     this.disableMainActionButton = false,
     this.mainActionButton,
     this.items,
-    this.bottomBarTheme = defaultTheme,
-    this.mainActionButtonTheme,
+    this.bottomBarTheme = defaultBarTheme,
+    this.mainActionButtonTheme = defaultMainActionButtonTheme,
     this.autoClose = true,
     required this.sheetChild,
     required this.onSelectItem,
   }) : super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
         items!.length % 2 == 0);
-    assert(mainActionButton != null || mainActionButtonTheme != null);
+    assert(mainActionButton == null || mainActionButtonTheme == null);
     assert(bottomBarTheme.backgroundColor == null ||
         bottomBarTheme.decoration?.color == null);
   }
