@@ -1,4 +1,4 @@
-import 'package:bottom_bar_with_sheet/src/blocs/bottom_bar_bloc.dart';
+import 'package:bottom_bar_with_sheet/src/providers/bottom_bar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,9 +35,9 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
     this.itemIconColor,
   }) : super(key: key);
 
-  Widget _buildText(String? label, {required BottomBarBloc barBloc}) {
-    final bottomBarTheme = barBloc.bottomBarTheme;
-    final isSelected = _checkItemState(barBloc);
+  Widget _buildText(String? label, {required BottomBarProvider barProvider}) {
+    final bottomBarTheme = barProvider.bottomBarTheme;
+    final isSelected = _checkItemState(barProvider);
     return label == null
         ? Container()
         : Center(
@@ -87,32 +87,32 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
     _index = index;
   }
 
-  bool _checkItemState(BottomBarBloc barBloc) {
-    return noSelectionState ? false : (_index == barBloc.selectedIndex);
+  bool _checkItemState(BottomBarProvider barProvider) {
+    return noSelectionState ? false : (_index == barProvider.selectedIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    final barBloc = Provider.of<BottomBarBloc>(context);
+    final _barProvider = Provider.of<BottomBarProvider>(context);
 
-    itemIconColor = itemIconColor ?? barBloc.bottomBarTheme.itemIconColor;
+    itemIconColor = itemIconColor ?? _barProvider.bottomBarTheme.itemIconColor;
     selectedBackgroundColor = selectedBackgroundColor ??
-        barBloc.bottomBarTheme.selectedItemBackgroundColor;
+        _barProvider.bottomBarTheme.selectedItemBackgroundColor;
 
-    final isSelected = _checkItemState(barBloc);
+    final isSelected = _checkItemState(_barProvider);
     final iconTopSpacer = isSelected ? 0.0 : 2.0;
-    final labelWidget = _buildText(label, barBloc: barBloc);
+    final labelWidget = _buildText(label, barProvider: _barProvider);
     final iconAreaWidget = isSelected
         ? _buildOpenedButton(
             Icon(icon,
-                size: barBloc.bottomBarTheme.selectedItemIconSize,
-                color: barBloc.bottomBarTheme.selectedItemIconColor),
+                size: _barProvider.bottomBarTheme.selectedItemIconSize,
+                color: _barProvider.bottomBarTheme.selectedItemIconColor),
           )
         : _buildClosedButton(
             Icon(
               icon,
-              size: barBloc.bottomBarTheme.itemIconSize,
-              color: barBloc.bottomBarTheme.itemIconColor,
+              size: _barProvider.bottomBarTheme.itemIconSize,
+              color: _barProvider.bottomBarTheme.itemIconColor,
             ),
           );
 
@@ -120,7 +120,7 @@ class BottomBarWithSheetItem<T> extends StatelessWidget {
       duration: animationDuration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: barBloc.mainAxisAlignment,
+        mainAxisAlignment: _barProvider.mainAxisAlignment,
         children: <Widget>[
           SizedBox(height: iconTopSpacer),
           iconAreaWidget,

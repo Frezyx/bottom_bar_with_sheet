@@ -2,13 +2,13 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class BottomBarBloc extends ChangeNotifier {
-  BottomBarBloc({
+class BottomBarProvider extends ChangeNotifier {
+  BottomBarProvider({
     required int selectedIndex,
     required bool? isOpened,
     required MainAxisAlignment mainAxisAlignment,
     required BottomBarTheme bottomBarTheme,
-  })   : _selectedIndex = selectedIndex,
+  })  : _selectedIndex = selectedIndex,
         _isOpened = isOpened,
         _mainAxisAlignment = mainAxisAlignment,
         _bottomBarTheme = bottomBarTheme;

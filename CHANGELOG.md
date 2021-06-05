@@ -31,7 +31,7 @@
 
 * Refactor code on BottomBar and BarItem
 * Add pedantic dependency
-* Replace providing variables into BottomBarBloc
+* Replace providing variables into BottomBarProvider
 
 ## 0.5.4 - 21-12-2020
 
