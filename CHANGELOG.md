@@ -1,5 +1,10 @@
 ## 1.1.0 - 25-04-2021
 
+* Fix analyser issues
+* Refactor provider naming
+
+## 1.1.0 - 25-04-2021
+
 * Simplify package using with default themes
 * Make bottomBarTheme, mainActionButtonTheme optional
 
@@ -31,7 +36,7 @@
 
 * Refactor code on BottomBar and BarItem
 * Add pedantic dependency
-* Replace providing variables into BottomBarBloc
+* Replace providing variables into BottomBarProvider
 
 ## 0.5.4 - 21-12-2020
 
