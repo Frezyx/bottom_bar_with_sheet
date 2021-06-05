@@ -1,5 +1,10 @@
 ## 1.1.0 - 25-04-2021
 
+* Fix analyser issues
+* Refactor provider naming
+
+## 1.1.0 - 25-04-2021
+
 * Simplify package using with default themes
 * Make bottomBarTheme, mainActionButtonTheme optional
 
