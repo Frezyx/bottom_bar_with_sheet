@@ -53,8 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemBackgroundColor: Color(0xFFFF8D8D),
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.white,
-          itemLabelColor: Colors.white,
-          selectedItemLabelColor: Colors.white,
           itemTextStyle:
               TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
           heightOpened: 250,

@@ -94,8 +94,6 @@ Scaffold(
 | backgroundColor | Color | **BottomBarWithSheet** background color |
 | selectedItemIconColor | Color | selected item icon color |
 | itemIconColor | Color | unselected item icon color |
-| selectedItemLabelColor | Color | selected item text color |
-| itemLabelColor | Color | unselected item text color |
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
 | selectedItemBackgroundColor | Color | selected item icon color |

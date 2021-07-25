@@ -11,17 +11,11 @@ const _kDefaultContentPadding =
     EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
 
 class BottomBarTheme {
-  // [BottomBarWithSheetItem] width (CURRENTLY UNUSED AND IGNORED)
-  //final double itemWidth;
-
   /// [BottomBarWithSheet] background color
   final Color? backgroundColor;
 
   /// selected [BottomBarWithSheetItem] icon color
   final Color? selectedItemIconColor;
-
-  /// selected [BottomBarWithSheetItem] label color
-  final Color? selectedItemLabelColor;
 
   /// selected [BottomBarWithSheetItem] circle background color
   final Color? selectedItemBackgroundColor;
@@ -31,9 +25,6 @@ class BottomBarTheme {
 
   /// UNselected [BottomBarWithSheetItem] icon color
   final Color? itemIconColor;
-
-  /// UNselected [BottomBarWithSheetItem] label color
-  final Color? itemLabelColor;
 
   /// UNselected [BottomBarWithSheetItem] text style
   final TextStyle? itemTextStyle;
@@ -75,9 +66,7 @@ class BottomBarTheme {
     this.backgroundColor,
     this.selectedItemBackgroundColor,
     this.selectedItemIconColor,
-    this.selectedItemLabelColor,
     this.itemIconColor,
-    this.itemLabelColor,
     this.selectedItemTextStyle,
     this.itemTextStyle,
     this.mainButtonPosition = MainButtonPosition.middle,
