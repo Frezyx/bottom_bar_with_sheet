@@ -52,6 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
         controller: _bottomBarController,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.middle,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+          ),
           itemIconColor: Colors.grey,
           itemTextStyle: TextStyle(
             color: Colors.grey,
@@ -74,22 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         items: [
-          BottomBarWithSheetItem(
-            icon: Icons.people,
-            label: 'User',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.shopping_cart,
-            label: 'Cart',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.settings,
-            label: 'Settings',
-          ),
-          BottomBarWithSheetItem(
-            icon: Icons.favorite,
-            label: 'Favorite',
-          ),
+          BottomBarWithSheetItem(icon: Icons.people),
+          BottomBarWithSheetItem(icon: Icons.shopping_cart),
+          BottomBarWithSheetItem(icon: Icons.settings),
+          BottomBarWithSheetItem(icon: Icons.favorite),
         ],
       ),
     );
