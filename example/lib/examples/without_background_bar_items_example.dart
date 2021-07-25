@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('bottom_bar_with_sheet v1.1.0',
+        title: Text('bottom_bar_with_sheet v2.0.0',
             style: TextStyle(color: Colors.white)),
       ),
       body: Center(child: Text("Place for your content")),
@@ -40,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.purple,
           itemIconColor: Colors.white,
           selectedItemIconColor: Colors.white,
-          selectedItemBackgroundColor: Colors.purple,
           height: 70,
           heightClosed: 80,
           mainButtonPosition: MainButtonPosition.middle,
@@ -56,13 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        mainActionButton: MainActionButton(
-          width: 50,
-          child: Icon(
-            Icons.menu,
-            color: Colors.white,
-            size: 30,
-          ),
+        mainActionButton: Icon(
+          Icons.menu,
+          color: Colors.white,
+          size: 30,
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [

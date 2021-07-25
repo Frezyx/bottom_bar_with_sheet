@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const _constMargin = EdgeInsets.all(7);
+const _kDefaultMargin = EdgeInsets.all(5);
 
 // Hello !
 // ----------------------------------------------------------------------
-// You can check all widget annotation
+// You can check all widget annotations, examples and docs
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
@@ -13,11 +13,7 @@ class MainActionButtonTheme {
   final double size;
 
   /// icon that displayed when the
-  /// [BottomBarWithSheet] field [isOpened] == true
-  final Widget? iconOpened;
-
-  /// icon that displayed when the
-  /// [BottomBarWithSheet] field [isOpened] == false
+  /// [BottomBarWithSheet] field [_isOpened] == false
   final Widget? icon;
 
   /// splash color of widget circle
@@ -37,10 +33,9 @@ class MainActionButtonTheme {
   const MainActionButtonTheme({
     this.icon = const Icon(Icons.add, size: 40, color: Colors.white),
     this.size = 50,
-    this.iconOpened,
     this.splash,
     this.color,
-    this.margin = _constMargin,
+    this.margin = _kDefaultMargin,
     this.transform,
   });
 }

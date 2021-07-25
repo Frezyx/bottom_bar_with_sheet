@@ -93,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
           itemIconColor: Colors.grey[500],
           selectedItemIconColor: Colors.grey[900],
-          selectedItemBackgroundColor: Colors.white,
           height: 70,
           heightClosed: 80,
           heightOpened: 300,
@@ -110,13 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        mainActionButton: MainActionButton(
-          width: 50,
-          child: Icon(
-            Icons.add,
-            color: Colors.grey[900],
-            size: 30,
-          ),
+        mainActionButton: Icon(
+          Icons.add,
+          color: Colors.grey[900],
+          size: 30,
         ),
         onSelectItem: (index) {
           setState(() => _selectedIndex = index);

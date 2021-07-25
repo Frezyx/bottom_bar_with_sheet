@@ -50,11 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           backgroundColor: Color(0xFFFF8D8D),
-          selectedItemBackgroundColor: Color(0xFFFF8D8D),
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.white,
-          itemLabelColor: Colors.white,
-          selectedItemLabelColor: Colors.white,
           itemTextStyle:
               TextStyle().copyWith(fontSize: 10, fontWeight: FontWeight.w300),
           heightOpened: 250,
@@ -64,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         mainActionButtonTheme:
             MainActionButtonTheme(icon: Icon(Icons.arrow_upward_outlined)),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
+        items: [],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFFF8D8D),

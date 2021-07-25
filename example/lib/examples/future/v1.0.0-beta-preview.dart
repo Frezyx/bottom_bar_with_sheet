@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomBarTheme: BottomBarTheme(
             mainButtonPosition: MainButtonPosition.middle,
             selectedItemIconColor: Colors.blue,
-            selectedItemBackgroundColor: Colors.transparent,
             selectedItemIconSize: 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(50.0)),
@@ -74,10 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          mainActionButton: MainActionButton(
-            width: 50,
-            child: FlutterLogo(size: 50),
-          ),
+          mainActionButton: FlutterLogo(size: 50),
           onSelectItem: (index) => setState(() => _selectedIndex = index),
           items: [
             BottomBarWithSheetItem(icon: Icons.home),

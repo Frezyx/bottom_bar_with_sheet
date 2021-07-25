@@ -17,7 +17,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^1.1.1
+  bottom_bar_with_sheet: ^2.0.0
 ```
 
 ### Add import package
@@ -94,11 +94,8 @@ Scaffold(
 | backgroundColor | Color | **BottomBarWithSheet** background color |
 | selectedItemIconColor | Color | selected item icon color |
 | itemIconColor | Color | unselected item icon color |
-| selectedItemLabelColor | Color | selected item text color |
-| itemLabelColor | Color | unselected item text color |
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
-| selectedItemBackgroundColor | Color | selected item icon color |
 | selectedItemIconSize | double | size of item icon when item is pressed |
 | mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center |
 
@@ -107,8 +104,7 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | size | double | size of button |
-| icon | Widget | icon that displayed when the  **BottomBarWithSheet** when **isOpened** == false |
-| iconOpened | Widget | icon that displayed when the  **BottomBarWithSheet** when **isOpened** == true |
+| icon | Widget | icon that displayed in center of MainActionButton |
 | color | Color | background color of widget circle |
 | splash | Color | splash color of widget circle |
 | margin | EdgeInsets | side paddings of **Main Action Button** |

@@ -1,4 +1,14 @@
-## 1.1.0 - 25-04-2021
+## 2.0.0
+
+ - **BREAKING**: Implement BottomBarWithSheetController for working with items selection!
+ - **BREAKING**: Delete iconOpened, itemWidth, selectedItemLabelColor, itemLabelColor,selectedItemBackgroundColor fields
+ - **FEAT**: Refactor all old code base (shit code)! Now everything works faster and more convenient to upgrading
+ - **FEAT**: Now BottomBarWithSheetItem is model to create widget
+ - **FEAT**: MainActionButton now common Widget
+ - **FIX**: Update theme of widget
+ - **FIX**: Fix widgets tree scheme
+
+## 1.1.1 - 25-04-2021
 
 * Fix analyser issues
 * Refactor provider naming

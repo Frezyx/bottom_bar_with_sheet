@@ -3,34 +3,25 @@ import 'package:flutter/material.dart';
 
 // Hello !
 // ----------------------------------------------------------------------
-// You can check all widget annotation
+// You can check all widget annotations, examples and docs
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
-class BottomBarTheme {
-  // [BottomBarWithSheetItem] width (CURRENTLY UNUSED AND IGNORED)
-  //final double itemWidth;
+const _kDefaultContentPadding =
+    EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
 
+class BottomBarTheme {
   /// [BottomBarWithSheet] background color
   final Color? backgroundColor;
 
   /// selected [BottomBarWithSheetItem] icon color
   final Color? selectedItemIconColor;
 
-  /// selected [BottomBarWithSheetItem] label color
-  final Color? selectedItemLabelColor;
-
-  /// selected [BottomBarWithSheetItem] circle background color
-  final Color? selectedItemBackgroundColor;
-
   /// selected [BottomBarWithSheetItem] text style
   final TextStyle? selectedItemTextStyle;
 
   /// UNselected [BottomBarWithSheetItem] icon color
   final Color? itemIconColor;
-
-  /// UNselected [BottomBarWithSheetItem] label color
-  final Color? itemLabelColor;
 
   /// UNselected [BottomBarWithSheetItem] text style
   final TextStyle? itemTextStyle;
@@ -46,10 +37,10 @@ class BottomBarTheme {
   /// [BottomBarWithSheet] icons line height
   final double height;
 
-  /// [BottomBarWithSheet] height when [isOpened] == true
+  /// [BottomBarWithSheet] height when [_isOpened] == true
   final double heightOpened;
 
-  /// [BottomBarWithSheet] height when [isOpened] == false
+  /// [BottomBarWithSheet] height when [_isOpened] == false
   final double heightClosed;
 
   /// [BottomBarWithSheet] widget [BoxDecoration]
@@ -64,20 +55,14 @@ class BottomBarTheme {
   /// [double] size of item icon when item is not selected
   final double itemIconSize;
 
-  static const _constcontentPadding =
-      EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
-
   const BottomBarTheme({
-    this.contentPadding = _constcontentPadding,
+    this.contentPadding = _kDefaultContentPadding,
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,
     this.backgroundColor,
-    this.selectedItemBackgroundColor,
     this.selectedItemIconColor,
-    this.selectedItemLabelColor,
     this.itemIconColor,
-    this.itemLabelColor,
     this.selectedItemTextStyle,
     this.itemTextStyle,
     this.mainButtonPosition = MainButtonPosition.middle,
