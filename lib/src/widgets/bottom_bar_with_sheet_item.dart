@@ -26,19 +26,36 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
   final bool noSelectionState;
 
-  //TODO: title
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          model.icon,
-          color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
-        ),
-      ],
+      children: _items,
     );
+  }
+
+  List<Widget> get _items {
+    final items = <Widget>[
+      Icon(
+        model.icon,
+        color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
+      ),
+    ];
+
+    if (model.label != null) {
+      items.addAll(
+        [
+          SizedBox(height: 5),
+          Text(
+            model.label!,
+            style:
+                isSelected ? theme.selectedItemTextStyle : theme.itemTextStyle,
+          ),
+        ],
+      );
+    }
+
+    return items;
   }
 }
