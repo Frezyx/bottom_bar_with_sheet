@@ -24,21 +24,34 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         sheetChild: Center(child: Text("Place for your another content")),
         bottomBarTheme: BottomBarTheme(
           height: 70,
-          heightClosed: 100,
+          heightClosed: 70,
           mainButtonPosition: MainButtonPosition.middle,
+          itemIconColor: Colors.grey,
+          selectedItemIconColor: Colors.red,
         ),
         mainActionButtonTheme: MainActionButtonTheme(
-          icon: null,
           transform: Matrix4.translationValues(0, -30, 0),
         ),
-        mainActionButton: Image.asset(
-          'assets/images/vinyl.png',
+        mainActionButton: Container(
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            'Open',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [
