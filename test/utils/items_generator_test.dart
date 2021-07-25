@@ -5,25 +5,25 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Test_ItemsGenerator', () {
-    final _mainActionButton = GlobalKey(debugLabel: 'MainButton');
+    final _mainActionButtonKey = GlobalKey(debugLabel: 'MainButton');
 
-    final _firstItem = GlobalKey(debugLabel: 'first');
-    final _secondItem = GlobalKey(debugLabel: 'second');
-    final _thirdItem = GlobalKey(debugLabel: 'third');
-    final _fourthItem = GlobalKey(debugLabel: 'fourth');
+    final _firstItemKey = GlobalKey(debugLabel: 'first');
+    final _secondItemKey = GlobalKey(debugLabel: 'second');
+    final _thirdItemKey = GlobalKey(debugLabel: 'third');
+    final _fourthItemKey = GlobalKey(debugLabel: 'fourth');
 
     late Widget iconButton;
     late List<Widget> items;
 
     setUp(() {
       iconButton = TextFormField(
-        key: _mainActionButton,
+        key: _mainActionButtonKey,
       );
       items = [
-        TextFormField(key: _firstItem),
-        TextFormField(key: _secondItem),
-        TextFormField(key: _thirdItem),
-        TextFormField(key: _fourthItem),
+        TextFormField(key: _firstItemKey),
+        TextFormField(key: _secondItemKey),
+        TextFormField(key: _thirdItemKey),
+        TextFormField(key: _fourthItemKey),
       ];
     });
     test('LeftSide_Button', () async {
@@ -36,8 +36,8 @@ void main() {
       expect(generatedItems, isNotNull);
       expect(generatedItems, isList);
       expect(generatedItems, isNotEmpty);
-      expect(generatedItems.first.key, _mainActionButton);
-      expect(generatedItems[1].key, _firstItem);
+      expect(generatedItems.first.key, _mainActionButtonKey);
+      expect(generatedItems[1].key, _firstItemKey);
     });
 
     test('RightSide_Button', () async {
@@ -50,8 +50,8 @@ void main() {
       expect(generatedItems, isNotNull);
       expect(generatedItems, isList);
       expect(generatedItems, isNotEmpty);
-      expect(generatedItems.last.key, _mainActionButton);
-      expect(generatedItems.first.key, _firstItem);
+      expect(generatedItems.last.key, _mainActionButtonKey);
+      expect(generatedItems.first.key, _firstItemKey);
     });
 
     test('CenterSide_Button_Event', () async {
@@ -64,9 +64,9 @@ void main() {
       expect(generatedItems, isNotNull);
       expect(generatedItems, isList);
       expect(generatedItems, isNotEmpty);
-      expect(generatedItems[2].key, _mainActionButton);
-      expect(generatedItems.first.key, _firstItem);
-      expect(generatedItems.last.key, _fourthItem);
+      expect(generatedItems[2].key, _mainActionButtonKey);
+      expect(generatedItems.first.key, _firstItemKey);
+      expect(generatedItems.last.key, _fourthItemKey);
     });
 
     test('CenterSide_Button_NotEvent', () async {
@@ -79,10 +79,10 @@ void main() {
       expect(generatedItems, isNotNull);
       expect(generatedItems, isList);
       expect(generatedItems, isNotEmpty);
-      expect(generatedItems[0].key, _secondItem);
-      expect(generatedItems[1].key, _thirdItem);
-      expect(generatedItems[2].key, _mainActionButton);
-      expect(generatedItems.last.key, _fourthItem);
+      expect(generatedItems[0].key, _secondItemKey);
+      expect(generatedItems[1].key, _thirdItemKey);
+      expect(generatedItems[2].key, _mainActionButtonKey);
+      expect(generatedItems.last.key, _fourthItemKey);
     });
   });
 }
