@@ -42,6 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
+        bottomBarTheme: BottomBarTheme(
+          mainButtonPosition: MainButtonPosition.right,
+        ),
         sheetChild: Center(
           child: Text(
             "Another content",

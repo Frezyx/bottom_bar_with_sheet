@@ -2,6 +2,7 @@ library bottom_bar_with_sheet;
 
 import 'dart:math' as math;
 
+import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -135,10 +136,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   @override
   Widget build(BuildContext context) {
-    //TODO: use it
-    final leftPadding = widget.bottomBarTheme.contentPadding.left;
-    final rightPadding = widget.bottomBarTheme.contentPadding.right;
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<BottomBarProvider>(
@@ -162,10 +159,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           child: Column(
             children: <Widget>[
               Row(
-                // mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
-                //         MainButtonPosition.middle
-                //     ? MainAxisAlignment.center
-                //     : MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
                     _buildBody(widget.disableMainActionButton, _barProvider),
@@ -196,41 +189,52 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     bool disableMainActionButton,
     BottomBarProvider _barProvider,
   ) {
-    switch (widget.bottomBarTheme.mainButtonPosition) {
-      case MainButtonPosition.right:
-        return [
-          _buildButtonsRow(disableMainActionButton, _barProvider),
-          _buildActionButton(disableMainActionButton)
-        ];
-      case MainButtonPosition.left:
-        return [
-          _buildActionButton(disableMainActionButton),
-          _buildButtonsRow(disableMainActionButton, _barProvider)
-        ];
-      case MainButtonPosition.middle:
-        return _buildCentredBody(disableMainActionButton, _barProvider);
-      default:
-        return [
-          _buildButtonsRow(disableMainActionButton, _barProvider),
-          _buildActionButton(disableMainActionButton)
-        ];
-    }
+    final _widgets = <Widget>[
+      DefaultMainActionButton(
+        onTap: () {
+          _animateIcon();
+          _changeWidgetState();
+        },
+        icon: widget.mainActionButton != null
+            ? _buildMainActionButton(widget.mainActionButton)
+            : _actionButtonIcon,
+        mainActionButtonTheme: widget.mainActionButtonTheme!,
+        arrowAnimation: _arrowAnimation,
+        arrowAnimationController: _arrowAnimationController,
+        enable: !disableMainActionButton,
+      )
+    ];
+    // switch (widget.bottomBarTheme.mainButtonPosition) {
+    //   case MainButtonPosition.right:
+    //     _widgets.insert(
+    //       0,
+    //       _buildButtonsRow(_barProvider),
+    //     );
+    //     break;
+    //   case MainButtonPosition.left:
+    //     _widgets.add(
+    //       _buildButtonsRow(_barProvider),
+    //     );
+    //     break;
+    //   case MainButtonPosition.middle:
+    //   default:
+    //     return _buildCentredBody(_barProvider);
+    // }
+
+    return _widgets;
   }
 
-  List<Widget> _buildCentredBody(
-      bool disableMainActionButton, BottomBarProvider _barProvider) {
+  List<Widget> _buildCentredBody(BottomBarProvider _barProvider) {
     final count = widget.items!.length;
     final isEven = count % 2 == 0;
     return [
       isEven
           ? _buildButtonsRow(
-              disableMainActionButton,
               _barProvider,
               leftCount: count ~/ 2,
               rightCount: count ~/ 2,
             )
           : _buildButtonsRow(
-              disableMainActionButton,
               _barProvider,
               leftCount: count ~/ 2 - 1,
               rightCount: count ~/ 2 + 1,
@@ -238,8 +242,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     ];
   }
 
-  Widget _buildButtonsRow(
-      bool disableMainActionButton, BottomBarProvider _barProvider,
+  Widget _buildButtonsRow(BottomBarProvider _barProvider,
       {int? leftCount, int? rightCount}) {
     if (leftCount != null && rightCount != null) {
       for (var i = 0; i < widget.items!.length; i++) {
@@ -247,9 +250,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         widget.items![i].setIndex(i);
       }
       return _buildCenteredView(
-        leftCount,
-        rightCount,
-        disableMainActionButton,
         _barProvider,
       );
     } else {
@@ -279,12 +279,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Widget _buildCenteredView(int leftCount, int rightCount,
-      bool disableMainActionButton, BottomBarProvider _barProvider) {
+  Widget _buildCenteredView(BottomBarProvider _barProvider) {
     final children = <Widget>[];
-
+    //TODO: MainActionButton
     children.add(_getSeparatedItems(RowPosition.left, _barProvider));
-    children.add(_buildActionButton(disableMainActionButton));
     children.add(_getSeparatedItems(RowPosition.right, _barProvider));
 
     return Row(
@@ -336,21 +334,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     ));
   }
 
-  Widget _buildActionButton(bool disableMainActionButton) {
-    if (disableMainActionButton) {
-      return SizedBox();
-    } else {
-      return Container(
-        color: Colors.transparent,
-        transform: widget.mainActionButtonTheme?.transform ??
-            Matrix4.translationValues(0.0, 0.0, 0.0),
-        child: widget.mainActionButton != null
-            ? _buildMainActionButton(widget.mainActionButton)
-            : _buildDefaultMainActionButton(),
-      );
-    }
-  }
-
   Widget _buildMainActionButton(Widget? button) {
     return InkWell(
       splashColor: widget.mainActionButtonTheme?.splash ?? Colors.transparent,
@@ -367,42 +350,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       onTap: () {
         _changeWidgetState();
       },
-    );
-  }
-
-  Widget _buildDefaultMainActionButton() {
-    return Padding(
-      padding: widget.mainActionButtonTheme!.margin,
-      child: ClipOval(
-        child: Material(
-          color: widget.mainActionButtonTheme?.color ??
-              Theme.of(context).iconTheme.color,
-          child: InkWell(
-            splashColor: widget.mainActionButtonTheme!.splash,
-            child: AnimatedBuilder(
-              animation: _arrowAnimationController,
-              builder: (BuildContext context, Widget? child) {
-                return Transform.rotate(
-                  angle: (_arrowAnimation.value * 2.0 * math.pi) as double,
-                  child: child,
-                );
-              },
-              child: SizedBox(
-                width: widget.mainActionButtonTheme!.size,
-                height: widget.mainActionButtonTheme!.size,
-                child: Opacity(
-                  opacity: _iconOpacity,
-                  child: _actionButtonIcon,
-                ),
-              ),
-            ),
-            onTap: () {
-              _animateIcon();
-              _changeWidgetState();
-            },
-          ),
-        ),
-      ),
     );
   }
 
