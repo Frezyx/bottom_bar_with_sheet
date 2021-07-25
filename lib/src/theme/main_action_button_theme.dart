@@ -13,11 +13,11 @@ class MainActionButtonTheme {
   final double size;
 
   /// icon that displayed when the
-  /// [BottomBarWithSheet] field [isOpened] == true
+  /// [BottomBarWithSheet] field [_isOpened] == true
   final Widget? iconOpened;
 
   /// icon that displayed when the
-  /// [BottomBarWithSheet] field [isOpened] == false
+  /// [BottomBarWithSheet] field [_isOpened] == false
   final Widget? icon;
 
   /// splash color of widget circle

@@ -1,5 +1,7 @@
 library bottom_bar_with_sheet;
 
+import 'dart:async';
+
 import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart';
 import 'package:bottom_bar_with_sheet/src/utils/controller/controller.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
@@ -88,6 +90,7 @@ class BottomBarWithSheet extends StatefulWidget {
             BottomBarWithSheetController(
               initialIndex: selectedIndex,
               onItemSelect: onSelectItem,
+              sheetOpened: isOpened,
             ),
         super(key: key) {
     assert(items.isEmpty || items.length >= 2);
@@ -96,22 +99,17 @@ class BottomBarWithSheet extends StatefulWidget {
   }
 
   @override
-  _BottomBarWithSheetState createState() => _BottomBarWithSheetState(
-        isOpened: isOpened,
-      );
+  _BottomBarWithSheetState createState() => _BottomBarWithSheetState();
 }
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
-  _BottomBarWithSheetState({
-    this.isOpened,
-  });
-  bool? isOpened;
-
   Widget? _actionButtonIcon;
   late AnimationController _arrowAnimationController;
   late Animation _arrowAnimation;
   late List<Widget> _bottomBarItems;
+  late bool _isOpened;
+  late StreamSubscription _sub;
 
   @override
   void initState() {
@@ -122,7 +120,14 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
     _actionButtonIcon = widget.mainActionButtonTheme?.icon;
     _bottomBarItems = _generateItems();
+    _isOpened = widget._controller.isOpened;
+    _configBottomControllerListener();
     super.initState();
+  }
+
+  void _configBottomControllerListener() {
+    _sub = widget._controller.stream
+        .listen((event) => setState(() => _isOpened = event));
   }
 
   List<Widget> _generateItems() {
@@ -160,6 +165,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   @override
   void dispose() {
     _arrowAnimationController.dispose();
+    _sub.cancel();
     super.dispose();
   }
 
@@ -178,7 +184,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: _bottomBarItems,
           ),
-          isOpened! ? Expanded(child: widget.sheetChild) : SizedBox()
+          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
         ],
       ),
     );
@@ -199,7 +205,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   void _changeWidgetState() {
-    setState(() => isOpened = !isOpened!);
+    widget._controller.toggleSheet();
     _arrowAnimationController.isCompleted
         ? _arrowAnimationController.reverse().then(
             (value) {
@@ -215,6 +221,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   double get _bottomBarHeigth {
     final t = widget.bottomBarTheme;
-    return isOpened! ? t.heightOpened : t.heightClosed;
+    return _isOpened ? t.heightOpened : t.heightClosed;
   }
 }

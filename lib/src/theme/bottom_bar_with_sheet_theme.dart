@@ -49,10 +49,10 @@ class BottomBarTheme {
   /// [BottomBarWithSheet] icons line height
   final double height;
 
-  /// [BottomBarWithSheet] height when [isOpened] == true
+  /// [BottomBarWithSheet] height when [_isOpened] == true
   final double heightOpened;
 
-  /// [BottomBarWithSheet] height when [isOpened] == false
+  /// [BottomBarWithSheet] height when [_isOpened] == false
   final double heightClosed;
 
   /// [BottomBarWithSheet] widget [BoxDecoration]
