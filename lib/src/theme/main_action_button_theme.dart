@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const _constMargin = EdgeInsets.all(7);
+const _kDefaultMargin = EdgeInsets.all(7);
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -40,7 +40,7 @@ class MainActionButtonTheme {
     this.iconOpened,
     this.splash,
     this.color,
-    this.margin = _constMargin,
+    this.margin = _kDefaultMargin,
     this.transform,
   });
 }
