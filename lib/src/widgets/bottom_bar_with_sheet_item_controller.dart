@@ -17,6 +17,7 @@ class BottmBarItemController extends StatelessWidget {
       icon: model.icon,
       noSelectionState: model.noSelectionState,
       label: model.label,
+      isSelected: false,
     ));
   }
 }

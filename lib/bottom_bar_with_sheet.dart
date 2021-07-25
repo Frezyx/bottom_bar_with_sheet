@@ -138,7 +138,13 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         arrowAnimationController: _arrowAnimationController,
         enable: !widget.disableMainActionButton,
       ),
-      items: widget.items.map((e) => BottmBarItemController(model: e)).toList(),
+      items: widget.items
+          .map(
+            (e) => BottmBarItemController(
+              model: e,
+            ),
+          )
+          .toList(),
       position: widget.bottomBarTheme.mainButtonPosition,
     );
   }

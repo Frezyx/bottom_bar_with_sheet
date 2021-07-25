@@ -14,11 +14,13 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
     Key? key,
     this.label,
     required this.icon,
-    this.noSelectionState = false,
+    required this.isSelected,
+    required this.noSelectionState,
   }) : super(key: key);
 
   final String? label;
   final IconData icon;
+  final bool isSelected;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
   final bool noSelectionState;
