@@ -12,7 +12,7 @@ import 'package:bottom_bar_with_sheet/src/theme/main_action_button_theme.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
-/// You can check all widget annotation
+/// You can check all widget annotations, examples and docs
 /// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 /// ----------------------------------------------------------------------
 
