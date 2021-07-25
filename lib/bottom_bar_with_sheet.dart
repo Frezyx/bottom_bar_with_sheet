@@ -1,6 +1,7 @@
 library bottom_bar_with_sheet;
 
 import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart';
+import 'package:bottom_bar_with_sheet/src/utils/controller/controller.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
@@ -14,6 +15,7 @@ export 'src/enums/positions.dart';
 export 'src/theme/bottom_bar_with_sheet_theme.dart';
 export 'src/theme/main_action_button_theme.dart';
 export 'src/models/bottom_bar_with_sheet_item.dart';
+export 'src/utils/controller/controller.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -68,6 +70,11 @@ class BottomBarWithSheet extends StatefulWidget {
   ///  If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed
   final bool autoClose;
 
+  /// Controller for workin with widget state
+  final BottomBarWithSheetController? controller;
+
+  late BottomBarWithSheetController _controller;
+
   BottomBarWithSheet({
     Key? key,
     this.selectedIndex = 0,
@@ -83,7 +90,10 @@ class BottomBarWithSheet extends StatefulWidget {
     required this.sheetChild,
     required this.onSelectItem,
     required this.items,
-  }) : super(key: key) {
+    this.controller,
+  })  : this._controller = controller ??
+            BottomBarWithSheetController(initialIndex: selectedIndex),
+        super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
         items.length % 2 == 0);
     assert(bottomBarTheme.backgroundColor == null ||
@@ -92,18 +102,15 @@ class BottomBarWithSheet extends StatefulWidget {
 
   @override
   _BottomBarWithSheetState createState() => _BottomBarWithSheetState(
-        selectedIndex: selectedIndex,
         isOpened: isOpened,
       );
 }
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
-  int? selectedIndex;
   bool? isOpened;
 
   _BottomBarWithSheetState({
-    this.selectedIndex,
     this.isOpened,
   });
 
@@ -139,11 +146,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         enable: !widget.disableMainActionButton,
       ),
       items: widget.items
+          .asMap()
           .map(
-            (e) => BottmBarItemController(
-              model: e,
+            (i, e) => MapEntry(
+              i,
+              BottmBarItemController(
+                index: i,
+                model: e,
+                controller: widget._controller,
+              ),
             ),
           )
+          .values
           .toList(),
       position: widget.bottomBarTheme.mainButtonPosition,
     );

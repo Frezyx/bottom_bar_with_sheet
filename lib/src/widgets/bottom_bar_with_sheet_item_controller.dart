@@ -6,9 +6,13 @@ class BottmBarItemController extends StatelessWidget {
   const BottmBarItemController({
     Key? key,
     required this.model,
+    required this.controller,
+    required this.index,
   }) : super(key: key);
 
+  final int index;
   final BottomBarWithSheetItem model;
+  final BottomBarWithSheetController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class BottmBarItemController extends StatelessWidget {
       icon: model.icon,
       noSelectionState: model.noSelectionState,
       label: model.label,
-      isSelected: false,
+      isSelected: controller.selectedIndex == index,
     ));
   }
 }
