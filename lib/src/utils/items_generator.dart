@@ -20,13 +20,11 @@ abstract class ItemsGenerator {
         break;
       case MainButtonPosition.middle:
       default:
-        final isEven = items.length.isEven;
-        if (isEven) {
-          final half = (items.length / 2).round();
-          _items.addAll(items.getRange(0, half).toList());
-          _items.add(mainActionButton);
-          _items.addAll(items.getRange(half, items.length).toList());
-        } else {}
+        final half = (items.length / 2).round();
+        _items.addAll(items.getRange(0, half).toList());
+        _items.add(mainActionButton);
+        _items.addAll(items.getRange(half, items.length).toList());
+
         break;
     }
 

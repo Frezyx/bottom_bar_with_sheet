@@ -68,5 +68,21 @@ void main() {
       expect(generatedItems.first.key, _firstItem);
       expect(generatedItems.last.key, _fourthItem);
     });
+
+    test('CenterSide_Button_NotEvent', () async {
+      final generatedItems = ItemsGenerator.generateByButtonPosition(
+        mainActionButton: iconButton,
+        items: items..removeAt(0),
+        position: MainButtonPosition.middle,
+      );
+
+      expect(generatedItems, isNotNull);
+      expect(generatedItems, isList);
+      expect(generatedItems, isNotEmpty);
+      expect(generatedItems[0].key, _secondItem);
+      expect(generatedItems[1].key, _thirdItem);
+      expect(generatedItems[2].key, _mainActionButton);
+      expect(generatedItems.last.key, _fourthItem);
+    });
   });
 }
