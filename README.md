@@ -96,7 +96,6 @@ Scaffold(
 | itemIconColor | Color | unselected item icon color |
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
-| selectedItemBackgroundColor | Color | selected item icon color |
 | selectedItemIconSize | double | size of item icon when item is pressed |
 | mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center |
 

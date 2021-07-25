@@ -50,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           backgroundColor: Color(0xFFFF8D8D),
-          selectedItemBackgroundColor: Color(0xFFFF8D8D),
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.white,
           itemTextStyle:

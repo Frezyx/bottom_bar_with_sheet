@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
           bottomBarTheme: BottomBarTheme(
             mainButtonPosition: MainButtonPosition.middle,
             selectedItemIconColor: Colors.blue,
-            selectedItemBackgroundColor: Colors.transparent,
             selectedItemIconSize: 20,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(50.0)),

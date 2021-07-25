@@ -93,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
           itemIconColor: Colors.grey[500],
           selectedItemIconColor: Colors.grey[900],
-          selectedItemBackgroundColor: Colors.white,
           height: 70,
           heightClosed: 80,
           heightOpened: 300,

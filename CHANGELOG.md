@@ -1,7 +1,7 @@
 ## 2.0.0
 
  - **BREAKING**: Implement BottomBarWithSheetController for working with items selection!
- - **BREAKING**: Delete iconOpened, itemWidth, selectedItemLabelColor, itemLabelColor fields
+ - **BREAKING**: Delete iconOpened, itemWidth, selectedItemLabelColor, itemLabelColor,selectedItemBackgroundColor fields
  - **FEAT**: Refactor all old code base (shit code)! Now everything works faster and more convenient to upgrading
  - **FEAT**: Now BottomBarWithSheetItem is model to create widget
  - **FEAT**: MainActionButton now common Widget

@@ -51,7 +51,6 @@ class MainActionButton extends StatelessWidget {
                     child: SizedBox(
                       width: mainActionButtonTheme.size,
                       height: mainActionButtonTheme.size,
-                      //TODO: add icon opacity
                       child: Opacity(
                         opacity: 1.0,
                         child: Center(

@@ -17,9 +17,6 @@ class BottomBarTheme {
   /// selected [BottomBarWithSheetItem] icon color
   final Color? selectedItemIconColor;
 
-  /// selected [BottomBarWithSheetItem] circle background color
-  final Color? selectedItemBackgroundColor;
-
   /// selected [BottomBarWithSheetItem] text style
   final TextStyle? selectedItemTextStyle;
 
@@ -64,7 +61,6 @@ class BottomBarTheme {
     this.heightOpened = 400,
     this.heightClosed = 75,
     this.backgroundColor,
-    this.selectedItemBackgroundColor,
     this.selectedItemIconColor,
     this.itemIconColor,
     this.selectedItemTextStyle,
