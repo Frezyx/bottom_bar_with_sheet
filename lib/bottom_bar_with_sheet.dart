@@ -3,6 +3,7 @@ library bottom_bar_with_sheet;
 import 'dart:math' as math;
 
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
+import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
 import 'package:flutter/material.dart';
 import 'src/enums/positions.dart';
@@ -139,7 +140,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         arrowAnimationController: _arrowAnimationController,
         enable: !widget.disableMainActionButton,
       ),
-      items: widget.items,
+      items: widget.items.map((e) => BottmBarItemController(item: e)).toList(),
       position: widget.bottomBarTheme.mainButtonPosition,
     );
   }
@@ -162,7 +163,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
       child: Column(
         children: <Widget>[
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: _bottomBarItems,
           ),
           isOpened! ? Expanded(child: widget.sheetChild) : Container()

@@ -39,9 +39,9 @@ class BottomBarWithSheetItem extends StatelessWidget {
       duration: animationDuration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(Icons.ac_unit),
-          SizedBox(height: 2),
         ],
       ),
     );

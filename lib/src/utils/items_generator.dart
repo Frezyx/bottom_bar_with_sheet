@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 abstract class ItemsGenerator {
   static List<Widget> generateByButtonPosition({
     required Widget mainActionButton,
-    required List<BottomBarWithSheetItem> items,
+    required List<Widget> items,
     required MainButtonPosition position,
   }) {
     final _items = <Widget>[];
