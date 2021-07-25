@@ -107,8 +107,7 @@ Scaffold(
 | Attribute  | Type | Annotation |
 | ------------- | ------------- | ------------- |
 | size | double | size of button |
-| icon | Widget | icon that displayed when the  **BottomBarWithSheet** when **isOpened** == false |
-| iconOpened | Widget | icon that displayed when the  **BottomBarWithSheet** when **isOpened** == true |
+| icon | Widget | icon that displayed in center of MainActionButton |
 | color | Color | background color of widget circle |
 | splash | Color | splash color of widget circle |
 | margin | EdgeInsets | side paddings of **Main Action Button** |

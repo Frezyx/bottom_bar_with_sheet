@@ -7,7 +7,6 @@ class MainActionButton extends StatelessWidget {
     Key? key,
     required this.onTap,
     required this.mainActionButtonTheme,
-    this.icon,
     this.button,
     required this.arrowAnimation,
     required this.arrowAnimationController,
@@ -16,7 +15,6 @@ class MainActionButton extends StatelessWidget {
 
   final Function() onTap;
   final MainActionButtonTheme mainActionButtonTheme;
-  final Widget? icon;
   final Widget? button;
   final AnimationController arrowAnimationController;
   final Animation arrowAnimation;
@@ -57,7 +55,7 @@ class MainActionButton extends StatelessWidget {
                       child: Opacity(
                         opacity: 1.0,
                         child: Center(
-                          child: icon,
+                          child: mainActionButtonTheme.icon,
                         ),
                       ),
                     ),

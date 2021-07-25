@@ -13,10 +13,6 @@ class MainActionButtonTheme {
   final double size;
 
   /// icon that displayed when the
-  /// [BottomBarWithSheet] field [_isOpened] == true
-  final Widget? iconOpened;
-
-  /// icon that displayed when the
   /// [BottomBarWithSheet] field [_isOpened] == false
   final Widget? icon;
 
@@ -37,7 +33,6 @@ class MainActionButtonTheme {
   const MainActionButtonTheme({
     this.icon = const Icon(Icons.add, size: 40, color: Colors.white),
     this.size = 50,
-    this.iconOpened,
     this.splash,
     this.color,
     this.margin = _kDefaultMargin,

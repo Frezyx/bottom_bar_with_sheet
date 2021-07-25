@@ -104,7 +104,6 @@ class BottomBarWithSheet extends StatefulWidget {
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
-  Widget? _actionButtonIcon;
   late AnimationController _arrowAnimationController;
   late Animation _arrowAnimation;
   late List<Widget> _bottomBarItems;
@@ -118,7 +117,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: widget.duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _actionButtonIcon = widget.mainActionButtonTheme?.icon;
     _bottomBarItems = _generateItems();
     _isOpened = widget._controller.isOpened;
     _configBottomControllerListener();
@@ -136,7 +134,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         onTap: () {
           _changeWidgetState();
         },
-        icon: _actionButtonIcon,
         button: widget.mainActionButton,
         mainActionButtonTheme: widget.mainActionButtonTheme!,
         arrowAnimation: _arrowAnimation,
