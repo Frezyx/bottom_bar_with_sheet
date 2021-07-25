@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 /// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 /// ----------------------------------------------------------------------
 
-const defaultDuration = Duration(milliseconds: 500);
-
-// ignore: must_be_immutable
 class BottomBarWithSheetItemWidget extends StatelessWidget {
   const BottomBarWithSheetItemWidget({
     Key? key,
