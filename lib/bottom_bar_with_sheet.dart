@@ -97,8 +97,7 @@ class BottomBarWithSheet extends StatefulWidget {
               onItemSelect: onSelectItem,
             ),
         super(key: key) {
-    assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
-        items.length % 2 == 0);
+    assert(items.isEmpty || items.length >= 2);
     assert(bottomBarTheme.backgroundColor == null ||
         bottomBarTheme.decoration?.color == null);
   }
@@ -139,9 +138,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         onTap: () {
           _changeWidgetState();
         },
-        icon: widget.mainActionButton != null
-            ? widget.mainActionButton
-            : _actionButtonIcon,
+        icon: _actionButtonIcon,
+        button: widget.mainActionButton,
         mainActionButtonTheme: widget.mainActionButtonTheme!,
         arrowAnimation: _arrowAnimation,
         arrowAnimationController: _arrowAnimationController,
@@ -187,7 +185,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: _bottomBarItems,
           ),
-          isOpened! ? Expanded(child: widget.sheetChild) : Container()
+          isOpened! ? Expanded(child: widget.sheetChild) : SizedBox()
         ],
       ),
     );
@@ -207,15 +205,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     return null;
   }
 
-  // Widget _buildItemSizedBox(BottomBarWithSheetItem item) {
-  //   return Flexible(
-  //     child: SizedBox(
-  //       height: widget.bottomBarTheme.height,
-  //       child: item,
-  //     ),
-  //   );
-  // }
-
   void _changeWidgetState() {
     setState(() => isOpened = !isOpened!);
     _arrowAnimationController.isCompleted
@@ -233,8 +222,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   double get _bottomBarHeigth {
     final t = widget.bottomBarTheme;
-    return isOpened!
-        ? t.heightOpened + t.contentPadding.bottom + t.contentPadding.top
-        : t.heightClosed + t.contentPadding.bottom + t.contentPadding.top;
+    return isOpened! ? t.heightOpened : t.heightClosed;
   }
 }

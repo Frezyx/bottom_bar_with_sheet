@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 // In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 // ----------------------------------------------------------------------
 
+const _kDefaultContentPadding =
+    EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
+
 class BottomBarTheme {
   // [BottomBarWithSheetItem] width (CURRENTLY UNUSED AND IGNORED)
   //final double itemWidth;
@@ -64,11 +67,8 @@ class BottomBarTheme {
   /// [double] size of item icon when item is not selected
   final double itemIconSize;
 
-  static const _constcontentPadding =
-      EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
-
   const BottomBarTheme({
-    this.contentPadding = _constcontentPadding,
+    this.contentPadding = _kDefaultContentPadding,
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,

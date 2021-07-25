@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const _kDefaultMargin = EdgeInsets.all(7);
+const _kDefaultMargin = EdgeInsets.all(5);
 
 // Hello !
 // ----------------------------------------------------------------------

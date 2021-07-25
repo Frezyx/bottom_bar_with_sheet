@@ -59,6 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainButtonPosition: MainButtonPosition.middle,
           selectedItemIconColor: Colors.black,
         ),
+        mainActionButton: Container(
+          color: Colors.black,
+          height: 50,
+          width: 200,
+        ),
         sheetChild: Center(
           child: Text(
             "Another content",
@@ -73,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
           BottomBarWithSheetItem(icon: Icons.people),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
-          BottomBarWithSheetItem(icon: Icons.settings),
-          BottomBarWithSheetItem(icon: Icons.favorite),
+          // BottomBarWithSheetItem(icon: Icons.settings),
+          // BottomBarWithSheetItem(icon: Icons.favorite),
         ],
       ),
     );
