@@ -40,7 +40,7 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Callback [Function] works by clicking on one of [items]
   ///
   /// Return int [index] of selected button
-  final Function onSelectItem;
+  final Function(int)? onSelectItem;
 
   /// index of selected [BottomBarWithSheetItem] from [items]
   final int selectedIndex;
@@ -88,11 +88,14 @@ class BottomBarWithSheet extends StatefulWidget {
     this.mainActionButtonTheme = defaultMainActionButtonTheme,
     this.autoClose = true,
     required this.sheetChild,
-    required this.onSelectItem,
+    this.onSelectItem,
     required this.items,
     this.controller,
   })  : this._controller = controller ??
-            BottomBarWithSheetController(initialIndex: selectedIndex),
+            BottomBarWithSheetController(
+              initialIndex: selectedIndex,
+              onItemSelect: onSelectItem,
+            ),
         super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
         items.length % 2 == 0);
@@ -108,11 +111,10 @@ class BottomBarWithSheet extends StatefulWidget {
 
 class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
-  bool? isOpened;
-
   _BottomBarWithSheetState({
     this.isOpened,
   });
+  bool? isOpened;
 
   Widget? _actionButtonIcon;
   late AnimationController _arrowAnimationController;
@@ -154,6 +156,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
                 index: i,
                 model: e,
                 controller: widget._controller,
+                theme: widget.bottomBarTheme,
               ),
             ),
           )

@@ -1,3 +1,4 @@
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
 /// Hello !
@@ -12,15 +13,15 @@ const defaultDuration = Duration(milliseconds: 500);
 class BottomBarWithSheetItemWidget extends StatelessWidget {
   const BottomBarWithSheetItemWidget({
     Key? key,
-    this.label,
-    required this.icon,
+    required this.model,
     required this.isSelected,
     required this.noSelectionState,
+    required this.theme,
   }) : super(key: key);
 
-  final String? label;
-  final IconData icon;
+  final BottomBarWithSheetItem model;
   final bool isSelected;
+  final BottomBarTheme theme;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
   final bool noSelectionState;
@@ -33,7 +34,10 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(icon),
+        Icon(
+          model.icon,
+          color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
+        ),
       ],
     );
   }

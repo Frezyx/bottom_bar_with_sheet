@@ -24,7 +24,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+  final _bottomBarController = BottomBarWithSheetController(
+    initialIndex: 0,
+    onItemSelect: (int i) {
+      print(i);
+    },
+  );
+
+  @override
+  void initState() {
+    _bottomBarController.itemsStream.listen((i) {
+      print('Index $i is selcted');
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomBarWithSheet(
-        selectedIndex: _selectedIndex,
+        controller: _bottomBarController,
         bottomBarTheme: BottomBarTheme(
           mainButtonPosition: MainButtonPosition.middle,
+          selectedItemIconColor: Colors.black,
         ),
         sheetChild: Center(
           child: Text(
@@ -55,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        onSelectItem: (index) => setState(() => _selectedIndex = index),
+        onSelectItem: (index) => print(index),
         items: [
           BottomBarWithSheetItem(icon: Icons.people),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
