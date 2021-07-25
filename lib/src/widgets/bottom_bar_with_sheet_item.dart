@@ -1,6 +1,4 @@
-import 'package:bottom_bar_with_sheet/src/providers/bottom_bar_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -23,8 +21,6 @@ class BottomBarWithSheetItem extends StatelessWidget {
   bool? isLeft;
   Color? itemIconColor;
 
-  int? _index;
-
   BottomBarWithSheetItem({
     Key? key,
     this.label,
@@ -35,29 +31,29 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.itemIconColor,
   }) : super(key: key);
 
-  Widget _buildText(String? label, {required BottomBarProvider barProvider}) {
-    final bottomBarTheme = barProvider.bottomBarTheme;
-    final isSelected = _checkItemState(barProvider);
-    return label == null
-        ? Container()
-        : Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                color: isSelected
-                    ? bottomBarTheme.selectedItemLabelColor
-                    : bottomBarTheme.itemLabelColor,
-                fontSize: isSelected
-                    ? bottomBarTheme.selectedItemTextStyle?.fontSize
-                    : bottomBarTheme.itemTextStyle?.fontSize,
-                fontWeight: isSelected
-                    ? bottomBarTheme.selectedItemTextStyle?.fontWeight
-                    : bottomBarTheme.itemTextStyle?.fontWeight,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          );
-  }
+  // Widget _buildText(
+  //   String? label,
+  // ) {
+  //   return label == null
+  //       ? Container()
+  //       : Center(
+  //           child: Text(
+  //             label,
+  //             style: TextStyle(
+  //               color: isSelected
+  //                   ? bottomBarTheme.selectedItemLabelColor
+  //                   : bottomBarTheme.itemLabelColor,
+  //               fontSize: isSelected
+  //                   ? bottomBarTheme.selectedItemTextStyle?.fontSize
+  //                   : bottomBarTheme.itemTextStyle?.fontSize,
+  //               fontWeight: isSelected
+  //                   ? bottomBarTheme.selectedItemTextStyle?.fontWeight
+  //                   : bottomBarTheme.itemTextStyle?.fontWeight,
+  //             ),
+  //             textAlign: TextAlign.center,
+  //           ),
+  //         );
+  // }
 
   Widget _buildOpenedButton(Widget icon) {
     return Center(
@@ -83,48 +79,14 @@ class BottomBarWithSheetItem extends StatelessWidget {
     );
   }
 
-  void setIndex(int index) {
-    _index = index;
-  }
-
-  bool _checkItemState(BottomBarProvider barProvider) {
-    return noSelectionState ? false : (_index == barProvider.selectedIndex);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final _barProvider = Provider.of<BottomBarProvider>(context);
-
-    itemIconColor = itemIconColor ?? _barProvider.bottomBarTheme.itemIconColor;
-    selectedBackgroundColor = selectedBackgroundColor ??
-        _barProvider.bottomBarTheme.selectedItemBackgroundColor;
-
-    final isSelected = _checkItemState(_barProvider);
-    final iconTopSpacer = isSelected ? 0.0 : 2.0;
-    final labelWidget = _buildText(label, barProvider: _barProvider);
-    final iconAreaWidget = isSelected
-        ? _buildOpenedButton(
-            Icon(icon,
-                size: _barProvider.bottomBarTheme.selectedItemIconSize,
-                color: _barProvider.bottomBarTheme.selectedItemIconColor),
-          )
-        : _buildClosedButton(
-            Icon(
-              icon,
-              size: _barProvider.bottomBarTheme.itemIconSize,
-              color: _barProvider.bottomBarTheme.itemIconColor,
-            ),
-          );
-
     return AnimatedContainer(
       duration: animationDuration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: _barProvider.mainAxisAlignment,
         children: <Widget>[
-          SizedBox(height: iconTopSpacer),
-          iconAreaWidget,
-          labelWidget,
+          Icon(Icons.ac_unit),
           SizedBox(height: 2),
         ],
       ),

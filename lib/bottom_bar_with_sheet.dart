@@ -4,9 +4,6 @@ import 'dart:math' as math;
 
 import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:bottom_bar_with_sheet/src/providers/bottom_bar_provider.dart';
 import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
 import 'src/theme/defaults.dart';
@@ -136,38 +133,24 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<BottomBarProvider>(
-          create: (ctx) => BottomBarProvider(
-            isOpened: isOpened,
-            selectedIndex: widget.selectedIndex,
-            mainAxisAlignment: widget.bottomBarMainAxisAlignment,
-            bottomBarTheme: widget.bottomBarTheme,
+    return AnimatedContainer(
+      color: _getBackgroundColor(context),
+      duration: widget.duration,
+      curve: widget.curve,
+      height: _bottomBarHeigth,
+      padding: widget.bottomBarTheme.contentPadding,
+      decoration: widget.bottomBarTheme.decoration,
+      child: Column(
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _buildBody(
+              widget.disableMainActionButton,
+            ),
           ),
-        ),
-      ],
-      builder: (BuildContext context, _) {
-        final _barProvider = Provider.of<BottomBarProvider>(context);
-        return AnimatedContainer(
-          color: _getBackgroundColor(context),
-          duration: widget.duration,
-          curve: widget.curve,
-          height: _bottomBarHeigth,
-          padding: widget.bottomBarTheme.contentPadding,
-          decoration: widget.bottomBarTheme.decoration,
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:
-                    _buildBody(widget.disableMainActionButton, _barProvider),
-              ),
-              isOpened! ? Expanded(child: widget.sheetChild) : Container()
-            ],
-          ),
-        );
-      },
+          isOpened! ? Expanded(child: widget.sheetChild) : Container()
+        ],
+      ),
     );
   }
 
@@ -187,7 +170,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   List<Widget> _buildBody(
     bool disableMainActionButton,
-    BottomBarProvider _barProvider,
   ) {
     final _widgets = <Widget>[
       DefaultMainActionButton(
@@ -208,58 +190,50 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     //   case MainButtonPosition.right:
     //     _widgets.insert(
     //       0,
-    //       _buildButtonsRow(_barProvider),
+    //       _buildButtonsRow(),
     //     );
     //     break;
     //   case MainButtonPosition.left:
     //     _widgets.add(
-    //       _buildButtonsRow(_barProvider),
+    //       _buildButtonsRow(),
     //     );
     //     break;
     //   case MainButtonPosition.middle:
     //   default:
-    //     return _buildCentredBody(_barProvider);
+    //     return _buildCentredBody();
     // }
 
     return _widgets;
   }
 
-  List<Widget> _buildCentredBody(BottomBarProvider _barProvider) {
+  List<Widget> _buildCentredBody() {
     final count = widget.items!.length;
     final isEven = count % 2 == 0;
     return [
       isEven
           ? _buildButtonsRow(
-              _barProvider,
               leftCount: count ~/ 2,
               rightCount: count ~/ 2,
             )
           : _buildButtonsRow(
-              _barProvider,
               leftCount: count ~/ 2 - 1,
               rightCount: count ~/ 2 + 1,
             )
     ];
   }
 
-  Widget _buildButtonsRow(BottomBarProvider _barProvider,
-      {int? leftCount, int? rightCount}) {
+  Widget _buildButtonsRow({int? leftCount, int? rightCount}) {
     if (leftCount != null && rightCount != null) {
       for (var i = 0; i < widget.items!.length; i++) {
         if (i < leftCount) widget.items![i].isLeft = true;
-        widget.items![i].setIndex(i);
       }
-      return _buildCenteredView(
-        _barProvider,
-      );
+      return _buildCenteredView();
     } else {
-      return _buildCommonView(
-        _barProvider,
-      );
+      return _buildCommonView();
     }
   }
 
-  Container _buildCommonView(BottomBarProvider _barProvider) {
+  Container _buildCommonView() {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -268,22 +242,20 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
             ? []
             : widget.items!.map((item) {
                 var i = widget.items!.indexOf(item);
-                item.setIndex(i);
                 return _buildItem(
                   i,
                   item,
-                  _barProvider,
                 );
               }).toList(),
       ),
     );
   }
 
-  Widget _buildCenteredView(BottomBarProvider _barProvider) {
+  Widget _buildCenteredView() {
     final children = <Widget>[];
     //TODO: MainActionButton
-    children.add(_getSeparatedItems(RowPosition.left, _barProvider));
-    children.add(_getSeparatedItems(RowPosition.right, _barProvider));
+    children.add(_getSeparatedItems(RowPosition.left));
+    children.add(_getSeparatedItems(RowPosition.right));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -293,7 +265,8 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   }
 
   Widget _getSeparatedItems(
-      RowPosition position, BottomBarProvider _barProvider) {
+    RowPosition position,
+  ) {
     final isLeft = position == RowPosition.left;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -303,14 +276,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
               : item.isLeft == null || !item.isLeft!)
           .map((item) {
         var i = widget.items!.indexOf(item);
-        item.setIndex(i);
-        return _buildItem(i, item, _barProvider);
+        return _buildItem(
+          i,
+          item,
+        );
       }).toList(),
     );
   }
 
   GestureDetector _buildItem(
-      int i, BottomBarWithSheetItem item, BottomBarProvider _barProvider) {
+    int i,
+    BottomBarWithSheetItem item,
+  ) {
     return GestureDetector(
       onTap: () {
         if (widget.autoClose && isOpened!) {
@@ -319,7 +296,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         }
         setState(() {
           widget.onSelectItem(i);
-          _barProvider.selectedIndex = i;
         });
       },
       child: _buildItemSizedBox(item),
