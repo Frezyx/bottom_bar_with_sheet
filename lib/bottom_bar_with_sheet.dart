@@ -1,7 +1,6 @@
 library bottom_bar_with_sheet;
 
-import 'dart:math' as math;
-
+import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
@@ -10,12 +9,11 @@ import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
 import 'src/theme/defaults.dart';
 import 'src/theme/main_action_button_theme.dart';
-import 'src/widgets/bottom_bar_with_sheet_item.dart';
 
 export 'src/enums/positions.dart';
 export 'src/theme/bottom_bar_with_sheet_theme.dart';
 export 'src/theme/main_action_button_theme.dart';
-export 'src/widgets/bottom_bar_with_sheet_item.dart';
+export 'src/models/bottom_bar_with_sheet_item.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -140,7 +138,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         arrowAnimationController: _arrowAnimationController,
         enable: !widget.disableMainActionButton,
       ),
-      items: widget.items.map((e) => BottmBarItemController(item: e)).toList(),
+      items: widget.items.map((e) => BottmBarItemController(model: e)).toList(),
       position: widget.bottomBarTheme.mainButtonPosition,
     );
   }
