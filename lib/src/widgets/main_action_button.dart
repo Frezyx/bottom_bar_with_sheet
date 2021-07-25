@@ -2,8 +2,8 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class DefaultMainActionButton extends StatelessWidget {
-  const DefaultMainActionButton({
+class MainActionButton extends StatelessWidget {
+  const MainActionButton({
     Key? key,
     required this.onTap,
     required this.mainActionButtonTheme,

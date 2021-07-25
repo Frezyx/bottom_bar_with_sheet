@@ -43,7 +43,7 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
     if (model.label != null) {
       items.addAll(
         [
-          SizedBox(height: 5),
+          SizedBox(height: 2),
           Text(
             model.label!,
             style:

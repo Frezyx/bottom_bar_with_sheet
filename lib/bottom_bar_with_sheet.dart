@@ -4,9 +4,8 @@ import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart
 import 'package:bottom_bar_with_sheet/src/utils/controller/controller.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
-import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
+import 'package:bottom_bar_with_sheet/src/widgets/main_action_button.dart';
 import 'package:flutter/material.dart';
-import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
 import 'src/theme/defaults.dart';
 import 'src/theme/main_action_button_theme.dart';
@@ -134,7 +133,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   List<Widget> _generateItems() {
     return ItemsGenerator.generateByButtonPosition(
-      mainActionButton: DefaultMainActionButton(
+      mainActionButton: MainActionButton(
         onTap: () {
           _changeWidgetState();
         },
