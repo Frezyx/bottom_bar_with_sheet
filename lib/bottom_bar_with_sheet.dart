@@ -174,11 +174,10 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     final _widgets = <Widget>[
       DefaultMainActionButton(
         onTap: () {
-          _animateIcon();
           _changeWidgetState();
         },
         icon: widget.mainActionButton != null
-            ? _buildMainActionButton(widget.mainActionButton)
+            ? widget.mainActionButton
             : _actionButtonIcon,
         mainActionButtonTheme: widget.mainActionButtonTheme!,
         arrowAnimation: _arrowAnimation,
@@ -206,128 +205,27 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     return _widgets;
   }
 
-  List<Widget> _buildCentredBody() {
-    final count = widget.items!.length;
-    final isEven = count % 2 == 0;
-    return [
-      isEven
-          ? _buildButtonsRow(
-              leftCount: count ~/ 2,
-              rightCount: count ~/ 2,
-            )
-          : _buildButtonsRow(
-              leftCount: count ~/ 2 - 1,
-              rightCount: count ~/ 2 + 1,
-            )
-    ];
-  }
+  // Widget _buildCenteredView() {
+  //   final children = <Widget>[];
+  //   //TODO: MainActionButton
+  //   children.add(_getSeparatedItems(RowPosition.left));
+  //   children.add(_getSeparatedItems(RowPosition.right));
 
-  Widget _buildButtonsRow({int? leftCount, int? rightCount}) {
-    if (leftCount != null && rightCount != null) {
-      for (var i = 0; i < widget.items!.length; i++) {
-        if (i < leftCount) widget.items![i].isLeft = true;
-      }
-      return _buildCenteredView();
-    } else {
-      return _buildCommonView();
-    }
-  }
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: children,
+  //   );
+  // }
 
-  Container _buildCommonView() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: widget.items == null
-            ? []
-            : widget.items!.map((item) {
-                var i = widget.items!.indexOf(item);
-                return _buildItem(
-                  i,
-                  item,
-                );
-              }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildCenteredView() {
-    final children = <Widget>[];
-    //TODO: MainActionButton
-    children.add(_getSeparatedItems(RowPosition.left));
-    children.add(_getSeparatedItems(RowPosition.right));
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: children,
-    );
-  }
-
-  Widget _getSeparatedItems(
-    RowPosition position,
-  ) {
-    final isLeft = position == RowPosition.left;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: widget.items!
-          .where((item) => isLeft
-              ? item.isLeft != null && item.isLeft!
-              : item.isLeft == null || !item.isLeft!)
-          .map((item) {
-        var i = widget.items!.indexOf(item);
-        return _buildItem(
-          i,
-          item,
-        );
-      }).toList(),
-    );
-  }
-
-  GestureDetector _buildItem(
-    int i,
-    BottomBarWithSheetItem item,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        if (widget.autoClose && isOpened!) {
-          _animateIcon();
-          _changeWidgetState();
-        }
-        setState(() {
-          widget.onSelectItem(i);
-        });
-      },
-      child: _buildItemSizedBox(item),
-    );
-  }
-
-  Widget _buildItemSizedBox(BottomBarWithSheetItem item) {
-    return Flexible(
-        child: SizedBox(
-      height: widget.bottomBarTheme.height,
-      child: item,
-    ));
-  }
-
-  Widget _buildMainActionButton(Widget? button) {
-    return InkWell(
-      splashColor: widget.mainActionButtonTheme?.splash ?? Colors.transparent,
-      child: AnimatedBuilder(
-        animation: _arrowAnimationController,
-        builder: (BuildContext context, Widget? child) {
-          return Transform.rotate(
-            angle: (_arrowAnimation.value * 2.0 * math.pi) as double,
-            child: child,
-          );
-        },
-        child: button,
-      ),
-      onTap: () {
-        _changeWidgetState();
-      },
-    );
-  }
+  // Widget _buildItemSizedBox(BottomBarWithSheetItem item) {
+  //   return Flexible(
+  //     child: SizedBox(
+  //       height: widget.bottomBarTheme.height,
+  //       child: item,
+  //     ),
+  //   );
+  // }
 
   void _changeWidgetState() {
     setState(() => isOpened = !isOpened!);
@@ -349,37 +247,5 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     return isOpened!
         ? t.heightOpened + t.contentPadding.bottom + t.contentPadding.top
         : t.heightClosed + t.contentPadding.bottom + t.contentPadding.top;
-  }
-
-  Future<void> _animateIcon() async {
-    setState(() => _iconOpacity = 1);
-
-    var animationTime = widget.duration.inMilliseconds / 50;
-    var halfAnimationTime = animationTime / 2;
-    var opacityPart = 1 / halfAnimationTime;
-
-    for (var i = 0; i < halfAnimationTime; i++) {
-      _iconOpacity -= opacityPart;
-      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
-        setState(() => _iconOpacity = _iconOpacity);
-      }
-      await Future.delayed(const Duration(milliseconds: 50));
-    }
-
-    setState(() {
-      _actionButtonIcon =
-          _actionButtonIcon == widget.mainActionButtonTheme!.icon
-              ? widget.mainActionButtonTheme!.iconOpened ??
-                  widget.mainActionButtonTheme!.icon
-              : widget.mainActionButtonTheme!.icon;
-    });
-
-    for (var i = 0; i < halfAnimationTime; i++) {
-      _iconOpacity += opacityPart;
-      if (_iconOpacity > 0.03 && i > halfAnimationTime / 3) {
-        setState(() => _iconOpacity = _iconOpacity);
-      }
-      await Future.delayed(const Duration(milliseconds: 50));
-    }
   }
 }
