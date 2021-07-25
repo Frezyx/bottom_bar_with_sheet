@@ -24,12 +24,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _bottomBarController = BottomBarWithSheetController(
-    initialIndex: 0,
-    onItemSelect: (int i) {
-      print(i);
-    },
-  );
+  final _bottomBarController = BottomBarWithSheetController(initialIndex: 0);
 
   @override
   void initState() {
