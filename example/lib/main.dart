@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
         bottomBarTheme: BottomBarTheme(
-          mainButtonPosition: MainButtonPosition.right,
+          mainButtonPosition: MainButtonPosition.middle,
         ),
         sheetChild: Center(
           child: Text(

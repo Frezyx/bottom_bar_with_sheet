@@ -37,11 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
           icon: null,
           transform: Matrix4.translationValues(0, -30, 0),
         ),
-        mainActionButton: MainActionButton(
-          width: 100,
-          child: Image.asset(
-            'assets/images/vinyl.png',
-          ),
+        mainActionButton: Image.asset(
+          'assets/images/vinyl.png',
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [

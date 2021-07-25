@@ -56,13 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        mainActionButton: MainActionButton(
-          width: 50,
-          child: Icon(
-            Icons.menu,
-            color: Colors.white,
-            size: 30,
-          ),
+        mainActionButton: Icon(
+          Icons.menu,
+          color: Colors.white,
+          size: 30,
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: [

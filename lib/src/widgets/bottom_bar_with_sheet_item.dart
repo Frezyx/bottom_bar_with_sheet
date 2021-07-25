@@ -31,53 +31,7 @@ class BottomBarWithSheetItem extends StatelessWidget {
     this.itemIconColor,
   }) : super(key: key);
 
-  // Widget _buildText(
-  //   String? label,
-  // ) {
-  //   return label == null
-  //       ? Container()
-  //       : Center(
-  //           child: Text(
-  //             label,
-  //             style: TextStyle(
-  //               color: isSelected
-  //                   ? bottomBarTheme.selectedItemLabelColor
-  //                   : bottomBarTheme.itemLabelColor,
-  //               fontSize: isSelected
-  //                   ? bottomBarTheme.selectedItemTextStyle?.fontSize
-  //                   : bottomBarTheme.itemTextStyle?.fontSize,
-  //               fontWeight: isSelected
-  //                   ? bottomBarTheme.selectedItemTextStyle?.fontWeight
-  //                   : bottomBarTheme.itemTextStyle?.fontWeight,
-  //             ),
-  //             textAlign: TextAlign.center,
-  //           ),
-  //         );
-  // }
-
-  Widget _buildOpenedButton(Widget icon) {
-    return Center(
-      child: ClipOval(
-        child: Material(
-          color: selectedBackgroundColor,
-          child: Ink(
-            child: SizedBox(
-                child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: icon,
-            )),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildClosedButton(Widget icon) {
-    return Padding(
-      padding: const EdgeInsets.all(1.0),
-      child: icon,
-    );
-  }
+  //TODO: title
 
   @override
   Widget build(BuildContext context) {

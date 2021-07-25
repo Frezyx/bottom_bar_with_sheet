@@ -2,6 +2,7 @@ library bottom_bar_with_sheet;
 
 import 'dart:math' as math;
 
+import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/default_main_action_button.dart';
 import 'package:flutter/material.dart';
 import 'src/enums/positions.dart';
@@ -9,13 +10,11 @@ import 'src/theme/bottom_bar_with_sheet_theme.dart';
 import 'src/theme/defaults.dart';
 import 'src/theme/main_action_button_theme.dart';
 import 'src/widgets/bottom_bar_with_sheet_item.dart';
-import 'src/widgets/main_action_button.dart';
 
 export 'src/enums/positions.dart';
 export 'src/theme/bottom_bar_with_sheet_theme.dart';
 export 'src/theme/main_action_button_theme.dart';
 export 'src/widgets/bottom_bar_with_sheet_item.dart';
-export 'src/widgets/main_action_button.dart';
 
 /// Hello !
 /// ----------------------------------------------------------------------
@@ -29,7 +28,7 @@ const constDuration = Duration(milliseconds: 500);
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
   /// navigation buttons of [BottomBarWithSheet]
-  final List<BottomBarWithSheetItem>? items;
+  final List<BottomBarWithSheetItem> items;
 
   /// theme of [BottomBarWithSheet]
   final BottomBarTheme bottomBarTheme;
@@ -62,7 +61,7 @@ class BottomBarWithSheet extends StatefulWidget {
   final bool disableMainActionButton;
 
   /// Widget [MainActionButton] to create custom mainActionButton
-  final MainActionButton? mainActionButton;
+  final Widget? mainActionButton;
 
   /// Initial open / closed state of the widget
   final bool isOpened;
@@ -79,15 +78,15 @@ class BottomBarWithSheet extends StatefulWidget {
     this.curve = constCurve,
     this.disableMainActionButton = false,
     this.mainActionButton,
-    this.items,
     this.bottomBarTheme = defaultBarTheme,
     this.mainActionButtonTheme = defaultMainActionButtonTheme,
     this.autoClose = true,
     required this.sheetChild,
     required this.onSelectItem,
+    required this.items,
   }) : super(key: key) {
     assert(bottomBarTheme.mainButtonPosition != MainButtonPosition.middle ||
-        items!.length % 2 == 0);
+        items.length % 2 == 0);
     assert(bottomBarTheme.backgroundColor == null ||
         bottomBarTheme.decoration?.color == null);
   }
@@ -112,7 +111,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   Widget? _actionButtonIcon;
   late AnimationController _arrowAnimationController;
   late Animation _arrowAnimation;
-  double _iconOpacity = 1;
+  late List<Widget> _bottomBarItems;
 
   @override
   void initState() {
@@ -122,7 +121,27 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
     _actionButtonIcon = widget.mainActionButtonTheme?.icon;
+    _bottomBarItems = _generateItems();
     super.initState();
+  }
+
+  List<Widget> _generateItems() {
+    return ItemsGenerator.generateByButtonPosition(
+      mainActionButton: DefaultMainActionButton(
+        onTap: () {
+          _changeWidgetState();
+        },
+        icon: widget.mainActionButton != null
+            ? widget.mainActionButton
+            : _actionButtonIcon,
+        mainActionButtonTheme: widget.mainActionButtonTheme!,
+        arrowAnimation: _arrowAnimation,
+        arrowAnimationController: _arrowAnimationController,
+        enable: !widget.disableMainActionButton,
+      ),
+      items: widget.items,
+      position: widget.bottomBarTheme.mainButtonPosition,
+    );
   }
 
   @override
@@ -144,9 +163,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         children: <Widget>[
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: _buildBody(
-              widget.disableMainActionButton,
-            ),
+            children: _bottomBarItems,
           ),
           isOpened! ? Expanded(child: widget.sheetChild) : Container()
         ],
@@ -167,56 +184,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     }
     return null;
   }
-
-  List<Widget> _buildBody(
-    bool disableMainActionButton,
-  ) {
-    final _widgets = <Widget>[
-      DefaultMainActionButton(
-        onTap: () {
-          _changeWidgetState();
-        },
-        icon: widget.mainActionButton != null
-            ? widget.mainActionButton
-            : _actionButtonIcon,
-        mainActionButtonTheme: widget.mainActionButtonTheme!,
-        arrowAnimation: _arrowAnimation,
-        arrowAnimationController: _arrowAnimationController,
-        enable: !disableMainActionButton,
-      )
-    ];
-    // switch (widget.bottomBarTheme.mainButtonPosition) {
-    //   case MainButtonPosition.right:
-    //     _widgets.insert(
-    //       0,
-    //       _buildButtonsRow(),
-    //     );
-    //     break;
-    //   case MainButtonPosition.left:
-    //     _widgets.add(
-    //       _buildButtonsRow(),
-    //     );
-    //     break;
-    //   case MainButtonPosition.middle:
-    //   default:
-    //     return _buildCentredBody();
-    // }
-
-    return _widgets;
-  }
-
-  // Widget _buildCenteredView() {
-  //   final children = <Widget>[];
-  //   //TODO: MainActionButton
-  //   children.add(_getSeparatedItems(RowPosition.left));
-  //   children.add(_getSeparatedItems(RowPosition.right));
-
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: children,
-  //   );
-  // }
 
   // Widget _buildItemSizedBox(BottomBarWithSheetItem item) {
   //   return Flexible(

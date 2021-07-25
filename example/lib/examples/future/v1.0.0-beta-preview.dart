@@ -74,10 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          mainActionButton: MainActionButton(
-            width: 50,
-            child: FlutterLogo(size: 50),
-          ),
+          mainActionButton: FlutterLogo(size: 50),
           onSelectItem: (index) => setState(() => _selectedIndex = index),
           items: [
             BottomBarWithSheetItem(icon: Icons.home),

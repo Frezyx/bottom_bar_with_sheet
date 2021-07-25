@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         mainActionButtonTheme:
             MainActionButtonTheme(icon: Icon(Icons.arrow_upward_outlined)),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
+        items: [],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFFF8D8D),
