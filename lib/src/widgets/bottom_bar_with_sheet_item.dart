@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 const defaultDuration = Duration(milliseconds: 500);
 
 // ignore: must_be_immutable
-class BottomBarWithSheetItem<T> extends StatelessWidget {
+class BottomBarWithSheetItem extends StatelessWidget {
   final String? label;
   final IconData icon;
   final Duration animationDuration;

@@ -10,7 +10,6 @@ import 'src/enums/positions.dart';
 import 'src/theme/bottom_bar_with_sheet_theme.dart';
 import 'src/theme/defaults.dart';
 import 'src/theme/main_action_button_theme.dart';
-import 'src/utils/size_helper.dart';
 import 'src/widgets/bottom_bar_with_sheet_item.dart';
 import 'src/widgets/main_action_button.dart';
 
@@ -157,16 +156,16 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           color: _getBackgroundColor(context),
           duration: widget.duration,
           curve: widget.curve,
-          height: _calculateWidgetHeight,
+          height: _bottomBarHeigth,
           padding: widget.bottomBarTheme.contentPadding,
           decoration: widget.bottomBarTheme.decoration,
           child: Column(
             children: <Widget>[
               Row(
-                mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
-                        MainButtonPosition.middle
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.end,
+                // mainAxisAlignment: widget.bottomBarTheme.mainButtonPosition ==
+                //         MainButtonPosition.middle
+                //     ? MainAxisAlignment.center
+                //     : MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
                     _buildBody(widget.disableMainActionButton, _barProvider),
@@ -239,7 +238,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     ];
   }
 
-  Container _buildButtonsRow(
+  Widget _buildButtonsRow(
       bool disableMainActionButton, BottomBarProvider _barProvider,
       {int? leftCount, int? rightCount}) {
     if (leftCount != null && rightCount != null) {
@@ -280,49 +279,35 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     );
   }
 
-  Container _buildCenteredView(int leftCount, int rightCount,
+  Widget _buildCenteredView(int leftCount, int rightCount,
       bool disableMainActionButton, BottomBarProvider _barProvider) {
-    final rowWidth =
-        SizeHelper.getRowWidth(disableMainActionButton, widget, context);
-    final childrenLine = <Widget>[];
-    childrenLine
-        .add(_getSeparatedItems(RowPosition.left, rowWidth, _barProvider));
-    childrenLine.add(_buildActionButton(disableMainActionButton));
-    childrenLine
-        .add(_getSeparatedItems(RowPosition.right, rowWidth, _barProvider));
+    final children = <Widget>[];
 
-    return Container(
-      width: _calculateInnerWidth(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: childrenLine,
-      ),
+    children.add(_getSeparatedItems(RowPosition.left, _barProvider));
+    children.add(_buildActionButton(disableMainActionButton));
+    children.add(_getSeparatedItems(RowPosition.right, _barProvider));
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
     );
   }
 
-  double _calculateInnerWidth() =>
-      MediaQuery.of(context).size.width -
-      widget.bottomBarTheme.contentPadding.left -
-      widget.bottomBarTheme.contentPadding.right;
-
-  Container _getSeparatedItems(
-      RowPosition position, double rowWidth, BottomBarProvider _barProvider) {
+  Widget _getSeparatedItems(
+      RowPosition position, BottomBarProvider _barProvider) {
     final isLeft = position == RowPosition.left;
-    return Container(
-      width: rowWidth,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: widget.items!
-            .where((item) => isLeft
-                ? item.isLeft != null && item.isLeft!
-                : item.isLeft == null || !item.isLeft!)
-            .map((item) {
-          var i = widget.items!.indexOf(item);
-          item.setIndex(i);
-          return _buildItem(i, item, _barProvider);
-        }).toList(),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: widget.items!
+          .where((item) => isLeft
+              ? item.isLeft != null && item.isLeft!
+              : item.isLeft == null || !item.isLeft!)
+          .map((item) {
+        var i = widget.items!.indexOf(item);
+        item.setIndex(i);
+        return _buildItem(i, item, _barProvider);
+      }).toList(),
     );
   }
 
@@ -436,7 +421,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           );
   }
 
-  double get _calculateWidgetHeight {
+  double get _bottomBarHeigth {
     final t = widget.bottomBarTheme;
     return isOpened!
         ? t.heightOpened + t.contentPadding.bottom + t.contentPadding.top
