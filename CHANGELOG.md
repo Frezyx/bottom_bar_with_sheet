@@ -1,6 +1,6 @@
 ## 2.0.1
   - **FIX**: Fix tap zone of bar item
-  
+  - **FIX**: Fix icon size passing from custom theme
 ## 2.0.0
 
  - **BREAKING**: Implement BottomBarWithSheetController for working with items selection!
