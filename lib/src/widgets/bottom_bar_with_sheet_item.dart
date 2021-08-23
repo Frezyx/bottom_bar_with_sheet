@@ -37,6 +37,7 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
       Icon(
         model.icon,
         color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
+        size: isSelected ? theme.selectedItemIconSize : theme.itemIconSize,
       ),
     ];
 
