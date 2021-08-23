@@ -7,10 +7,10 @@ class MainActionButton extends StatelessWidget {
     Key? key,
     required this.onTap,
     required this.mainActionButtonTheme,
-    this.button,
     required this.arrowAnimation,
     required this.arrowAnimationController,
     required this.enable,
+    this.button,
   }) : super(key: key);
 
   final Function() onTap;
