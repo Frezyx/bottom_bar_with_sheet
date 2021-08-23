@@ -1,3 +1,6 @@
+## 2.0.1
+  - **FIX**: Fix tap zone of bar item
+  
 ## 2.0.0
 
  - **BREAKING**: Implement BottomBarWithSheetController for working with items selection!
