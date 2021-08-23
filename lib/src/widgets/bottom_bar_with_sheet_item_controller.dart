@@ -43,7 +43,11 @@ class _BottmBarItemControllerState extends State<BottmBarItemController> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onTap: () => widget.controller.selectItem(widget.index),
         child: BottomBarWithSheetItemWidget(
           model: widget.model,
