@@ -67,7 +67,7 @@ class BottomBarTheme {
     this.itemTextStyle,
     this.mainButtonPosition = MainButtonPosition.middle,
     this.decoration,
-    this.itemIconSize = 20,
-    this.selectedItemIconSize = 17,
+    this.itemIconSize = 22,
+    this.selectedItemIconSize = 24,
   });
 }
