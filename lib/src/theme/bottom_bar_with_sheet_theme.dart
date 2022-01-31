@@ -55,6 +55,9 @@ class BottomBarTheme {
   /// [double] size of item icon when item is not selected
   final double itemIconSize;
 
+  /// [bool] makes the labels of the items appear vertically or horizontally.
+  final bool isVerticalItemLabel;
+
   const BottomBarTheme({
     this.contentPadding = _kDefaultContentPadding,
     this.height = 75,
@@ -69,5 +72,6 @@ class BottomBarTheme {
     this.decoration,
     this.itemIconSize = 22,
     this.selectedItemIconSize = 24,
+    this.isVerticalItemLabel = true,
   });
 }

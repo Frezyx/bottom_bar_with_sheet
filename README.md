@@ -97,7 +97,8 @@ Scaffold(
 | selectedItemTextStyle | Color | selected item text style |
 | itemTextStyle | Color | unselected item text style |
 | selectedItemIconSize | double | size of item icon when item is pressed |
-| mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center |
+| mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center | 
+| isVerticalItemLabel | bool | makes the labels of the items appear vertically or horizontally |
 
 ## Attributes of MainActionButtonTheme
 
