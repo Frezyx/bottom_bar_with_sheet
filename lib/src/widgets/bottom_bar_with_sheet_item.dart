@@ -39,7 +39,7 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
 
   List<Widget> get _items {
     final items = <Widget>[
-      theme.isVerticalItemLabel ? SizedBox() : Spacer(),
+      if (theme.isVerticalItemLabel) Spacer(),
       Icon(
         model.icon,
         color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
@@ -48,33 +48,38 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
     ];
 
     if (model.label != null) {
-      items.addAll(
-        [
-          theme.isVerticalItemLabel
-              ? SizedBox(
-                  height: 2,
-                )
-              : SizedBox(
-                  width: 2,
-                ),
-          theme.isVerticalItemLabel
-              ? Text(
-                  model.label!,
-                  style: isSelected
-                      ? theme.selectedItemTextStyle
-                      : theme.itemTextStyle,
-                )
-              : Expanded(
-                  flex: 2,
-                  child: Text(
-                    model.label!,
-                    style: isSelected
-                        ? theme.selectedItemTextStyle
-                        : theme.itemTextStyle,
-                  ),
-                ),
-        ],
-      );
+      if (theme.isVerticalItemLabel) {
+        items.addAll(
+          [
+            SizedBox(
+              height: 2,
+            ),
+            Text(
+              model.label!,
+              style: isSelected
+                  ? theme.selectedItemTextStyle
+                  : theme.itemTextStyle,
+            ),
+          ],
+        );
+      } else {
+        items.addAll(
+          [
+            SizedBox(
+              width: 2,
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                model.label!,
+                style: isSelected
+                    ? theme.selectedItemTextStyle
+                    : theme.itemTextStyle,
+              ),
+            ),
+          ],
+        );
+      }
     }
 
     return items;
