@@ -25,15 +25,21 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: _items,
-    );
+    return theme.isVerticalItemLabel
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _items,
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _items,
+          );
   }
 
   List<Widget> get _items {
     final items = <Widget>[
+      theme.isVerticalItemLabel ? SizedBox() : Spacer(),
       Icon(
         model.icon,
         color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
@@ -44,12 +50,29 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
     if (model.label != null) {
       items.addAll(
         [
-          SizedBox(height: 2),
-          Text(
-            model.label!,
-            style:
-                isSelected ? theme.selectedItemTextStyle : theme.itemTextStyle,
-          ),
+          theme.isVerticalItemLabel
+              ? SizedBox(
+                  height: 2,
+                )
+              : SizedBox(
+                  width: 2,
+                ),
+          theme.isVerticalItemLabel
+              ? Text(
+                  model.label!,
+                  style: isSelected
+                      ? theme.selectedItemTextStyle
+                      : theme.itemTextStyle,
+                )
+              : Expanded(
+                  flex: 2,
+                  child: Text(
+                    model.label!,
+                    style: isSelected
+                        ? theme.selectedItemTextStyle
+                        : theme.itemTextStyle,
+                  ),
+                ),
         ],
       );
     }
