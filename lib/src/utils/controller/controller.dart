@@ -32,6 +32,16 @@ class BottomBarWithSheetController {
     _bottomSheetController.add(_sheetOpened);
   }
 
+  void openSheet() {
+    _sheetOpened = true;
+    _bottomSheetController.add(_sheetOpened);
+  }
+
+  void closeSheet() {
+    _sheetOpened = false;
+    _bottomSheetController.add(_sheetOpened);
+  }
+
   Future<void> close() async {
     await _itemsController.close();
     await _bottomSheetController.close();

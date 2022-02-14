@@ -3,7 +3,6 @@ library bottom_bar_with_sheet;
 import 'dart:async';
 
 import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/src/utils/controller/controller.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/main_action_button.dart';
