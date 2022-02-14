@@ -122,6 +122,27 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      color: _getBackgroundColor(context),
+      duration: widget.duration,
+      curve: widget.curve,
+      height: _bottomBarHeigth,
+      padding: widget.bottomBarTheme.contentPadding,
+      decoration: widget.bottomBarTheme.decoration,
+      child: Column(
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _bottomBarItems,
+          ),
+          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
+        ],
+      ),
+    );
+  }
+
   void _configBottomControllerListener() {
     _sub = widget._controller.stream
         .listen((event) => setState(() => _isOpened = event));
@@ -165,27 +186,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      color: _getBackgroundColor(context),
-      duration: widget.duration,
-      curve: widget.curve,
-      height: _bottomBarHeigth,
-      padding: widget.bottomBarTheme.contentPadding,
-      decoration: widget.bottomBarTheme.decoration,
-      child: Column(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: _bottomBarItems,
-          ),
-          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
-        ],
-      ),
-    );
-  }
-
   /// Returns colors of bar background if set
   /// Else return default theme [Color] canvasColor
   Color? _getBackgroundColor(BuildContext context) {
@@ -195,7 +195,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     if (bgColor != null && decoration == null) {
       return bgColor;
     } else if (decoration == null && bgColor == null) {
-      return Theme.of(context).canvasColor;
+      return Theme.of(context).bottomNavigationBarTheme.backgroundColor;
     }
     return null;
   }

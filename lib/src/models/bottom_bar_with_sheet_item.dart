@@ -16,6 +16,7 @@ class BottomBarWithSheetItem {
   });
 
   final String? label;
+
   final IconData icon;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
