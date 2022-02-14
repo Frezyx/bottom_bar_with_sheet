@@ -11,7 +11,6 @@ class BottomBarWithSheetController {
   final _bottomSheetController = StreamController<bool>.broadcast();
 
   Function(int index)? onItemSelect;
-
   int _selectedIndex;
   bool _sheetOpened;
 

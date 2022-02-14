@@ -17,11 +17,36 @@ import 'package:bottom_bar_with_sheet/src/theme/main_action_button_theme.dart';
 /// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 /// ----------------------------------------------------------------------
 
-const _kDefaultCurve = Curves.linear;
-const _kDefaultDuration = Duration(milliseconds: 500);
-
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
+  BottomBarWithSheet({
+    Key? key,
+    this.selectedIndex = 0,
+    this.isOpened = false,
+    this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
+    this.duration = defaultDuration,
+    this.curve = defaultCurve,
+    this.disableMainActionButton = false,
+    this.mainActionButton,
+    this.bottomBarTheme = defaultBarTheme,
+    this.mainActionButtonTheme = defaultMainActionButtonTheme,
+    this.autoClose = true,
+    required this.sheetChild,
+    this.onSelectItem,
+    required this.items,
+    this.controller,
+  })  : this._controller = (controller ??
+            BottomBarWithSheetController(
+              initialIndex: selectedIndex,
+              sheetOpened: isOpened,
+            ))
+          ..onItemSelect = onSelectItem,
+        super(key: key) {
+    assert(items.isEmpty || items.length >= 2);
+    assert(bottomBarTheme.backgroundColor == null ||
+        bottomBarTheme.decoration?.color == null);
+  }
+
   /// navigation buttons of [BottomBarWithSheet]
   final List<BottomBarWithSheetItem> items;
 
@@ -29,7 +54,7 @@ class BottomBarWithSheet extends StatefulWidget {
   final BottomBarTheme bottomBarTheme;
 
   /// theme of [MainActionButtonTheme]
-  final MainActionButtonTheme? mainActionButtonTheme;
+  final MainActionButtonTheme mainActionButtonTheme;
 
   /// Callback [Function] works by clicking on one of [items]
   ///
@@ -67,35 +92,8 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Controller for workin with widget state
   final BottomBarWithSheetController? controller;
 
+  //TODO: refactor
   late BottomBarWithSheetController _controller;
-
-  BottomBarWithSheet({
-    Key? key,
-    this.selectedIndex = 0,
-    this.isOpened = false,
-    this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
-    this.duration = _kDefaultDuration,
-    this.curve = _kDefaultCurve,
-    this.disableMainActionButton = false,
-    this.mainActionButton,
-    this.bottomBarTheme = kDefaultBarTheme,
-    this.mainActionButtonTheme = kDefaultMainActionButtonTheme,
-    this.autoClose = true,
-    required this.sheetChild,
-    this.onSelectItem,
-    required this.items,
-    this.controller,
-  })  : this._controller = (controller ??
-            BottomBarWithSheetController(
-              initialIndex: selectedIndex,
-              sheetOpened: isOpened,
-            ))
-          ..onItemSelect = onSelectItem,
-        super(key: key) {
-    assert(items.isEmpty || items.length >= 2);
-    assert(bottomBarTheme.backgroundColor == null ||
-        bottomBarTheme.decoration?.color == null);
-  }
 
   @override
   _BottomBarWithSheetState createState() => _BottomBarWithSheetState();
@@ -155,7 +153,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           _changeWidgetState();
         },
         button: widget.mainActionButton,
-        mainActionButtonTheme: widget.mainActionButtonTheme!,
+        mainActionButtonTheme: widget.mainActionButtonTheme,
         arrowAnimation: _arrowAnimation,
         arrowAnimationController: _arrowAnimationController,
         enable: !widget.disableMainActionButton,

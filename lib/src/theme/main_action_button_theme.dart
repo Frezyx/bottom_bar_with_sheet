@@ -34,7 +34,7 @@ class MainActionButtonTheme {
     this.size = 50,
     this.splash,
     this.color,
-    this.margin = kDefaultMargin,
+    this.margin = defaultMargin,
     this.transform,
   });
 }
