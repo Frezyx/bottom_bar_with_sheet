@@ -27,17 +27,22 @@ class BottomBarWithSheetController {
   /// Is sheet opened
   bool get isOpened => _sheetOpened;
 
+  /// Method to select one item of [List<BottomBarWithSheetItem>] [items]
   void selectItem(int val) {
     _selectedIndex = val;
     _itemsController.add(val);
     onItemSelect?.call(val);
   }
 
+  /// Method to open / close sheet
+  /// if [isOpened] == true -> closing sheet
+  /// if [isOpened] == false -> opening sheet
   void toggleSheet() {
     _sheetOpened = !_sheetOpened;
     _bottomSheetController.add(_sheetOpened);
   }
 
+  /// Method to open sheet
   void openSheet() {
     if (!_sheetOpened) {
       _sheetOpened = true;
@@ -45,6 +50,7 @@ class BottomBarWithSheetController {
     }
   }
 
+  /// Method to close sheet
   void closeSheet() {
     if (_sheetOpened) {
       _sheetOpened = false;
@@ -52,6 +58,8 @@ class BottomBarWithSheetController {
     }
   }
 
+  /// Close controller helpers - controllers
+  /// before stop working with main [BottomBarWithSheetController] controller
   Future<void> close() async {
     await _itemsController.close();
     await _bottomSheetController.close();
