@@ -85,12 +85,12 @@ class BottomBarWithSheet extends StatefulWidget {
     this.onSelectItem,
     required this.items,
     this.controller,
-  })  : this._controller = controller ??
+  })  : this._controller = (controller ??
             BottomBarWithSheetController(
               initialIndex: selectedIndex,
-              onItemSelect: onSelectItem,
               sheetOpened: isOpened,
-            ),
+            ))
+          ..onItemSelect = onSelectItem,
         super(key: key) {
     assert(items.isEmpty || items.length >= 2);
     assert(bottomBarTheme.backgroundColor == null ||
@@ -202,17 +202,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
 
   void _changeWidgetState() {
     widget._controller.toggleSheet();
-    _arrowAnimationController.isCompleted
-        ? _arrowAnimationController.reverse().then(
-            (value) {
-              // Call back in future version
-            },
-          )
-        : _arrowAnimationController.forward().then(
-            (value) {
-              // Call back in future version
-            },
-          );
+    if (_arrowAnimationController.isCompleted) {
+      _arrowAnimationController.reverse();
+    } else {
+      _arrowAnimationController.forward();
+    }
   }
 
   double get _bottomBarHeigth {

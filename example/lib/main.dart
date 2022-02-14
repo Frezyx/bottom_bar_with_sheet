@@ -28,9 +28,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _bottomBarController.itemsStream.listen((i) {
-      print('Index $i is selcted');
-    });
     _bottomBarController.stream.listen((opened) {
       print('Bottom bar ${opened ? 'opened' : 'closed'}');
     });

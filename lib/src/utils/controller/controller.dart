@@ -10,21 +10,27 @@ class BottomBarWithSheetController {
   final _itemsController = StreamController<int>.broadcast();
   final _bottomSheetController = StreamController<bool>.broadcast();
 
-  Function(int)? onItemSelect;
+  Function(int index)? onItemSelect;
+
   int _selectedIndex;
   bool _sheetOpened;
 
+  /// Stream to check wich item now selected
   Stream<int> get itemsStream => _itemsController.stream;
+
+  /// Stream to check is bottom bar open or close
   Stream<bool> get stream => _bottomSheetController.stream;
+
+  /// Current selected page (item) of [List<BottomBarWithSheetItem>] [items]
   int get selectedIndex => _selectedIndex;
+
+  /// Is sheet opened
   bool get isOpened => _sheetOpened;
 
   void selectItem(int val) {
     _selectedIndex = val;
     _itemsController.add(val);
-    if (onItemSelect != null) {
-      onItemSelect!(val);
-    }
+    onItemSelect?.call(val);
   }
 
   void toggleSheet() {
@@ -33,13 +39,17 @@ class BottomBarWithSheetController {
   }
 
   void openSheet() {
-    _sheetOpened = true;
-    _bottomSheetController.add(_sheetOpened);
+    if (!_sheetOpened) {
+      _sheetOpened = true;
+      _bottomSheetController.add(_sheetOpened);
+    }
   }
 
   void closeSheet() {
-    _sheetOpened = false;
-    _bottomSheetController.add(_sheetOpened);
+    if (_sheetOpened) {
+      _sheetOpened = false;
+      _bottomSheetController.add(_sheetOpened);
+    }
   }
 
   Future<void> close() async {
