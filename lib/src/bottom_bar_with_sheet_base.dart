@@ -3,7 +3,6 @@ library bottom_bar_with_sheet;
 import 'dart:async';
 
 import 'package:bottom_bar_with_sheet/src/models/bottom_bar_with_sheet_item.dart';
-import 'package:bottom_bar_with_sheet/src/utils/controller/controller.dart';
 import 'package:bottom_bar_with_sheet/src/utils/utils.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/bottom_bar_with_sheet_item_controller.dart';
 import 'package:bottom_bar_with_sheet/src/widgets/main_action_button.dart';
@@ -18,11 +17,36 @@ import 'package:bottom_bar_with_sheet/src/theme/main_action_button_theme.dart';
 /// In package repository: https://github.com/Frezyx/bottom_bar_with_sheet
 /// ----------------------------------------------------------------------
 
-const _kDefaultCurve = Curves.linear;
-const _kDefaultDuration = Duration(milliseconds: 500);
-
 // ignore: must_be_immutable
 class BottomBarWithSheet extends StatefulWidget {
+  BottomBarWithSheet({
+    Key? key,
+    this.selectedIndex = 0,
+    this.isOpened = false,
+    this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
+    this.duration = defaultDuration,
+    this.curve = defaultCurve,
+    this.disableMainActionButton = false,
+    this.mainActionButton,
+    this.bottomBarTheme = defaultBarTheme,
+    this.mainActionButtonTheme = defaultMainActionButtonTheme,
+    this.autoClose = true,
+    required this.sheetChild,
+    this.onSelectItem,
+    required this.items,
+    this.controller,
+  })  : this._controller = (controller ??
+            BottomBarWithSheetController(
+              initialIndex: selectedIndex,
+              sheetOpened: isOpened,
+            ))
+          ..onItemSelect = onSelectItem,
+        super(key: key) {
+    assert(items.isEmpty || items.length >= 2);
+    assert(bottomBarTheme.backgroundColor == null ||
+        bottomBarTheme.decoration?.color == null);
+  }
+
   /// navigation buttons of [BottomBarWithSheet]
   final List<BottomBarWithSheetItem> items;
 
@@ -30,7 +54,7 @@ class BottomBarWithSheet extends StatefulWidget {
   final BottomBarTheme bottomBarTheme;
 
   /// theme of [MainActionButtonTheme]
-  final MainActionButtonTheme? mainActionButtonTheme;
+  final MainActionButtonTheme mainActionButtonTheme;
 
   /// Callback [Function] works by clicking on one of [items]
   ///
@@ -68,35 +92,9 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Controller for workin with widget state
   final BottomBarWithSheetController? controller;
 
+  // ignore: todo
+  //TODO: refactor
   late BottomBarWithSheetController _controller;
-
-  BottomBarWithSheet({
-    Key? key,
-    this.selectedIndex = 0,
-    this.isOpened = false,
-    this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
-    this.duration = _kDefaultDuration,
-    this.curve = _kDefaultCurve,
-    this.disableMainActionButton = false,
-    this.mainActionButton,
-    this.bottomBarTheme = kDefaultBarTheme,
-    this.mainActionButtonTheme = kDefaultMainActionButtonTheme,
-    this.autoClose = true,
-    required this.sheetChild,
-    this.onSelectItem,
-    required this.items,
-    this.controller,
-  })  : this._controller = controller ??
-            BottomBarWithSheetController(
-              initialIndex: selectedIndex,
-              onItemSelect: onSelectItem,
-              sheetOpened: isOpened,
-            ),
-        super(key: key) {
-    assert(items.isEmpty || items.length >= 2);
-    assert(bottomBarTheme.backgroundColor == null ||
-        bottomBarTheme.decoration?.color == null);
-  }
 
   @override
   _BottomBarWithSheetState createState() => _BottomBarWithSheetState();
@@ -123,6 +121,27 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      color: _getBackgroundColor(context),
+      duration: widget.duration,
+      curve: widget.curve,
+      height: _bottomBarHeigth,
+      padding: widget.bottomBarTheme.contentPadding,
+      decoration: widget.bottomBarTheme.decoration,
+      child: Column(
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _bottomBarItems,
+          ),
+          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
+        ],
+      ),
+    );
+  }
+
   void _configBottomControllerListener() {
     _sub = widget._controller.stream
         .listen((event) => setState(() => _isOpened = event));
@@ -135,7 +154,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
           _changeWidgetState();
         },
         button: widget.mainActionButton,
-        mainActionButtonTheme: widget.mainActionButtonTheme!,
+        mainActionButtonTheme: widget.mainActionButtonTheme,
         arrowAnimation: _arrowAnimation,
         arrowAnimationController: _arrowAnimationController,
         enable: !widget.disableMainActionButton,
@@ -166,27 +185,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      color: _getBackgroundColor(context),
-      duration: widget.duration,
-      curve: widget.curve,
-      height: _bottomBarHeigth,
-      padding: widget.bottomBarTheme.contentPadding,
-      decoration: widget.bottomBarTheme.decoration,
-      child: Column(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: _bottomBarItems,
-          ),
-          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
-        ],
-      ),
-    );
-  }
-
   /// Returns colors of bar background if set
   /// Else return default theme [Color] canvasColor
   Color? _getBackgroundColor(BuildContext context) {
@@ -196,24 +194,18 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     if (bgColor != null && decoration == null) {
       return bgColor;
     } else if (decoration == null && bgColor == null) {
-      return Theme.of(context).canvasColor;
+      return Theme.of(context).bottomNavigationBarTheme.backgroundColor;
     }
     return null;
   }
 
   void _changeWidgetState() {
     widget._controller.toggleSheet();
-    _arrowAnimationController.isCompleted
-        ? _arrowAnimationController.reverse().then(
-            (value) {
-              // Call back in future version
-            },
-          )
-        : _arrowAnimationController.forward().then(
-            (value) {
-              // Call back in future version
-            },
-          );
+    if (_arrowAnimationController.isCompleted) {
+      _arrowAnimationController.reverse();
+    } else {
+      _arrowAnimationController.forward();
+    }
   }
 
   double get _bottomBarHeigth {

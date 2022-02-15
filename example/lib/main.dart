@@ -28,8 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _bottomBarController.itemsStream.listen((i) {
-      print('Index $i is selcted');
+    _bottomBarController.stream.listen((opened) {
+      print('Bottom bar ${opened ? 'opened' : 'closed'}');
     });
     super.initState();
   }
@@ -38,14 +38,41 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () => _bottomBarController.openSheet(),
+              child: Text('Open sheet'),
+            ),
+            ElevatedButton(
+              onPressed: () => _bottomBarController.closeSheet(),
+              child: Text('Close sheet'),
+            ),
+            ElevatedButton(
+              onPressed: () => _bottomBarController.toggleSheet(),
+              child: Text('Toggle sheet'),
+            ),
+          ],
+        ),
+      ),
       body: Center(
-        child: Text(
-          "Place for your content",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w900,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Place for your content",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomBarWithSheet(

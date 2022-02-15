@@ -1,2 +1,2 @@
+/// Position of main action button in your bar
 enum MainButtonPosition { left, middle, right, outside }
-enum RowPosition { left, right }

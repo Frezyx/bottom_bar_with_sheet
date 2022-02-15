@@ -10,13 +10,18 @@ import 'package:flutter/material.dart';
 class BottomBarWithSheetItem {
   const BottomBarWithSheetItem({
     Key? key,
-    this.label,
     required this.icon,
+    this.label,
     this.noSelectionState = false,
   });
 
-  final String? label;
+  /// [IconData] icon of
+  /// your [BottomBarWithSheetItem] navigation item
   final IconData icon;
+
+  /// Text [String] label of
+  /// your [BottomBarWithSheetItem] navigation item
+  final String? label;
 
   /// If [noSelectionState] is true then no styling/state change happens when this item is pressed/selected
   final bool noSelectionState;

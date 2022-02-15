@@ -25,48 +25,55 @@ class BottomBarWithSheetItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return theme.isVerticalItemLabel
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _items,
-          )
-        : Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: _items,
-          );
+    final items = _generateItems(context);
+    if (theme.isVerticalItemLabel) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: items,
+      );
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: items,
+    );
   }
 
-  List<Widget> get _items {
-    final items = <Widget>[
+  List<Widget> _generateItems(BuildContext context) {
+    final items = [
       if (!theme.isVerticalItemLabel) Spacer(),
       Icon(
         model.icon,
-        color: isSelected ? theme.selectedItemIconColor : theme.itemIconColor,
+        color: _getIconColor(context),
         size: isSelected ? theme.selectedItemIconSize : theme.itemIconSize,
       ),
       if (model.label != null)
         if (theme.isVerticalItemLabel) ...[
           SizedBox(height: 2),
-          Text(
-            model.label!,
-            style:
-                isSelected ? theme.selectedItemTextStyle : theme.itemTextStyle,
-          ),
+          Text(model.label!, style: _getLabelStyle(context)),
         ] else ...[
           SizedBox(width: 2),
           Expanded(
             flex: 2,
-            child: Text(
-              model.label!,
-              style: isSelected
-                  ? theme.selectedItemTextStyle
-                  : theme.itemTextStyle,
-            ),
+            child: Text(model.label!, style: _getLabelStyle(context)),
           ),
         ],
     ];
-
     return items;
+  }
+
+  Color? _getIconColor(BuildContext context) {
+    final bottomNavigationTheme = Theme.of(context).bottomNavigationBarTheme;
+    return isSelected
+        ? theme.selectedItemIconColor ?? bottomNavigationTheme.selectedItemColor
+        : theme.itemIconColor ?? bottomNavigationTheme.unselectedItemColor;
+  }
+
+  TextStyle? _getLabelStyle(BuildContext context) {
+    final bottomNavigationTheme = Theme.of(context).bottomNavigationBarTheme;
+    return isSelected
+        ? theme.selectedItemTextStyle ??
+            bottomNavigationTheme.selectedLabelStyle
+        : theme.itemTextStyle ?? bottomNavigationTheme.selectedLabelStyle;
   }
 }

@@ -1,6 +1,5 @@
+import 'package:bottom_bar_with_sheet/src/theme/defaults.dart';
 import 'package:flutter/material.dart';
-
-const _kDefaultMargin = EdgeInsets.all(5);
 
 // Hello !
 // ----------------------------------------------------------------------
@@ -35,7 +34,7 @@ class MainActionButtonTheme {
     this.size = 50,
     this.splash,
     this.color,
-    this.margin = _kDefaultMargin,
+    this.margin = defaultMargin,
     this.transform,
   });
 }
