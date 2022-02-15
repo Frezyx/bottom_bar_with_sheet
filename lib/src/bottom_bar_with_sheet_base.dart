@@ -92,6 +92,7 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Controller for workin with widget state
   final BottomBarWithSheetController? controller;
 
+  // ignore: todo
   //TODO: refactor
   late BottomBarWithSheetController _controller;
 
