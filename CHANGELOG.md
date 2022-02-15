@@ -1,3 +1,6 @@
+## 2.2.0
+  - **FEAT**: Add []()
+
 ## 2.1.0
   - **FEAT**: Add [isVerticalItemLabel](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/lib/src/theme/bottom_bar_with_sheet_theme.dart#:~:text=final%20bool-,isVerticalItemLabel,-%3B) field
 
