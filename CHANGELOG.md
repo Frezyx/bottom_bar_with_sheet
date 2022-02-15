@@ -1,5 +1,8 @@
 ## 2.2.0
-  - **FEAT**: Add []()
+  - **FEAT**: Add [openSheet](https://github.com/Frezyx/bottom_bar_with_sheet/blob/109ecfdc995e0e6942e41b02d95bf65c0099933b/lib/src/utils/controller/controller.dart#:~:text=void-,openSheet,-()%20%7B) method to open sheet by controller
+  - **FEAT**: Add [closeSheet](https://github.com/Frezyx/bottom_bar_with_sheet/blob/109ecfdc995e0e6942e41b02d95bf65c0099933b/lib/src/utils/controller/controller.dart#:~:text=void-,closeSheet,-()%20%7B) method to close sheet by controller
+  - **INFO**: Add comments for controller
+  - **INFO**: Make small refactor
 
 ## 2.1.0
   - **FEAT**: Add [isVerticalItemLabel](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/lib/src/theme/bottom_bar_with_sheet_theme.dart#:~:text=final%20bool-,isVerticalItemLabel,-%3B) field
