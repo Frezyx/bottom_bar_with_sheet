@@ -1,24 +1,28 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.blue,
         ),
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -29,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     _bottomBarController.stream.listen((opened) {
-      print('Bottom bar ${opened ? 'opened' : 'closed'}');
+      debugPrint('Bottom bar ${opened ? 'opened' : 'closed'}');
     });
     super.initState();
   }
@@ -47,15 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ElevatedButton(
               onPressed: () => _bottomBarController.openSheet(),
-              child: Text('Open sheet'),
+              child: const Text('Open sheet'),
             ),
             ElevatedButton(
               onPressed: () => _bottomBarController.closeSheet(),
-              child: Text('Close sheet'),
+              child: const Text('Close sheet'),
             ),
             ElevatedButton(
               onPressed: () => _bottomBarController.toggleSheet(),
-              child: Text('Toggle sheet'),
+              child: const Text('Toggle sheet'),
             ),
           ],
         ),
@@ -63,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               "Place for your content",
               style: TextStyle(
@@ -77,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomBarWithSheet(
         controller: _bottomBarController,
-        bottomBarTheme: BottomBarTheme(
+        bottomBarTheme: const BottomBarTheme(
           mainButtonPosition: MainButtonPosition.middle,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -93,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
             fontSize: 10.0,
           ),
         ),
-        onSelectItem: (index) => print(index),
+        onSelectItem: (index) => debugPrint('$index'),
         sheetChild: Center(
           child: Text(
             "Another content",
@@ -104,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        items: [
+        items: const [
           BottomBarWithSheetItem(icon: Icons.people),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
           BottomBarWithSheetItem(icon: Icons.settings),
