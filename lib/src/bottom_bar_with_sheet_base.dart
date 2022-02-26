@@ -21,6 +21,8 @@ import 'package:bottom_bar_with_sheet/src/theme/main_action_button_theme.dart';
 class BottomBarWithSheet extends StatefulWidget {
   BottomBarWithSheet({
     Key? key,
+    required this.items,
+    this.sheetChild,
     this.selectedIndex = 0,
     this.isOpened = false,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
@@ -28,12 +30,11 @@ class BottomBarWithSheet extends StatefulWidget {
     this.curve = defaultCurve,
     this.disableMainActionButton = false,
     this.mainActionButton,
+    this.mainActionButtonBuilder,
     this.bottomBarTheme = defaultBarTheme,
     this.mainActionButtonTheme = defaultMainActionButtonTheme,
     this.autoClose = true,
-    required this.sheetChild,
     this.onSelectItem,
-    required this.items,
     this.controller,
   })  : this._controller = (controller ??
             BottomBarWithSheetController(
@@ -66,7 +67,7 @@ class BottomBarWithSheet extends StatefulWidget {
 
   /// Widget that displayed on bottom of [BottomBarWithSheet]
   /// when [isOpened] == true
-  final Widget sheetChild;
+  final Widget? sheetChild;
 
   /// animation time of closing / opening [BottomBarWithSheet]
   final Duration duration;
@@ -80,8 +81,15 @@ class BottomBarWithSheet extends StatefulWidget {
   /// This field can replace mainActionButton
   final bool disableMainActionButton;
 
-  /// Widget [MainActionButton] to create custom mainActionButton
+  /// Widget [MainActionButton] to display custom mainActionButton
+  @Deprecated(
+    'Use mainActionButtonBuilder field '
+    'This feature was deprecated after version 2.3.0 ',
+  )
   final Widget? mainActionButton;
+
+  /// [WidgetBuilder] to display custom mainActionButton
+  final WidgetBuilder? mainActionButtonBuilder;
 
   /// Initial open / closed state of the widget
   final bool isOpened;
@@ -104,7 +112,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     with SingleTickerProviderStateMixin {
   late AnimationController _arrowAnimationController;
   late Animation _arrowAnimation;
-  late List<Widget> _bottomBarItems;
   late bool _isOpened;
   late StreamSubscription _sub;
 
@@ -115,7 +122,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         AnimationController(vsync: this, duration: widget.duration);
     _arrowAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_arrowAnimationController);
-    _bottomBarItems = _generateItems();
     _isOpened = widget._controller.isOpened;
     _configBottomControllerListener();
     super.initState();
@@ -134,9 +140,11 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         children: <Widget>[
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: _bottomBarItems,
+            children: _generateItems(),
           ),
-          _isOpened ? Expanded(child: widget.sheetChild) : SizedBox()
+          _isOpened
+              ? Expanded(child: widget.sheetChild ?? SizedBox())
+              : SizedBox()
         ],
       ),
     );
@@ -153,7 +161,7 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
         onTap: () {
           _changeWidgetState();
         },
-        button: widget.mainActionButton,
+        button: widget.mainActionButtonBuilder?.call(context),
         mainActionButtonTheme: widget.mainActionButtonTheme,
         arrowAnimation: _arrowAnimation,
         arrowAnimationController: _arrowAnimationController,
