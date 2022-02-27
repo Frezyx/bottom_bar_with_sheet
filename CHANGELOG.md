@@ -1,3 +1,7 @@
+## 2.3.0
+  - **FEAT**: Add [mainActionButtonBuilder](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/lib/src/bottom_bar_with_sheet_base.dart#:~:text=final%20bool-,disableMainActionButton,-%3B) to build your custom main action button
+  - **INFO**: Recreate example proj
+
 ## 2.2.0
   - **FEAT**: Add [openSheet](https://github.com/Frezyx/bottom_bar_with_sheet/blob/109ecfdc995e0e6942e41b02d95bf65c0099933b/lib/src/utils/controller/controller.dart#:~:text=void-,openSheet,-()%20%7B) method to open sheet by controller
   - **FEAT**: Add [closeSheet](https://github.com/Frezyx/bottom_bar_with_sheet/blob/109ecfdc995e0e6942e41b02d95bf65c0099933b/lib/src/utils/controller/controller.dart#:~:text=void-,closeSheet,-()%20%7B) method to close sheet by controller
