@@ -1,12 +1,14 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -27,16 +31,21 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('bottom_bar_with_sheet v2.3.0',
-            style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'bottom_bar_with_sheet v2.3.0',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body: Center(child: Text("Place for your content")),
+      body: const Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(
-            child: Text("Place for your another content",
-                style: TextStyle(color: Colors.white))),
-        bottomBarTheme: BottomBarTheme(
+        sheetChild: const Center(
+          child: Text(
+            "Place for your another content",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        bottomBarTheme: const BottomBarTheme(
           backgroundColor: Colors.purple,
           itemIconColor: Colors.white,
           selectedItemIconColor: Colors.white,
@@ -55,13 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        mainActionButton: Icon(
+        mainActionButton: const Icon(
           Icons.menu,
           color: Colors.white,
           size: 30,
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
-        items: [
+        items: const [
           BottomBarWithSheetItem(icon: Icons.people),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
           BottomBarWithSheetItem(icon: Icons.settings),

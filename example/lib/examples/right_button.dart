@@ -1,12 +1,14 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -25,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange,
-      body: Center(
+      body: const Center(
         child: Text(
           "Place for your content",
           style: TextStyle(
@@ -48,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        duration: Duration(milliseconds: 700),
+        duration: const Duration(milliseconds: 700),
         curve: Curves.fastOutSlowIn,
         bottomBarTheme: BottomBarTheme(
           height: 80,
@@ -59,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.grey[500],
           selectedItemIconSize: 20,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(50.0),
             ),
@@ -69,14 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
           size: 65,
           color: Colors.orange,
           splash: Colors.orange[800],
-          icon: Icon(
+          icon: const Icon(
             Icons.add,
             color: Colors.white,
             size: 35,
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
-        items: [
+        items: const [
           BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.settings),
           BottomBarWithSheetItem(icon: Icons.favorite),
