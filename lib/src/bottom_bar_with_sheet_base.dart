@@ -84,7 +84,7 @@ class BottomBarWithSheet extends StatefulWidget {
   /// Widget [MainActionButton] to display custom mainActionButton
   @Deprecated(
     'Use mainActionButtonBuilder field '
-    'This feature was deprecated after version 2.3.0 ',
+    'This feature was deprecated after version 2.3.1 ',
   )
   final Widget? mainActionButton;
 

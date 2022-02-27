@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text(
-          'bottom_bar_with_sheet v2.3.0',
+          'bottom_bar_with_sheet v2.3.1',
           style: TextStyle(color: Colors.white),
         ),
       ),
