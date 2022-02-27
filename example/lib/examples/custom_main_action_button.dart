@@ -1,12 +1,14 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -25,11 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: Center(child: Text("Place for your content")),
+      body: const Center(child: Text("Place for your content")),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        sheetChild: Center(child: Text("Place for your another content")),
-        bottomBarTheme: BottomBarTheme(
+        sheetChild: const Center(child: Text("Place for your another content")),
+        bottomBarTheme: const BottomBarTheme(
           height: 70,
           heightClosed: 70,
           mainButtonPosition: MainButtonPosition.middle,
@@ -40,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
           transform: Matrix4.translationValues(0, -30, 0),
         ),
         mainActionButton: Container(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(
+          child: const Text(
             'Open',
             style: TextStyle(
               color: Colors.white,
@@ -54,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
-        items: [
+        items: const [
           BottomBarWithSheetItem(icon: Icons.settings),
           BottomBarWithSheetItem(icon: Icons.favorite),
         ],

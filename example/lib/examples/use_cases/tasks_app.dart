@@ -1,12 +1,14 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
@@ -14,6 +16,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -37,10 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.grey[100],
       body: PageView(
         controller: _scrollController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
             child: Text(
               'Home Page',
               style: TextStyle(
@@ -54,8 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.0),
                   child: Text(
                     'Today tasks',
                     style: TextStyle(
@@ -64,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Wrap(
                   children: tasks
                       .map(
@@ -79,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomBarWithSheet(
         selectedIndex: _selectedIndex,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         sheetChild: Center(
           child: Wrap(
             children: tasksExamples
@@ -98,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           heightOpened: 300,
           mainButtonPosition: MainButtonPosition.middle,
           selectedItemIconSize: 20,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,
@@ -118,11 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() => _selectedIndex = index);
           _scrollController.animateToPage(
             index,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.ease,
           );
         },
-        items: [
+        items: const [
           BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.calendar_today_rounded),
         ],
@@ -149,8 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
-          '$e',
-          style: TextStyle(
+          e,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.w500,
