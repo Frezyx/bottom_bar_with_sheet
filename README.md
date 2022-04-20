@@ -139,8 +139,8 @@ Scaffold(
 ## License 
 
 *Licensed under [Creative Commons, CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), © [Alicia Sykes](https://aliciasykes.com) 2020*
-
-[![Attribution 4.0 International](https://licensebuttons.net/l/by/3.0/88x31.png)](/LICENSE.md)
+https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/LICENSE
+[![Attribution 4.0 International](https://licensebuttons.net/l/by/3.0/88x31.png)](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/LICENSE)
 
 
 ---
