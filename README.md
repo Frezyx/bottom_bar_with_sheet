@@ -1,27 +1,11 @@
-<h3 align="center"> Bottom bar with Sheet </h3>
+<h1> Bottom bar with Sheet </h1>
 
-
-<h1 align ="Left"> 
+<p align ="Left"> 
 
  [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FFrezyx%2Fbottom_bar_with_sheet%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/Frezyx/bottom_bar_with_sheet/goto?ref=master) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
 ![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social) 
-</h1>
+</p>
 
----
-## Table of Content
-
-- [Getting Started](#getting-started)
-  - [Add dependency](#add-dependency)
-  - [Add import package](#add-import-package)
-  - [Easy to use](#easy-to-use)
-- [Attributes](#attributes)
-- [Attributes of BottomBarTheme](#attributes-of-bottombartheme)
-- [Attributes of MainActionButtonTheme](#attributes-of-mainactionbuttontheme)
-- [License](#license)
-
-
-
----
 
 💥Non-standard way to use more space of screens in your application💥<br>
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
@@ -30,6 +14,15 @@
 | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/examples/left_button.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/examples/main.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/examples/right_button.gif?raw=true) | 
 | :------------: | :------------: | :------------: |
 
+
+## Table of Content
+
+- [Getting Started](#getting-started)
+- [Attributes](#attributes)
+- [Attributes of BottomBarTheme](#attributes-of-bottombartheme)
+- [Attributes of MainActionButtonTheme](#attributes-of-mainactionbuttontheme)
+
+---
 
 ## Getting Started
 
@@ -134,14 +127,6 @@ Scaffold(
 | splash | Color | splash color of widget circle |
 | margin | EdgeInsets | side paddings of **Main Action Button** |
 | transform | Matrix4 | This field can set transform location of **Main Action Button** |
-
----
-## License 
-
-*Licensed under [Creative Commons, CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), © [Alicia Sykes](https://aliciasykes.com) 2020*
-https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/LICENSE
-[![Attribution 4.0 International](https://licensebuttons.net/l/by/3.0/88x31.png)](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/LICENSE)
-
 
 ---
 *For help getting started with Flutter, view our 
