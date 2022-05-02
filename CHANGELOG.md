@@ -1,3 +1,6 @@
+## 2.3.1
+  - **INFO**: Fix examples in example folder
+
 ## 2.3.0
   - **FEAT**: Add [mainActionButtonBuilder](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/lib/src/bottom_bar_with_sheet_base.dart#:~:text=final%20bool-,disableMainActionButton,-%3B) to build your custom main action button
   - **INFO**: Recreate example proj

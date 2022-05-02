@@ -1,7 +1,11 @@
-# bottom_bar_with_sheet
+<h1> Bottom bar with Sheet </h1>
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FFrezyx%2Fbottom_bar_with_sheet%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/Frezyx/bottom_bar_with_sheet/goto?ref=master) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
-![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social)
+<p align ="Left"> 
+
+ [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FFrezyx%2Fbottom_bar_with_sheet%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/Frezyx/bottom_bar_with_sheet/goto?ref=master) [![License](https://img.shields.io/github/license/Frezyx/bottom_bar_with_sheet)](https://opensource.org/licenses/MIT) [![Pub](https://img.shields.io/pub/v/bottom_bar_with_sheet.svg)](https://pub.dartlang.org/packages/bottom_bar_with_sheet)
+![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social) 
+</p>
+
 
 💥Non-standard way to use more space of screens in your application💥<br>
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
@@ -11,13 +15,22 @@
 | :------------: | :------------: | :------------: |
 
 
+## Table of Content
+
+- [Getting Started](#getting-started)
+- [Attributes](#attributes)
+- [Attributes of BottomBarTheme](#attributes-of-bottombartheme)
+- [Attributes of MainActionButtonTheme](#attributes-of-mainactionbuttontheme)
+
+---
+
 ## Getting Started
 
 ### Add dependency
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^2.3.0
+  bottom_bar_with_sheet: ^2.3.1
 ```
 
 ### Add import package
@@ -64,6 +77,8 @@ Scaffold(
 
 **More examples you can see** [here](https://github.com/Frezyx/bottom_bar_with_sheet/tree/master/example/lib)
 
+---
+
 ## Attributes
 
 | Attribute  | Type | Annotation |
@@ -81,7 +96,7 @@ Scaffold(
 | curve | Curve | the style of animation from the suggested ones of **Curve** |
 | bottomBarMainAxisAlignment | MainAxisAlignment | The direction in which the widget content will line up |
 | mainActionButton | MainActionButton | Custom version of Main Action Button |
-
+---
 ## Attributes of BottomBarTheme
 
 | Attribute  | Type | Annotation |
@@ -100,6 +115,8 @@ Scaffold(
 | mainButtonPosition | enum | filed that response for the position of MainActionButton position this field have 3 possible values: MainButtonPosition.left, MainButtonPosition.right , MainButtonPosition.Center | 
 | isVerticalItemLabel | bool | makes the labels of the items appear vertically or horizontally |
 
+---
+
 ## Attributes of MainActionButtonTheme
 
 | Attribute  | Type | Annotation |
@@ -111,8 +128,7 @@ Scaffold(
 | margin | EdgeInsets | side paddings of **Main Action Button** |
 | transform | Matrix4 | This field can set transform location of **Main Action Button** |
 
-<br><br>
-
-For help getting started with Flutter, view our 
+---
+*For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+samples, guidance on mobile development, and a full API reference.*
