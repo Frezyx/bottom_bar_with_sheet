@@ -1,3 +1,9 @@
+## 2.4.0
+  - **BREAKING**: Remove **isOpened**, **selectedIndex**, **mainActionButton** fields
+  - **BREAKING**: Remove outside position
+  - **INFO**: Update examples and create new usecase example
+  - **INFO**: Update README with thanks for [Nivin389](https://github.com/Nivin389)
+
 ## 2.3.1
   - **INFO**: Fix examples in example folder
 

@@ -36,7 +36,7 @@
 
 ```yaml
 dependencies:
-  bottom_bar_with_sheet: ^2.3.1
+  bottom_bar_with_sheet: ^2.4.0
 ```
 
 ### Add import package
