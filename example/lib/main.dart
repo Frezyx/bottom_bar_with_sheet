@@ -1,8 +1,7 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
-import 'package:example/examples/without_background_bar_items_example.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const WithoutBackExample());
+void main() => runApp(const BaseExample());
 
 class BaseExample extends StatelessWidget {
   const BaseExample({Key? key}) : super(key: key);
