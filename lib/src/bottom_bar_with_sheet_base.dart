@@ -29,7 +29,6 @@ class BottomBarWithSheet extends StatefulWidget {
     this.duration = defaultDuration,
     this.curve = defaultCurve,
     this.disableMainActionButton = false,
-    this.mainActionButton,
     this.mainActionButtonBuilder,
     this.bottomBarTheme = defaultBarTheme,
     this.mainActionButtonTheme = defaultMainActionButtonTheme,
@@ -80,13 +79,6 @@ class BottomBarWithSheet extends StatefulWidget {
 
   /// This field can replace mainActionButton
   final bool disableMainActionButton;
-
-  /// Widget [MainActionButton] to display custom mainActionButton
-  @Deprecated(
-    'Use mainActionButtonBuilder field '
-    'This feature was deprecated after version 2.3.0 ',
-  )
-  final Widget? mainActionButton;
 
   /// [WidgetBuilder] to display custom mainActionButton
   final WidgetBuilder? mainActionButtonBuilder;

@@ -64,11 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        mainActionButton: const Icon(
-          Icons.menu,
-          color: Colors.white,
-          size: 30,
-        ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: const [
           BottomBarWithSheetItem(icon: Icons.people),
