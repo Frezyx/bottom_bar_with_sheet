@@ -1,9 +1,10 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:example/examples/left_button.dart';
+import 'package:example/examples/right_button.dart';
 import 'package:example/examples/usecases/tagselector/tagselector.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const LeftButtonExample());
+void main() => runApp(const RightButtonExample());
 
 class BaseExample extends StatelessWidget {
   const BaseExample({Key? key}) : super(key: key);

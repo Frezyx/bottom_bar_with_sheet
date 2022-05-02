@@ -56,9 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
           heightClosed: 80,
           heightOpened: 500,
           mainButtonPosition: MainButtonPosition.right,
-          selectedItemIconColor: Colors.white,
+          selectedItemIconColor: Colors.orange,
           itemIconColor: Colors.grey[500],
-          selectedItemIconSize: 20,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
