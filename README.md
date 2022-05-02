@@ -6,9 +6,9 @@
 ![Stars](https://img.shields.io/github/stars/Frezyx/bottom_bar_with_sheet?style=social) 
 </p>
 <p>
-  <a href="https://pub.dev/packages/group_button/score"><img src="https://badges.bar/group_button/likes" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/group_button/score"><img src="https://badges.bar/group_button/popularity" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/group_button/score"><img src="https://badges.bar/group_button/pub%20points" alt="Pub points"></a>
+  <a href="https://pub.dev/packages/bottom_bar_with_sheet/score"><img src="https://badges.bar/bottom_bar_with_sheet/likes" alt="Pub likes"></a>
+  <a href="https://pub.dev/packages/bottom_bar_with_sheet/score"><img src="https://badges.bar/bottom_bar_with_sheet/popularity" alt="Pub popularity"></a>
+  <a href="https://pub.dev/packages/bottom_bar_with_sheet/score"><img src="https://badges.bar/bottom_bar_with_sheet/pub%20points" alt="Pub points"></a>
 </p>
 
 
@@ -17,7 +17,7 @@
 😳Custom bottom Sheet under Bottom Navigation Bar😳<br>
 😩Sounds sucks? 😉 First of all look at screens!
 
-| ![Image](example/rep_files/e1.gif) | ![Image](example/rep_files/e2.gif) | ![Image](example/rep_files/e3.gif) | ![Image](example/rep_files/e4.gif) | 
+| ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/e1.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/e2.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/e3.gif?raw=true) | ![Image](https://github.com/Frezyx/bottom_bar_with_sheet/blob/master/example/rep_files/e4.gif?raw=true) | 
 | :------------: | :------------: | :------------: | :------------: |
 
 
