@@ -11,9 +11,6 @@ const _kDefaultContentPadding =
     EdgeInsets.only(left: 10, right: 10, bottom: 0.0);
 
 class BottomBarTheme {
-  /// [BottomBarWithSheet] background color
-  final Color? backgroundColor;
-
   /// selected [BottomBarWithSheetItem] icon color
   final Color? selectedItemIconColor;
 
@@ -63,7 +60,6 @@ class BottomBarTheme {
     this.height = 75,
     this.heightOpened = 400,
     this.heightClosed = 75,
-    this.backgroundColor,
     this.selectedItemIconColor,
     this.itemIconColor,
     this.selectedItemTextStyle,

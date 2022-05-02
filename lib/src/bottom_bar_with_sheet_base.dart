@@ -43,8 +43,6 @@ class BottomBarWithSheet extends StatefulWidget {
           ..onItemSelect = onSelectItem,
         super(key: key) {
     assert(items.isEmpty || items.length >= 2);
-    assert(bottomBarTheme.backgroundColor == null ||
-        bottomBarTheme.decoration?.color == null);
   }
 
   /// navigation buttons of [BottomBarWithSheet]
@@ -122,7 +120,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      color: _getBackgroundColor(context),
       duration: widget.duration,
       curve: widget.curve,
       height: _bottomBarHeigth,
@@ -188,15 +185,9 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   /// Returns colors of bar background if set
   /// Else return default theme [Color] canvasColor
   Color? _getBackgroundColor(BuildContext context) {
-    final bgColor = widget.bottomBarTheme.backgroundColor;
     final decoration = widget.bottomBarTheme.decoration;
-
-    if (bgColor != null && decoration == null) {
-      return bgColor;
-    } else if (decoration == null && bgColor == null) {
-      return Theme.of(context).bottomNavigationBarTheme.backgroundColor;
-    }
-    return null;
+    return decoration?.color ??
+        Theme.of(context).bottomNavigationBarTheme.backgroundColor;
   }
 
   void _changeWidgetState() {

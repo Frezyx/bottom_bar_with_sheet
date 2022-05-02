@@ -58,12 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 80,
           heightClosed: 80,
           heightOpened: 500,
-          backgroundColor: Colors.white,
           mainButtonPosition: MainButtonPosition.right,
           selectedItemIconColor: Colors.white,
           itemIconColor: Colors.grey[500],
           selectedItemIconSize: 20,
           decoration: const BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(50.0),
             ),

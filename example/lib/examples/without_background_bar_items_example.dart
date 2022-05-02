@@ -1,10 +1,10 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const WithoutBackExample());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class WithoutBackExample extends StatelessWidget {
+  const WithoutBackExample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         bottomBarTheme: const BottomBarTheme(
-          backgroundColor: Colors.purple,
           itemIconColor: Colors.white,
           selectedItemIconColor: Colors.white,
           height: 70,
@@ -54,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainButtonPosition: MainButtonPosition.middle,
           selectedItemIconSize: 20,
           decoration: BoxDecoration(
+            color: Colors.purple,
             boxShadow: [
               BoxShadow(
                 color: Colors.black12,

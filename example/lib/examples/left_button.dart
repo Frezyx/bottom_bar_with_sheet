@@ -52,16 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        bottomBarTheme: BottomBarTheme(
+        bottomBarTheme: const BottomBarTheme(
           height: 70,
           heightClosed: 70,
           heightOpened: 300,
-          backgroundColor: Colors.grey[900],
           mainButtonPosition: MainButtonPosition.left,
           selectedItemIconColor: Colors.green,
           itemIconColor: Colors.white,
           selectedItemIconSize: 20,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
             ),
