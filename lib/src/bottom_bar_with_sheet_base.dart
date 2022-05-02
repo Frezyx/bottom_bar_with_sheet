@@ -23,13 +23,10 @@ class BottomBarWithSheet extends StatefulWidget {
     Key? key,
     required this.items,
     this.sheetChild,
-    this.selectedIndex = 0,
-    this.isOpened = false,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
     this.duration = defaultDuration,
     this.curve = defaultCurve,
     this.disableMainActionButton = false,
-    this.mainActionButton,
     this.mainActionButtonBuilder,
     this.bottomBarTheme = defaultBarTheme,
     this.mainActionButtonTheme = defaultMainActionButtonTheme,
@@ -38,14 +35,12 @@ class BottomBarWithSheet extends StatefulWidget {
     this.controller,
   })  : this._controller = (controller ??
             BottomBarWithSheetController(
-              initialIndex: selectedIndex,
-              sheetOpened: isOpened,
+              initialIndex: 0,
+              sheetOpened: false,
             ))
           ..onItemSelect = onSelectItem,
         super(key: key) {
     assert(items.isEmpty || items.length >= 2);
-    assert(bottomBarTheme.backgroundColor == null ||
-        bottomBarTheme.decoration?.color == null);
   }
 
   /// navigation buttons of [BottomBarWithSheet]
@@ -61,9 +56,6 @@ class BottomBarWithSheet extends StatefulWidget {
   ///
   /// Return int [index] of selected button
   final Function(int)? onSelectItem;
-
-  /// index of selected [BottomBarWithSheetItem] from [items]
-  final int selectedIndex;
 
   /// Widget that displayed on bottom of [BottomBarWithSheet]
   /// when [isOpened] == true
@@ -81,18 +73,8 @@ class BottomBarWithSheet extends StatefulWidget {
   /// This field can replace mainActionButton
   final bool disableMainActionButton;
 
-  /// Widget [MainActionButton] to display custom mainActionButton
-  @Deprecated(
-    'Use mainActionButtonBuilder field '
-    'This feature was deprecated after version 2.3.1 ',
-  )
-  final Widget? mainActionButton;
-
   /// [WidgetBuilder] to display custom mainActionButton
   final WidgetBuilder? mainActionButtonBuilder;
-
-  /// Initial open / closed state of the widget
-  final bool isOpened;
 
   ///  If true the [BottomBarWithSheetItem]'s DO NOT automatically close the child sheet when pressed
   final bool autoClose;
@@ -130,7 +112,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      color: _getBackgroundColor(context),
       duration: widget.duration,
       curve: widget.curve,
       height: _bottomBarHeigth,
@@ -191,20 +172,6 @@ class _BottomBarWithSheetState extends State<BottomBarWithSheet>
     _arrowAnimationController.dispose();
     _sub.cancel();
     super.dispose();
-  }
-
-  /// Returns colors of bar background if set
-  /// Else return default theme [Color] canvasColor
-  Color? _getBackgroundColor(BuildContext context) {
-    final bgColor = widget.bottomBarTheme.backgroundColor;
-    final decoration = widget.bottomBarTheme.decoration;
-
-    if (bgColor != null && decoration == null) {
-      return bgColor;
-    } else if (decoration == null && bgColor == null) {
-      return Theme.of(context).bottomNavigationBarTheme.backgroundColor;
-    }
-    return null;
   }
 
   void _changeWidgetState() {

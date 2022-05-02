@@ -1,10 +1,10 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const RightButtonExample());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class RightButtonExample extends StatelessWidget {
+  const RightButtonExample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomBarWithSheet(
-        selectedIndex: _selectedIndex,
         autoClose: false,
         sheetChild: Center(
           child: Text(
@@ -58,12 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 80,
           heightClosed: 80,
           heightOpened: 500,
-          backgroundColor: Colors.white,
           mainButtonPosition: MainButtonPosition.right,
-          selectedItemIconColor: Colors.white,
+          selectedItemIconColor: Colors.orange,
           itemIconColor: Colors.grey[500],
-          selectedItemIconSize: 20,
           decoration: const BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(50.0),
             ),
@@ -79,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
             size: 35,
           ),
         ),
-        onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: const [
           BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.settings),

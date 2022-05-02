@@ -31,7 +31,7 @@ class MainActionButton extends StatelessWidget {
           Matrix4.translationValues(0.0, 0.0, 0.0),
       padding: mainActionButtonTheme.margin,
       child: button != null
-          ? GestureDetector(
+          ? InkWell(
               child: button,
               onTap: onTap,
             )
@@ -39,6 +39,7 @@ class MainActionButton extends StatelessWidget {
               child: Material(
                 color: _getIconBGColor(context),
                 child: InkWell(
+                  onTap: onTap,
                   splashColor: mainActionButtonTheme.splash,
                   child: AnimatedBuilder(
                     animation: arrowAnimationController,
@@ -59,7 +60,6 @@ class MainActionButton extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onTap: onTap,
                 ),
               ),
             ),

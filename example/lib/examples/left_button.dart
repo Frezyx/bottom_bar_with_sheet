@@ -1,10 +1,10 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const LeftButtonExample());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class LeftButtonExample extends StatelessWidget {
+  const LeftButtonExample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomBarWithSheet(
-        selectedIndex: _selectedIndex,
         autoClose: false,
         sheetChild: Center(
           child: Text(
@@ -56,13 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 70,
           heightClosed: 70,
           heightOpened: 300,
-          backgroundColor: Colors.grey[900],
           mainButtonPosition: MainButtonPosition.left,
           selectedItemIconColor: Colors.green,
           itemIconColor: Colors.white,
-          selectedItemIconSize: 20,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30.0),
             ),
           ),
@@ -77,7 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
             size: 35,
           ),
         ),
-        onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: const [
           BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
