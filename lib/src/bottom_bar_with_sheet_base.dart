@@ -23,7 +23,6 @@ class BottomBarWithSheet extends StatefulWidget {
     Key? key,
     required this.items,
     this.sheetChild,
-    this.selectedIndex = 0,
     this.bottomBarMainAxisAlignment = MainAxisAlignment.center,
     this.duration = defaultDuration,
     this.curve = defaultCurve,
@@ -36,7 +35,7 @@ class BottomBarWithSheet extends StatefulWidget {
     this.controller,
   })  : this._controller = (controller ??
             BottomBarWithSheetController(
-              initialIndex: selectedIndex,
+              initialIndex: 0,
               sheetOpened: false,
             ))
           ..onItemSelect = onSelectItem,
@@ -57,9 +56,6 @@ class BottomBarWithSheet extends StatefulWidget {
   ///
   /// Return int [index] of selected button
   final Function(int)? onSelectItem;
-
-  /// index of selected [BottomBarWithSheetItem] from [items]
-  final int selectedIndex;
 
   /// Widget that displayed on bottom of [BottomBarWithSheet]
   /// when [isOpened] == true

@@ -23,8 +23,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomBarWithSheet(
-        selectedIndex: _selectedIndex,
         autoClose: false,
         sheetChild: Center(
           child: Text(
@@ -77,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
             size: 35,
           ),
         ),
-        onSelectItem: (index) => setState(() => _selectedIndex = index),
         items: const [
           BottomBarWithSheetItem(icon: Icons.home_rounded),
           BottomBarWithSheetItem(icon: Icons.shopping_cart),
